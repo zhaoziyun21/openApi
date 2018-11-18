@@ -18,4 +18,6 @@ public interface IProjectService {
     List<TblPreServiceStatus> queryK8sFailService();
 
     List<TblPreServiceStatus> queryUnneedDeployService();
+
+    List<TblPreServiceStatus> queryNeedDeployService();
 }

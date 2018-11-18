@@ -54,6 +54,14 @@ public class ProjectServiceImpl implements IProjectService {
     @Override
     public List<TblPreServiceStatus> queryUnneedDeployService(){
         TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andNeedDeployEqualTo(false);
+        return projectDao.queryPreServiceStatusList();
+    }
+
+
+    @Override
+    public List<TblPreServiceStatus> queryNeedDeployService(){
+        TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andNeedDeployEqualTo(true);
         return projectDao.queryPreServiceStatusList();
     }
