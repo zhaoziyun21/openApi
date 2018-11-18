@@ -19,7 +19,10 @@ public class ProjectServiceImpl implements IProjectService {
     @Autowired
     private IProjectDao projectDao;
 
-
+    @Override
+    public List<TblPreServiceStatus> queryAllService() {
+        return projectDao.queryAllService();
+    }
 
     @Override
     public List<TblPreServiceStatus> queryApmFailService(){
@@ -66,10 +69,11 @@ public class ProjectServiceImpl implements IProjectService {
         return example;
     }
 
+
     @Override
     public List<TblPreServiceStatus> queryApmSuccessService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andApmStatusEqualTo(false).andNeedDeployEqualTo(true);
+        example.createCriteria().andApmStatusEqualTo(true).andNeedDeployEqualTo(true);
 
         return projectDao.queryService(example);
     }
