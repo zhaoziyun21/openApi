@@ -17,6 +17,8 @@ public class TblPreServiceStatus {
 
     private String remark;
 
+    private Boolean needDeploy;
+
     public Integer getID() {
         return ID;
     }
@@ -79,5 +81,13 @@ public class TblPreServiceStatus {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Boolean getNeedDeploy() {
+        return needDeploy;
+    }
+
+    public void setNeedDeploy(Boolean needDeploy) {
+        this.needDeploy = needDeploy;
     }
 }

@@ -633,6 +633,66 @@ public class TblPreServiceStatusExample {
             addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
+
+        public Criteria andNeedDeployIsNull() {
+            addCriterion("needDeploy is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployIsNotNull() {
+            addCriterion("needDeploy is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployEqualTo(Boolean value) {
+            addCriterion("needDeploy =", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployNotEqualTo(Boolean value) {
+            addCriterion("needDeploy <>", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployGreaterThan(Boolean value) {
+            addCriterion("needDeploy >", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("needDeploy >=", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployLessThan(Boolean value) {
+            addCriterion("needDeploy <", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployLessThanOrEqualTo(Boolean value) {
+            addCriterion("needDeploy <=", value, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployIn(List<Boolean> values) {
+            addCriterion("needDeploy in", values, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployNotIn(List<Boolean> values) {
+            addCriterion("needDeploy not in", values, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployBetween(Boolean value1, Boolean value2) {
+            addCriterion("needDeploy between", value1, value2, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedDeployNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("needDeploy not between", value1, value2, "needDeploy");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

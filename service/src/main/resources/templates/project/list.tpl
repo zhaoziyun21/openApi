@@ -1,9 +1,9 @@
-<#include "../../common/header.tpl">
+<#include "../common/header.tpl">
 
 <div class="layui-body">
     <!-- 内容主体区域 -->
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
-        <a class="layui-btn" href="/mock_server/rest/mapping/info.html?groupID=${groupID}&groupCode=${groupCode}">新增映射</a>
+        <a class="layui-btn" href="/project/edit.html">新增项目</a>
     </div>
     <div style="/* padding: 15px; */" id="item-list" lay-even ></div>
 </div>
@@ -16,15 +16,19 @@
 
         table.render({
             elem: '#item-list'
-            ,url:'/mock_server/rest/mapping/list.ajax'
+            ,url:'/project/list.ajax'
             ,method:"post"
             ,contentType : "application/json"
-            ,where: {groupID: ${groupID}}
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[
-            <#list fields as field >
-                {field:'${field.fieldName}', title: '${field.fieldName}'},
-            </#list>
+                {field:'serviceName', title: '服务名'},
+                {field:'jenkinsJobName', title: 'jenkinsJobName'},
+                {field:'serviceDescribe', title: '服务描述'},
+                {field:'business', title: '业务领域'},
+                {field:'needDeploy', title: '是否需要部署'},
+                {field:'k8sStatus', title: 'k8s服务状态'},
+                {field:'apmStatus', title: '探针状态'},
+                {field:'remark', title: '备注'},
                 {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理'} //这里的toolbar值是模板元素的选择器
 
             ]]
@@ -37,16 +41,13 @@
                 };
                 return data;
             }
-            // ,response : {
-            //     statusCode: 200
-            // }
         });
     });
 
-    function deleteItem(requestID, name){
+    function deleteItem(ID, name){
         msg = "确定要删除<span style='color:red'>" + name + "</span>?"
         layer.confirm(msg, function(index){
-            ajaxPost('/mock_server/rest/mapping/delete.ajax', {requestID:requestID},function(response) {
+            ajaxPost('/project/delete.ajax', {ID:ID},function(response) {
                 location.reload();
             })
             layer.close(index);
@@ -59,8 +60,8 @@
 </script>
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit" href="/mock_server/rest/mapping/info.html?requestID={{d.requestID}}">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.requestID}}, '{{ d.path + "(" + d.memo.replace(/["\']/g, "") + ")" }}');">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit" href="/project/info.html?ID={{d.ID}}">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.path + "(" + d.serviceDescribe.replace(/["\']/g, "") + ")" }}');">删除</a>
 
         <!-- 这里同样支持 laytpl 语法，如： -->
 

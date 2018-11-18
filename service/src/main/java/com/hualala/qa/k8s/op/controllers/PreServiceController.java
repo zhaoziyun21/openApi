@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hualala.qa.k8s.op.config.BeanScanner;
 import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
+import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
+import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +26,23 @@ import java.util.List;
  * @date: 2018/10/7 09:47
  */
 @Controller
-@RequestMapping("/mock_server/mapping/task")
+@RequestMapping("/project")
 @Slf4j
-public class MappingTaskController {
+public class PreServiceController {
 
     @Autowired
     private ResponseAdapter responseAdapter;
 
+    @Autowired
+    private IProjectService projectService;
 
     @Autowired
     private ObjectMapper jacksonFormater;
 
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
-    public ModelAndView groupInfo(@RequestParam(value = "jobID", defaultValue = "0" ) int jobID ) throws IOException {
+    public ModelAndView groupInfo() throws IOException {
 
-        ModelAndView view = new ModelAndView("common/task_list");
-
-        view.addObject("jobID", jobID);
+        ModelAndView view = new ModelAndView("project/list");
 
         HashMap taskTypeAndConfigList = new HashMap();
 
@@ -50,6 +52,33 @@ public class MappingTaskController {
         return view;
 
     }
+
+    @RequestMapping("/list.ajax")
+    @ResponseBody
+    public Object list(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryAllService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+        return null;
+    }
+
+
+
 
     @RequestMapping("/save.ajax")
     @ResponseBody

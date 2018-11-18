@@ -6,7 +6,7 @@ spring:
 
 
 server:
-  port: 60034
+  port: 61034
   tomcat:
     max-threads: 2000
     max-connections: 2000
@@ -60,7 +60,7 @@ datasource:
 
 mybatis:
 #  mapper-locations: classpath:com.hualala.qa.mockserver.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-aliases-package: com.hualala.qa.mockserver.model.gen.pojo # 注意：对应实体类的路径
+  type-aliases-package: com.hualala.qa.k8s.op.model.gen.pojo # 注意：对应实体类的路径
   config-location: classpath:mybatis-config.xml
 
 
@@ -109,24 +109,6 @@ spring:
     charset: UTF-8 #编码格式
     settings:
       number_format: '0.##'   #数字格式化，无小数点
-
-
-rabbitmq:
-  callbackSchedulerExchangeName: hll:qa:mockserver:callback:scheduler:exchange
-  callbackSchedulerQueueName: hll:qa:mockserver:callback:scheduler:queue
-
-
-  callbackDeadLetterExchangeName: hll:qa:mockserver:callback:deadletter:exchange
-  callbackDeadLetterQueueName: hll:qa:mockserver:callback:deadletter:queue
-
-  callbackJobExchangeName: hll:qa:mockserver:callback:job:exchange
-  callbackJobQueueName: hll:qa:mockserver:callback:job:queue
-  callbackJobRoutingKey: hll:qa:mockserver:callback:job:RoutingKey:main
-
-  callbackResultNotifyExchangeName: hll:qa:mockserver:callback:result:notify:exchange
-  callbackResultNotifyQueueName: hll:qa:mockserver:callback:result:notify:queue
-  callbackResultNotifyRoutingKey: hll:qa:mockserver:callback:result:notify:RoutingKey:basekey
-
 
 
 
