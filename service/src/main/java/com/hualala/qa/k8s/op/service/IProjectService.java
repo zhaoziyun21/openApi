@@ -9,7 +9,6 @@ import java.util.List;
  * @date: 2018/11/18 13:44
  */
 public interface IProjectService {
-    List<TblPreServiceStatus> queryAllService();
 
     List<TblPreServiceStatus> queryApmSuccessService();
 
@@ -18,4 +17,8 @@ public interface IProjectService {
     List<TblPreServiceStatus> queryK8sSuccessService();
 
     List<TblPreServiceStatus> queryK8sFailService();
+
+    List<TblPreServiceStatus> queryUnneedDeployService();
+
+    List<TblPreServiceStatus> queryNeedDeployService();
 }

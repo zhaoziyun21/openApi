@@ -1,5 +1,7 @@
 package com.hualala.qa.k8s.op.model.gen.pojo;
 
+import java.util.Date;
+
 public class TblPreServiceStatus {
     private Integer ID;
 
@@ -11,13 +13,17 @@ public class TblPreServiceStatus {
 
     private String business;
 
-    private Integer apmStatus;
+    private Boolean apmStatus;
 
-    private Integer k8sStatus;
+    private Boolean k8sStatus;
 
     private String remark;
 
     private Boolean needDeploy;
+
+    private Date apmuUpdateTime;
+
+    private Date k8sUpdateTime;
 
     public Integer getID() {
         return ID;
@@ -59,19 +65,19 @@ public class TblPreServiceStatus {
         this.business = business == null ? null : business.trim();
     }
 
-    public Integer getApmStatus() {
+    public Boolean getApmStatus() {
         return apmStatus;
     }
 
-    public void setApmStatus(Integer apmStatus) {
+    public void setApmStatus(Boolean apmStatus) {
         this.apmStatus = apmStatus;
     }
 
-    public Integer getK8sStatus() {
+    public Boolean getK8sStatus() {
         return k8sStatus;
     }
 
-    public void setK8sStatus(Integer k8sStatus) {
+    public void setK8sStatus(Boolean k8sStatus) {
         this.k8sStatus = k8sStatus;
     }
 
@@ -89,5 +95,21 @@ public class TblPreServiceStatus {
 
     public void setNeedDeploy(Boolean needDeploy) {
         this.needDeploy = needDeploy;
+    }
+
+    public Date getApmuUpdateTime() {
+        return apmuUpdateTime;
+    }
+
+    public void setApmuUpdateTime(Date apmuUpdateTime) {
+        this.apmuUpdateTime = apmuUpdateTime;
+    }
+
+    public Date getK8sUpdateTime() {
+        return k8sUpdateTime;
+    }
+
+    public void setK8sUpdateTime(Date k8sUpdateTime) {
+        this.k8sUpdateTime = k8sUpdateTime;
     }
 }

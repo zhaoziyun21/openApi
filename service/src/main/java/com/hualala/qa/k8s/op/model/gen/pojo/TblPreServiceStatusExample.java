@@ -1,6 +1,7 @@
 package com.hualala.qa.k8s.op.model.gen.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TblPreServiceStatusExample {
@@ -454,52 +455,52 @@ public class TblPreServiceStatusExample {
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusEqualTo(Integer value) {
+        public Criteria andApmStatusEqualTo(Boolean value) {
             addCriterion("apmStatus =", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusNotEqualTo(Integer value) {
+        public Criteria andApmStatusNotEqualTo(Boolean value) {
             addCriterion("apmStatus <>", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusGreaterThan(Integer value) {
+        public Criteria andApmStatusGreaterThan(Boolean value) {
             addCriterion("apmStatus >", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusGreaterThanOrEqualTo(Integer value) {
+        public Criteria andApmStatusGreaterThanOrEqualTo(Boolean value) {
             addCriterion("apmStatus >=", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusLessThan(Integer value) {
+        public Criteria andApmStatusLessThan(Boolean value) {
             addCriterion("apmStatus <", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusLessThanOrEqualTo(Integer value) {
+        public Criteria andApmStatusLessThanOrEqualTo(Boolean value) {
             addCriterion("apmStatus <=", value, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusIn(List<Integer> values) {
+        public Criteria andApmStatusIn(List<Boolean> values) {
             addCriterion("apmStatus in", values, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusNotIn(List<Integer> values) {
+        public Criteria andApmStatusNotIn(List<Boolean> values) {
             addCriterion("apmStatus not in", values, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusBetween(Integer value1, Integer value2) {
+        public Criteria andApmStatusBetween(Boolean value1, Boolean value2) {
             addCriterion("apmStatus between", value1, value2, "apmStatus");
             return (Criteria) this;
         }
 
-        public Criteria andApmStatusNotBetween(Integer value1, Integer value2) {
+        public Criteria andApmStatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("apmStatus not between", value1, value2, "apmStatus");
             return (Criteria) this;
         }
@@ -514,52 +515,52 @@ public class TblPreServiceStatusExample {
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusEqualTo(Integer value) {
+        public Criteria andK8sStatusEqualTo(Boolean value) {
             addCriterion("k8sStatus =", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusNotEqualTo(Integer value) {
+        public Criteria andK8sStatusNotEqualTo(Boolean value) {
             addCriterion("k8sStatus <>", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusGreaterThan(Integer value) {
+        public Criteria andK8sStatusGreaterThan(Boolean value) {
             addCriterion("k8sStatus >", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusGreaterThanOrEqualTo(Integer value) {
+        public Criteria andK8sStatusGreaterThanOrEqualTo(Boolean value) {
             addCriterion("k8sStatus >=", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusLessThan(Integer value) {
+        public Criteria andK8sStatusLessThan(Boolean value) {
             addCriterion("k8sStatus <", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusLessThanOrEqualTo(Integer value) {
+        public Criteria andK8sStatusLessThanOrEqualTo(Boolean value) {
             addCriterion("k8sStatus <=", value, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusIn(List<Integer> values) {
+        public Criteria andK8sStatusIn(List<Boolean> values) {
             addCriterion("k8sStatus in", values, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusNotIn(List<Integer> values) {
+        public Criteria andK8sStatusNotIn(List<Boolean> values) {
             addCriterion("k8sStatus not in", values, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusBetween(Integer value1, Integer value2) {
+        public Criteria andK8sStatusBetween(Boolean value1, Boolean value2) {
             addCriterion("k8sStatus between", value1, value2, "k8sStatus");
             return (Criteria) this;
         }
 
-        public Criteria andK8sStatusNotBetween(Integer value1, Integer value2) {
+        public Criteria andK8sStatusNotBetween(Boolean value1, Boolean value2) {
             addCriterion("k8sStatus not between", value1, value2, "k8sStatus");
             return (Criteria) this;
         }
@@ -691,6 +692,126 @@ public class TblPreServiceStatusExample {
 
         public Criteria andNeedDeployNotBetween(Boolean value1, Boolean value2) {
             addCriterion("needDeploy not between", value1, value2, "needDeploy");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeIsNull() {
+            addCriterion("apmuUpdateTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeIsNotNull() {
+            addCriterion("apmuUpdateTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeEqualTo(Date value) {
+            addCriterion("apmuUpdateTime =", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeNotEqualTo(Date value) {
+            addCriterion("apmuUpdateTime <>", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeGreaterThan(Date value) {
+            addCriterion("apmuUpdateTime >", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("apmuUpdateTime >=", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeLessThan(Date value) {
+            addCriterion("apmuUpdateTime <", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("apmuUpdateTime <=", value, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeIn(List<Date> values) {
+            addCriterion("apmuUpdateTime in", values, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeNotIn(List<Date> values) {
+            addCriterion("apmuUpdateTime not in", values, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("apmuUpdateTime between", value1, value2, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmuUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("apmuUpdateTime not between", value1, value2, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeIsNull() {
+            addCriterion("k8sUpdateTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeIsNotNull() {
+            addCriterion("k8sUpdateTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeEqualTo(Date value) {
+            addCriterion("k8sUpdateTime =", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeNotEqualTo(Date value) {
+            addCriterion("k8sUpdateTime <>", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeGreaterThan(Date value) {
+            addCriterion("k8sUpdateTime >", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("k8sUpdateTime >=", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeLessThan(Date value) {
+            addCriterion("k8sUpdateTime <", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("k8sUpdateTime <=", value, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeIn(List<Date> values) {
+            addCriterion("k8sUpdateTime in", values, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeNotIn(List<Date> values) {
+            addCriterion("k8sUpdateTime not in", values, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("k8sUpdateTime between", value1, value2, "k8sUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andK8sUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("k8sUpdateTime not between", value1, value2, "k8sUpdateTime");
             return (Criteria) this;
         }
     }

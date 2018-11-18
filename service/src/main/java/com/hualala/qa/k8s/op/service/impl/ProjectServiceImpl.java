@@ -1,7 +1,5 @@
 package com.hualala.qa.k8s.op.service.impl;
 
-import com.hualala.qa.k8s.op.constants.ApmStatus;
-import com.hualala.qa.k8s.op.constants.K8sStatus;
 import com.hualala.qa.k8s.op.dao.IProjectDao;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample;
@@ -22,40 +20,41 @@ public class ProjectServiceImpl implements IProjectService {
     private IProjectDao projectDao;
 
 
-    @Override
-    public List<TblPreServiceStatus> queryAllService(){
-        return projectDao.queryAllService();
-    }
-
-
-    @Override
-    public List<TblPreServiceStatus> queryApmSuccessService(){
-        TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andApmStatusEqualTo(ApmStatus.SUCCESS).andNeedDeployEqualTo(true);
-
-        return projectDao.queryApmService(example);
-    }
-
 
     @Override
     public List<TblPreServiceStatus> queryApmFailService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andApmStatusEqualTo(ApmStatus.FAIL).andNeedDeployEqualTo(true);
-        return projectDao.queryApmService(example);
+        example.createCriteria().andApmStatusEqualTo(false).andNeedDeployEqualTo(true);
+        return projectDao.queryService(example);
     }
 
     @Override
     public List<TblPreServiceStatus> queryK8sFailService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andK8sStatusEqualTo(ApmStatus.FAIL).andNeedDeployEqualTo(true);
-        return projectDao.queryK8sService(example);
+        example.createCriteria().andK8sStatusEqualTo(false).andNeedDeployEqualTo(true);
+        return projectDao.queryService(example);
     }
 
     @Override
-    public List<TblPreServiceStatus> queryK8sSuccessService(){
+    public List<TblPreServiceStatus> queryK8sSuccessService() {
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andK8sStatusEqualTo(ApmStatus.SUCCESS).andNeedDeployEqualTo(true);
-        return projectDao.queryK8sService(example);
+        example.createCriteria().andK8sStatusEqualTo(true).andNeedDeployEqualTo(true);
+        return projectDao.queryService(example);
+    }
+
+    @Override
+    public List<TblPreServiceStatus> queryUnneedDeployService(){
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andNeedDeployEqualTo(false);
+        return projectDao.queryPreServiceStatusList();
+    }
+
+
+    @Override
+    public List<TblPreServiceStatus> queryNeedDeployService(){
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andNeedDeployEqualTo(true);
+        return projectDao.queryPreServiceStatusList();
     }
 
 
@@ -66,4 +65,13 @@ public class ProjectServiceImpl implements IProjectService {
         example.setOrderByClause("k8sStatus asc, apmStatus asc");
         return example;
     }
+
+    @Override
+    public List<TblPreServiceStatus> queryApmSuccessService(){
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andApmStatusEqualTo(false).andNeedDeployEqualTo(true);
+
+        return projectDao.queryService(example);
+    }
+
 }

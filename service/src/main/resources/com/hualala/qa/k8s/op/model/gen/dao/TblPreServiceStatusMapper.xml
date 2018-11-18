@@ -7,10 +7,12 @@
     <result column="jenkinsJobName" jdbcType="VARCHAR" property="jenkinsJobName" />
     <result column="serviceDescribe" jdbcType="VARCHAR" property="serviceDescribe" />
     <result column="business" jdbcType="VARCHAR" property="business" />
-    <result column="apmStatus" jdbcType="INTEGER" property="apmStatus" />
-    <result column="k8sStatus" jdbcType="INTEGER" property="k8sStatus" />
+    <result column="apmStatus" jdbcType="BIT" property="apmStatus" />
+    <result column="k8sStatus" jdbcType="BIT" property="k8sStatus" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="needDeploy" jdbcType="BIT" property="needDeploy" />
+    <result column="apmuUpdateTime" jdbcType="TIMESTAMP" property="apmuUpdateTime" />
+    <result column="k8sUpdateTime" jdbcType="TIMESTAMP" property="k8sUpdateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,33 +74,233 @@
   </sql>
   <sql id="Base_Column_List">
     ID, serviceName, jenkinsJobName, serviceDescribe, business, apmStatus, k8sStatus, 
-    remark, needDeploy
+    remark, needDeploy, apmuUpdateTime, k8sUpdateTime
   </sql>
-
-  <select id="queryAllService" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    from tbl_pre_service_status
-  </select>
-
-
-  <select id="queryApmService" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
-    select
+    <if test="distinct">
+      distinct
+    </if>
     <include refid="Base_Column_List" />
     from tbl_pre_service_status
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
   </select>
-
-
-  <select id="queryK8sService" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
-    select
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
     <include refid="Base_Column_List" />
     from tbl_pre_service_status
+    where ID = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_pre_service_status
+    where ID = #{ID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample">
+    delete from tbl_pre_service_status
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
+    insert into tbl_pre_service_status (ID, serviceName, jenkinsJobName, 
+      serviceDescribe, business, apmStatus, 
+      k8sStatus, remark, needDeploy, 
+      apmuUpdateTime, k8sUpdateTime)
+    values (#{ID,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, #{jenkinsJobName,jdbcType=VARCHAR}, 
+      #{serviceDescribe,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{apmStatus,jdbcType=BIT}, 
+      #{k8sStatus,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{needDeploy,jdbcType=BIT}, 
+      #{apmuUpdateTime,jdbcType=TIMESTAMP}, #{k8sUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
+    insert into tbl_pre_service_status
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        ID,
+      </if>
+      <if test="serviceName != null">
+        serviceName,
+      </if>
+      <if test="jenkinsJobName != null">
+        jenkinsJobName,
+      </if>
+      <if test="serviceDescribe != null">
+        serviceDescribe,
+      </if>
+      <if test="business != null">
+        business,
+      </if>
+      <if test="apmStatus != null">
+        apmStatus,
+      </if>
+      <if test="k8sStatus != null">
+        k8sStatus,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="needDeploy != null">
+        needDeploy,
+      </if>
+      <if test="apmuUpdateTime != null">
+        apmuUpdateTime,
+      </if>
+      <if test="k8sUpdateTime != null">
+        k8sUpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=INTEGER},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="jenkinsJobName != null">
+        #{jenkinsJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDescribe != null">
+        #{serviceDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="apmStatus != null">
+        #{apmStatus,jdbcType=BIT},
+      </if>
+      <if test="k8sStatus != null">
+        #{k8sStatus,jdbcType=BIT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="needDeploy != null">
+        #{needDeploy,jdbcType=BIT},
+      </if>
+      <if test="apmuUpdateTime != null">
+        #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="k8sUpdateTime != null">
+        #{k8sUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultType="java.lang.Long">
+    select count(*) from tbl_pre_service_status
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_pre_service_status
+    <set>
+      <if test="record.ID != null">
+        ID = #{record.ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceName != null">
+        serviceName = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jenkinsJobName != null">
+        jenkinsJobName = #{record.jenkinsJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceDescribe != null">
+        serviceDescribe = #{record.serviceDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.business != null">
+        business = #{record.business,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apmStatus != null">
+        apmStatus = #{record.apmStatus,jdbcType=BIT},
+      </if>
+      <if test="record.k8sStatus != null">
+        k8sStatus = #{record.k8sStatus,jdbcType=BIT},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needDeploy != null">
+        needDeploy = #{record.needDeploy,jdbcType=BIT},
+      </if>
+      <if test="record.apmuUpdateTime != null">
+        apmuUpdateTime = #{record.apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.k8sUpdateTime != null">
+        k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_pre_service_status
+    set ID = #{record.ID,jdbcType=INTEGER},
+      serviceName = #{record.serviceName,jdbcType=VARCHAR},
+      jenkinsJobName = #{record.jenkinsJobName,jdbcType=VARCHAR},
+      serviceDescribe = #{record.serviceDescribe,jdbcType=VARCHAR},
+      business = #{record.business,jdbcType=VARCHAR},
+      apmStatus = #{record.apmStatus,jdbcType=BIT},
+      k8sStatus = #{record.k8sStatus,jdbcType=BIT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      needDeploy = #{record.needDeploy,jdbcType=BIT},
+      apmuUpdateTime = #{record.apmuUpdateTime,jdbcType=TIMESTAMP},
+      k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
+    update tbl_pre_service_status
+    <set>
+      <if test="serviceName != null">
+        serviceName = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="jenkinsJobName != null">
+        jenkinsJobName = #{jenkinsJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDescribe != null">
+        serviceDescribe = #{serviceDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null">
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="apmStatus != null">
+        apmStatus = #{apmStatus,jdbcType=BIT},
+      </if>
+      <if test="k8sStatus != null">
+        k8sStatus = #{k8sStatus,jdbcType=BIT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="needDeploy != null">
+        needDeploy = #{needDeploy,jdbcType=BIT},
+      </if>
+      <if test="apmuUpdateTime != null">
+        apmuUpdateTime = #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="k8sUpdateTime != null">
+        k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
+    update tbl_pre_service_status
+    set serviceName = #{serviceName,jdbcType=VARCHAR},
+      jenkinsJobName = #{jenkinsJobName,jdbcType=VARCHAR},
+      serviceDescribe = #{serviceDescribe,jdbcType=VARCHAR},
+      business = #{business,jdbcType=VARCHAR},
+      apmStatus = #{apmStatus,jdbcType=BIT},
+      k8sStatus = #{k8sStatus,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      needDeploy = #{needDeploy,jdbcType=BIT},
+      apmuUpdateTime = #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP}
+    where ID = #{ID,jdbcType=INTEGER}
+  </update>
 </mapper>
