@@ -8,6 +8,7 @@ import com.hualala.qa.k8s.op.service.IK8sService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,10 +30,9 @@ public class K8sServiceImpl implements IK8sService{
         List<TblPreServiceStatus> list = queryNeedDeployService();
         for (TblPreServiceStatus item : list){
             boolean isRunning = k8sCmd.getK8sIsRunning(item.getJenkinsJobName());
-
-
-            // TODO syncTime
-//            projectDao.updatePreServiceStatus(item);
+            item.setK8sStatus(isRunning);
+            item.setApmuUpdateTime(new Date());
+            projectDao.updatePreServiceStatus(item);
         }
     }
 

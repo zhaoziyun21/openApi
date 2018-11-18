@@ -6,6 +6,7 @@ import com.hualala.qa.k8s.op.config.BeanScanner;
 import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
+import com.hualala.qa.k8s.op.service.IK8sService;
 import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -35,6 +36,9 @@ public class PreServiceController extends BaseController {
 
     @Autowired
     private IProjectService projectService;
+
+    @Autowired
+    private IK8sService k8sService;
 
     @Autowired
     private ObjectMapper jacksonFormater;
@@ -174,6 +178,53 @@ public class PreServiceController extends BaseController {
         }
 
     }
+
+
+
+
+    @RequestMapping("/ayncK8sStatus.ajax")
+    @ResponseBody
+    public Object syncK8sStatus(){
+        try {
+            k8sService.syncK8sStatus();
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+    @RequestMapping("/getK8sStatus.ajax")
+    @ResponseBody
+    public Object getK8sStatus(@RequestParam("jenkinsJobName") String jenkinJobName){
+        try {
+            String k8sStatus = k8sService.getK8sStatus(jenkinJobName);
+
+            return responseAdapter.success(k8sStatus);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+
 
 
 }
