@@ -1,36 +1,16 @@
 {
     "system":[
         {
-            "title":"系统设置",
-            "url":"/mock_server/system/config.html",
+            "title":"服务列表",
+            "url":"/project/list.html",
             "sub":[
                 {
-                    "title":"系统设置",
-                    "url":"/mock_server/system/config.html"
+                    "title":"所有服务",
+                    "url":"/project/list.html"
                 }
-            ]
-        }
-    ],
-    "rest":[
-        {
-            "title":"分组管理",
-            "url":"/mock_server/rest/group/list.html",
-            "sub":[
-                {
-                    "title":"分组列表",
-                    "url":"/mock_server/rest/group/list.html"
-                }
-            ]
-        }
-    ],
-    "grpc":[
-        {
-            "title":"分组管理",
-            "url":"/mock_server/grpc/group/list.html",
-            "sub":[
-                {
-                    "title":"分组列表",
-                    "url":"/mock_server/grpc/group/list.html"
+                ,{
+                    "title":"活跃探针服务",
+                    "url":"/project/list.html"
                 }
             ]
         }

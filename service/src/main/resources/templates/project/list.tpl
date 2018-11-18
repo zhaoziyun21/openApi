@@ -70,4 +70,4 @@
 
 
 
-<#include "../../common/footer.tpl">
+<#include "../common/footer.tpl">

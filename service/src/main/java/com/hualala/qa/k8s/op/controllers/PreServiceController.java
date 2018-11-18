@@ -28,7 +28,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/project")
 @Slf4j
-public class PreServiceController {
+public class PreServiceController extends BaseController {
 
     @Autowired
     private ResponseAdapter responseAdapter;
@@ -49,6 +49,8 @@ public class PreServiceController {
 
         view.addObject("taskTypeAndConfigList", jacksonFormater.writeValueAsString(taskTypeAndConfigList));
 
+        this.buildCategory(view, "system");
+
         return view;
 
     }
@@ -63,7 +65,7 @@ public class PreServiceController {
             resp.put("list", list);
             resp.put("total", list.size());
 
-            responseAdapter.success();
+            return responseAdapter.success(resp);
 
         }catch (ServerBaseException e){
             log.error(ExceptionUtils.getStackTrace(e));
@@ -74,7 +76,6 @@ public class PreServiceController {
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
 
-        return null;
     }
 
 
