@@ -68,13 +68,13 @@
 
     <!-- print sql -->
     <!-- additivity="false" avoid duplicate log-->
-    <logger name="com.hualala.order.mapper" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT"/>
+    <logger name="com.hualala.order.mapper" level="INFO" additivity="false">
+        <!--<appender-ref ref="STDOUT"/>-->
         <appender-ref ref="FILE_STDOUT" />
     </logger>
 
     <root level="INFO">
-        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="STDOUT" />-->
         <appender-ref ref="FILE_STDOUT" />
     </root>
 
