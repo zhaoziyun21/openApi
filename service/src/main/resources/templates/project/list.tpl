@@ -16,7 +16,7 @@
 
         table.render({
             elem: '#item-list'
-            ,url:'/project/list.ajax'
+            ,url:'/project/${method}.ajax'
             ,method:"post"
             ,contentType : "application/json"
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
@@ -42,6 +42,7 @@
                 return data;
             }
         });
+
     });
 
     function deleteItem(ID, name){

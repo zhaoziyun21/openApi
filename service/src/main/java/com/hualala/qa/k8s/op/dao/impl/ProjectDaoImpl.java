@@ -21,34 +21,21 @@ public class ProjectDaoImpl implements IProjectDao {
 
 
     @Override
-    public int insertPreServiceStatus(TblPreServiceStatus tblPreServiceStatus){
-        return tblPreServiceStatusMapper.insert(tblPreServiceStatus);
-    }
-
-    @Override
-    public int deletePreServiceStatus(int id){
-
-        return tblPreServiceStatusMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public int updatePreServiceStatus(TblPreServiceStatus tblPreServiceStatus){
-        return tblPreServiceStatusMapper.updateByPrimaryKeySelective(tblPreServiceStatus);
-    }
-
-    @Override
-    public List<TblPreServiceStatus> queryPreServiceStatusList(){
+    public List<TblPreServiceStatus> queryAllService() {
         TblPreServiceStatusExample example = buildExample();
-        return tblPreServiceStatusMapper.selectByExample(example);
-
+        return tblPreServiceStatusMapper.queryAllService(example);
     }
 
     @Override
-    public long countPreServiceStatus(){
-        TblPreServiceStatusExample example = buildExample();
-        return tblPreServiceStatusMapper.countByExample(example);
-
+    public List<TblPreServiceStatus> queryApmService(TblPreServiceStatusExample example) {
+        return tblPreServiceStatusMapper.queryApmService(example);
     }
+
+    @Override
+    public List<TblPreServiceStatus> queryK8sService(TblPreServiceStatusExample example) {
+        return tblPreServiceStatusMapper.queryK8sService(example);
+    }
+
 
     private TblPreServiceStatusExample buildExample(){
         TblPreServiceStatusExample example = new TblPreServiceStatusExample();
@@ -56,17 +43,6 @@ public class ProjectDaoImpl implements IProjectDao {
 
         example.setOrderByClause("k8sStatus asc, apmStatus asc");
         return example;
-    }
-
-    @Override
-    public TblPreServiceStatus getPreServiceStatus(int id){
-        return tblPreServiceStatusMapper.selectByPrimaryKey(id);
-    }
-
-
-    @Override
-    public List<TblPreServiceStatus> queryPreServiceStatusList(TblPreServiceStatusExample example){
-        return tblPreServiceStatusMapper.selectByExample(example);
     }
 
 }

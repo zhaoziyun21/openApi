@@ -40,13 +40,13 @@ public class PreServiceController extends BaseController {
     private ObjectMapper jacksonFormater;
 
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
-    public ModelAndView groupInfo() throws IOException {
+    public ModelAndView queryAllServiceStatus(@RequestParam(value = "method", defaultValue = "queryAllServiceStatusList") String method) throws IOException {
 
         ModelAndView view = new ModelAndView("project/list");
 
         HashMap taskTypeAndConfigList = new HashMap();
 
-
+        view.addObject("method", method);
         view.addObject("taskTypeAndConfigList", jacksonFormater.writeValueAsString(taskTypeAndConfigList));
 
         this.buildCategory(view, "system");
@@ -55,9 +55,9 @@ public class PreServiceController extends BaseController {
 
     }
 
-    @RequestMapping("/list.ajax")
+    @RequestMapping("/queryAllServiceStatusList.ajax")
     @ResponseBody
-    public Object list(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryAllServiceStatusList(HttpServletRequest request, @RequestBody JSONObject params){
         try {
 
             List<TblPreServiceStatus> list = projectService.queryAllService();
@@ -79,13 +79,17 @@ public class PreServiceController extends BaseController {
     }
 
 
-
-
-    @RequestMapping("/save.ajax")
+    @RequestMapping("/queryApmSuccessServiceList.ajax")
     @ResponseBody
-    public Object save(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryApmSuccessServiceList(HttpServletRequest request, @RequestBody JSONObject params){
         try {
-            // TODO
+
+            List<TblPreServiceStatus> list = projectService.queryApmSuccessService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
 
         }catch (ServerBaseException e){
             log.error(ExceptionUtils.getStackTrace(e));
@@ -96,9 +100,80 @@ public class PreServiceController extends BaseController {
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
 
-        return null;
     }
 
+
+    @RequestMapping("/queryOPFailServiceList.ajax")
+    @ResponseBody
+    public Object queryOPFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryApmFailService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+    @RequestMapping("/queryK8sSuccessServiceList.ajax")
+    @ResponseBody
+    public Object queryK8sSuccessServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryK8sSuccessService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+    @RequestMapping("/queryK8sFailServiceList.ajax")
+    @ResponseBody
+    public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryK8sFailService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
 
 
 }

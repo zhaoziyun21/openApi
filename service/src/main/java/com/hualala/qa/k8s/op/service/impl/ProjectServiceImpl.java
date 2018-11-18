@@ -24,16 +24,16 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public List<TblPreServiceStatus> queryAllService(){
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryAllService();
     }
 
 
     @Override
-    public List<TblPreServiceStatus> querySuccessService(){
+    public List<TblPreServiceStatus> queryApmSuccessService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andApmStatusEqualTo(ApmStatus.SUCCESS).andK8sStatusEqualTo(K8sStatus.SUCCESS);
+        example.createCriteria().andApmStatusEqualTo(ApmStatus.SUCCESS).andNeedDeployEqualTo(true);
 
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryApmService(example);
     }
 
 
@@ -41,21 +41,21 @@ public class ProjectServiceImpl implements IProjectService {
     public List<TblPreServiceStatus> queryApmFailService(){
         TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andApmStatusEqualTo(ApmStatus.FAIL).andNeedDeployEqualTo(true);
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryApmService(example);
     }
 
     @Override
     public List<TblPreServiceStatus> queryK8sFailService(){
         TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andK8sStatusEqualTo(ApmStatus.FAIL).andNeedDeployEqualTo(true);
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryK8sService(example);
     }
 
     @Override
-    public List<TblPreServiceStatus> queryUnneedDeployService(){
+    public List<TblPreServiceStatus> queryK8sSuccessService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andNeedDeployEqualTo(true);
-        return projectDao.queryPreServiceStatusList();
+        example.createCriteria().andK8sStatusEqualTo(ApmStatus.SUCCESS).andNeedDeployEqualTo(true);
+        return projectDao.queryK8sService(example);
     }
 
 

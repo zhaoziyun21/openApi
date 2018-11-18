@@ -11,17 +11,9 @@ import java.util.List;
  */
 public interface IProjectDao {
 
-    abstract int insertPreServiceStatus(TblPreServiceStatus tblPreServiceStatus);
+    List<TblPreServiceStatus> queryAllService();
 
-    int deletePreServiceStatus(int id);
+    List<TblPreServiceStatus> queryApmService(TblPreServiceStatusExample example);
 
-    int updatePreServiceStatus(TblPreServiceStatus tblPreServiceStatus);
-
-    List<TblPreServiceStatus> queryPreServiceStatusList();
-
-    long countPreServiceStatus();
-
-    TblPreServiceStatus getPreServiceStatus(int id);
-
-    List<TblPreServiceStatus> queryPreServiceStatusList(TblPreServiceStatusExample example);
+    List<TblPreServiceStatus> queryK8sService(TblPreServiceStatusExample example);
 }

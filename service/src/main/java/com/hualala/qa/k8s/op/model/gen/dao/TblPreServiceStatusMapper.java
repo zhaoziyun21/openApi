@@ -6,25 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TblPreServiceStatusMapper {
-    long countByExample(TblPreServiceStatusExample example);
+    List<TblPreServiceStatus> queryAllService(TblPreServiceStatusExample example);
 
-    int deleteByExample(TblPreServiceStatusExample example);
+    List<TblPreServiceStatus> queryApmService(TblPreServiceStatusExample example);
 
-    int deleteByPrimaryKey(Integer ID);
+    List<TblPreServiceStatus> queryK8sService(TblPreServiceStatusExample example);
 
-    int insert(TblPreServiceStatus record);
 
-    int insertSelective(TblPreServiceStatus record);
-
-    List<TblPreServiceStatus> selectByExample(TblPreServiceStatusExample example);
-
-    TblPreServiceStatus selectByPrimaryKey(Integer ID);
-
-    int updateByExampleSelective(@Param("record") TblPreServiceStatus record, @Param("example") TblPreServiceStatusExample example);
-
-    int updateByExample(@Param("record") TblPreServiceStatus record, @Param("example") TblPreServiceStatusExample example);
-
-    int updateByPrimaryKeySelective(TblPreServiceStatus record);
-
-    int updateByPrimaryKey(TblPreServiceStatus record);
 }

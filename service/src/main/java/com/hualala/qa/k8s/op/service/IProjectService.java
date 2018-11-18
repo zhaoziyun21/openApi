@@ -11,11 +11,11 @@ import java.util.List;
 public interface IProjectService {
     List<TblPreServiceStatus> queryAllService();
 
-    List<TblPreServiceStatus> querySuccessService();
+    List<TblPreServiceStatus> queryApmSuccessService();
 
     List<TblPreServiceStatus> queryApmFailService();
 
-    List<TblPreServiceStatus> queryK8sFailService();
+    List<TblPreServiceStatus> queryK8sSuccessService();
 
-    List<TblPreServiceStatus> queryUnneedDeployService();
+    List<TblPreServiceStatus> queryK8sFailService();
 }

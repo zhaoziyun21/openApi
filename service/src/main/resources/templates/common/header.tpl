@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>MockServer后台</title>
+  <title>k8s op状态</title>
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/layui/css/layui.css">
   <link rel="stylesheet" href="/css/common.css">
