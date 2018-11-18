@@ -58,6 +58,11 @@ datasource:
   minIdle: 50
   validationQuery: SELECT 1
 
+k8s:
+  jenkinsJarPath: /Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar
+  jenkinsHost: http://172.16.0.63:8080
+  yamlDirPath: /Users/yefei/
+
 mybatis:
 #  mapper-locations: classpath:com.hualala.qa.mockserver.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.hualala.qa.k8s.op.model.gen.pojo # 注意：对应实体类的路径
@@ -111,9 +116,13 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 
 
+k8s:
+  jenkinsJarPath: /opt/jenkins-cli.build2.jar
+  jenkinsHost: http://172.16.0.63:8080
+  yamlDirPath: /home/pre
 
 datasource:
-  url: jdbc:mysql://172.16.32.190:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
+  url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
   username: root
   password: root
   driverClassName: com.mysql.jdbc.Driver

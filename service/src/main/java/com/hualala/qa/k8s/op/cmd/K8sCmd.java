@@ -1,10 +1,12 @@
 package com.hualala.qa.k8s.op.cmd;
 
 import com.hualala.qa.k8s.op.utils.FileUtils;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.ibatis.javassist.bytecode.ByteArray;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -19,16 +21,15 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 @Component
+@ConfigurationProperties(prefix = "k8s")
+@Data
 public class K8sCmd {
 
-    final private String jenkinsJarPath = "/Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar";
-    final private String jenkinsHost = "http://172.16.0.63:8080";
-
+    private String jenkinsJarPath;
+    private String jenkinsHost;
 
 //    final private String yamlDirPath = "/home/pre/";
-    final private String yamlDirPath = "/Users/yefei/";
-    final private File dir = new File(yamlDirPath);
-
+    private String yamlDirPath;
 
     private long lastJenkinsActionTime = 0;
 
@@ -206,6 +207,7 @@ public class K8sCmd {
         cmds.add(cmd);
 
         ProcessBuilder pb =new ProcessBuilder(cmds);
+        File dir = new File(yamlDirPath);
         pb.directory(dir);
 
         process = pb.start();
