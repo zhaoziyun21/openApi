@@ -8,4 +8,8 @@ public interface IK8sService {
     void syncK8sStatus();
 
     String getK8sStatus(String jenkinsJobName);
+
+    void reloadK8s(String jenkinsJobName);
+
+    void reloadK8s();
 }

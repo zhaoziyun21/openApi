@@ -53,16 +53,41 @@
             })
             layer.close(index);
         })
-
-
     }
+
+    function reloadK8s(jenkinsJobName, name){
+        msg = "确定要重启K8s:<span style='color:red'>" + name + "</span>?"
+
+        layer.confirm(msg, function(index){
+            ajaxPost('/project/reloadK8s.ajax', {jenkinsJobName:jenkinsJobName},function(response) {
+                // location.reload();
+                layer.msg("已执行操作")
+            })
+            layer.close(index);
+        })
+    }
+
+    function reloadAllFailK8s(jenkinsJobName){
+        msg = "确定要重启<span style='color:red'>所有无活跃探针的服务</span>?"
+
+        layer.confirm(msg, function(index){
+            ajaxPost('/project/reloadK8s.ajax', {jenkinsJobName:jenkinsJobName},function(response) {
+                layer.msg("已执行操作")
+            })
+            layer.close(index);
+        })
+    }
+
+
+
 
 
 </script>
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit" href="/project/info.html?ID={{d.ID}}">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.path + "(" + d.serviceDescribe.replace(/["\']/g, "") + ")" }}');">删除</a>
+
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">重启k8s</a>
 
         <!-- 这里同样支持 laytpl 语法，如： -->
 

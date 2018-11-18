@@ -1,15 +1,17 @@
 package com.hualala.qa.k8s.op.cmd;
 
+import com.hualala.qa.k8s.op.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: yefei
@@ -19,7 +21,16 @@ import java.util.List;
 @Component
 public class K8sCmd {
 
-    private File dir = new File("/Users/yefei/code/hualala/qa/k8s-op");
+    final private String jenkinsJarPath = "/Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar";
+    final private String jenkinsHost = "http://172.16.0.63:8080";
+
+
+//    final private String yamlDirPath = "/home/pre/";
+    final private String yamlDirPath = "/Users/yefei/";
+    final private File dir = new File(yamlDirPath);
+
+
+    private long lastJenkinsActionTime = 0;
 
     public boolean getK8sIsRunning(String jenkinsJobName){
 
@@ -55,6 +66,135 @@ public class K8sCmd {
     }
 
 
+    public boolean k8sReload(String jenkinsJobName){
+        jenkinsJobName = jenkinsJonRename(jenkinsJobName);
+        String version = getJenkinsVersion(jenkinsJobName);
+        if(writeYaml(jenkinsJobName, version)){
+            System.out.println(111);
+            try {
+                String s = exec(String.format("kubectl delete -f {}", jenkinsJobName + ".yaml"));
+                log.debug(s);
+
+                String s1 = exec(String.format("kubectl create -f {}", jenkinsJobName + ".yaml"));
+                log.debug(s1);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            System.out.println(222);
+        }
+
+
+        return true;
+    }
+
+
+    private boolean writeYaml(String jenkinsJobName, String version){
+        if (StringUtils.isBlank(jenkinsJobName) || StringUtils.isBlank(version)){
+            return true;
+        }
+
+        jenkinsJobName = jenkinsJonRename(jenkinsJobName);
+
+        try {
+            String yamFile = yamlDirPath + jenkinsJobName + ".yaml";
+            File f = new File(yamFile);
+
+            String content = FileUtils.getContent(new FileInputStream(f), "utf-8");
+            String[] lines = content.split("\n");
+            if (lines.length == 35){
+                //行数正确的格式
+                String imageLine = lines[16];
+                log.info("{} yaml文件行数正确", jenkinsJobName);
+
+                if (imageLine.matches(".*?" + jenkinsJobName + ":\\w{6}\\s*$")){
+                    log.info("{} yaml文件镜像行格式正确", jenkinsJobName);
+
+                    if(imageLine.matches(".*?" + jenkinsJobName + ":" + version + "s*$")){
+                        //版本没有改变
+                        log.info("jenkins版本没有变更");
+                        return true;
+                    }else{
+                        //版本已经变更
+                        log.info("jenkins版本变更，新版本号：", version);
+                        imageLine = imageLine.replaceAll(jenkinsJobName + ":\\w{6}(\\s*)$", jenkinsJobName + ":" + version + "$1");
+                        lines[16] = imageLine;
+                    }
+
+
+                }else if (imageLine.matches(".*?" + jenkinsJobName + "\\s*$")){
+                    log.info("yaml文件没有写版本号，新添加：{}", version);
+                    imageLine = imageLine.replaceAll(jenkinsJobName + "(\\s*)$", jenkinsJobName + ":" + version + "$1");
+                    lines[16] = imageLine;
+                }
+
+                FileUtils.writeFileData(yamFile, String.join("\n", lines).getBytes());
+
+            }else{
+                log.info("{} yaml文件格式不正确", jenkinsJobName);
+                return false;
+            }
+
+
+        } catch (FileNotFoundException e) {
+            log.error(ExceptionUtils.getStackTrace(e));
+            return false;
+        }
+
+        return true;
+    }
+
+    private void jenkinsLogin() throws IOException, InterruptedException {
+        String cmd = String.format("java -jar %s -s %s login", jenkinsJarPath, jenkinsHost);
+        log.info("jenkins login: {}", cmd);
+
+        exec(cmd);
+        lastJenkinsActionTime = System.currentTimeMillis();
+
+    }
+
+    private String getJenkinsVersion(String jenkinsJobName){
+        String version = "";
+        try {
+            if (System.currentTimeMillis() - lastJenkinsActionTime > 10000){
+                jenkinsLogin();
+            }
+
+            jenkinsJobName = jenkinsJonRename(jenkinsJobName);
+
+            String cmd = String.format("java -jar %s  -s %s console %s -f -n 20", jenkinsJarPath, jenkinsHost, jenkinsJobName);
+
+            log.info("begin get jenkins version: {}", cmd);
+
+            String result = exec(cmd);
+
+            lastJenkinsActionTime = System.currentTimeMillis();
+
+
+            if (result.endsWith("Finished: SUCCESS")){
+                // 创建 Pattern 对象
+                Pattern r = Pattern.compile("(\\w{6}): digest: sha");
+
+                // 现在创建 matcher 对象
+                Matcher m = r.matcher(result);
+                if (m.find( )) {
+
+                    version = m.group(1);
+                }
+            }
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+        }
+
+        log.info("end get jenkins version: {}", version);
+
+        return version;
+    }
+
+
     private String exec(String cmd) throws IOException, InterruptedException {
 
         Process process = null;
@@ -81,8 +221,19 @@ public class K8sCmd {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String s = new K8sCmd().exec("ls -l | grep service");
+        String jenkinsJobName = "order-service";
+        K8sCmd k8sCmd = new K8sCmd();
+        String s = k8sCmd.exec("ls -l | grep service");
         System.out.println(s);
+
+        k8sCmd.k8sReload(jenkinsJobName);
+
+//        String jenkinsVersion = k8sCmd.getJenkinsVersion("order-service");
+    }
+
+
+    private String jenkinsJonRename(String jenkinsJobName){
+        return jenkinsJobName.startsWith("pre-") ? jenkinsJobName : "pre-" +jenkinsJobName;
     }
 
 }

@@ -9,6 +9,7 @@ import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
 import com.hualala.qa.k8s.op.service.IK8sService;
 import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -205,9 +206,9 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/getK8sStatus.ajax")
     @ResponseBody
-    public Object getK8sStatus(@RequestParam("jenkinsJobName") String jenkinJobName){
+    public Object getK8sStatus(@RequestParam("jenkinsJobName") String jenkinsJobName){
         try {
-            String k8sStatus = k8sService.getK8sStatus(jenkinJobName);
+            String k8sStatus = k8sService.getK8sStatus(jenkinsJobName);
 
             return responseAdapter.success(k8sStatus);
 
@@ -219,9 +220,34 @@ public class PreServiceController extends BaseController {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
-
     }
 
+
+
+
+    @RequestMapping("/reloadK8s.ajax")
+    @ResponseBody
+    public Object reloadK8sService(@RequestBody JSONObject param){
+        try {
+            String jenkinsJobName = param.containsKey("jenkinsJobName") ? param.getString("jenkinsJobName") : "";
+
+            if (StringUtils.isBlank(jenkinsJobName)){
+                k8sService.reloadK8s();
+            }else{
+                k8sService.reloadK8s(jenkinsJobName);
+            }
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
 
 
 
