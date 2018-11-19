@@ -5,6 +5,7 @@
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
         <a class="layui-btn" href="/project/edit.html">新增项目</a>
         <a class="layui-btn" href="javascript:ayncK8sStatus()">同步k8s状态</a>
+        <a class="layui-btn" href="javascript:ayncApmStatus()">同步APM状态</a>
         <a class="layui-btn layui-btn-primary total-records" href="javascript:void(0);">总记录数：</a>
     </div>
     <div style="/* padding: 15px; */" id="item-list" lay-even ></div>
@@ -50,6 +51,16 @@
 
     });
 
+    function ayncApmStatus(){
+        ajaxPost('/project/syncApmStatus.ajax', {},function(response) {
+            layer.msg("同步完成")
+            setTimeout(function () {
+                location.reload();
+            },2000)
+        })
+
+        return false;
+    }
 
     function ayncK8sStatus(){
         ajaxPost('/project/ayncK8sStatus.ajax', {},function(response) {

@@ -40,8 +40,7 @@ public class AgentServiceImpl implements IAgentService {
     @Override
     public List<Agent> queryActiveService() {
         AgentExample example = new AgentExample();
-        AgentExample.Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo((byte)1);
+        example.createCriteria().andStatusEqualTo((byte)1).andTier_idGreaterThan(0l);
 
         return agentDao.queryService(example);
     }
@@ -52,7 +51,7 @@ public class AgentServiceImpl implements IAgentService {
         List<Agent> activeAgents = queryActiveService();
         HashSet<String> activeAgentSet = new HashSet<>();
         for (Agent agent : activeAgents){
-            activeAgentSet.add(agent.getName());
+            activeAgentSet.add(agent.getName().replaceAll("-\\w+-\\w+-\\w+$", ""));
         }
 
 
