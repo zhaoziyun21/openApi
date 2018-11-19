@@ -17,12 +17,9 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">MockServer后台</div>
+    <div class="layui-logo">k8s op状态</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="/mock_server/rest/group/list.html">REST</a></li>
-      <li class="layui-nav-item"><a href="/mock_server/grpc/group/list.html">GRPC</a></li>
-      <li class="layui-nav-item"><a href="/mock_server/system/config.html">SYSTEM</a></li>
 
       <!-- <li class="layui-nav-item">
         <a href="javascript:;">其它系统</a>

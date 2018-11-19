@@ -4,6 +4,7 @@
     <!-- 内容主体区域 -->
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
         <a class="layui-btn" href="/project/edit.html">新增项目</a>
+        <a class="layui-btn" href="javascript:ayncK8sStatus()">同步k8s状态</a>
     </div>
     <div style="/* padding: 15px; */" id="item-list" lay-even ></div>
 </div>
@@ -44,6 +45,18 @@
         });
 
     });
+
+
+    function ayncK8sStatus(){
+        ajaxPost('/project/ayncK8sStatus.ajax', {ID:ID},function(response) {
+            layer.msg("同步完成")
+            setTimeout(function () {
+                location.reload();
+            },2000)
+        })
+
+        return false;
+    }
 
     function deleteItem(ID, name){
         msg = "确定要删除<span style='color:red'>" + name + "</span>?"

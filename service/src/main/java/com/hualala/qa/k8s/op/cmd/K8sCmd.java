@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +37,7 @@ public class K8sCmd {
         try {
 
             String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+", jenkinsJobName));
-            System.out.println(result);
+            log.info("查询k8s是否正常：{} -> {}", jenkinsJobName, result);
 
             if ( result.matches("1/1\\sRunning")){
                 return true;
@@ -219,6 +218,8 @@ public class K8sCmd {
             processList.add(line);
         }
         input.close();
+        log.debug("执行命令完成：{}", cmd);
+        log.debug(String.join("\n", processList));
         return String.join("\n", processList);
     }
 
