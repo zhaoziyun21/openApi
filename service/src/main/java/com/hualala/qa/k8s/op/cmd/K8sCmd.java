@@ -36,7 +36,7 @@ public class K8sCmd {
         String result;
         try {
 
-            result  = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
+            result  = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+\\s+'", jenkinsJobName));
             log.info("查询k8s是否正常：{} -> {}", jenkinsJobName, result);
 //
 //            result = "111\n inventory-amount-service-6b9b64b767-ddzqc        1/1       Running             0          2d";
@@ -82,7 +82,7 @@ public class K8sCmd {
     public K8sStatus getK8sStatus(String jenkinsJobName){
         try {
 
-            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
+            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+\\s+'", jenkinsJobName));
             K8sStatus k8sStatus = new K8sStatus();
             k8sStatus.setStatus(result);
             return k8sStatus;
