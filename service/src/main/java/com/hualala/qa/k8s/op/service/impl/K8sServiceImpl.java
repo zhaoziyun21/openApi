@@ -63,12 +63,10 @@ public class K8sServiceImpl implements IK8sService{
     }
 
 
-
-
     private List<TblPreServiceStatus> queryNeedDeployService(){
         TblPreServiceStatusExample example = new TblPreServiceStatusExample();
         example.createCriteria().andNeedDeployEqualTo(true);
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryService(example);
     }
 
 

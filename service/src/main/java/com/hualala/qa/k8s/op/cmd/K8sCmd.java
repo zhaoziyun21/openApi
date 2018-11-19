@@ -36,7 +36,7 @@ public class K8sCmd {
 
         try {
 
-            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+", jenkinsJobName));
+            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
             log.info("查询k8s是否正常：{} -> {}", jenkinsJobName, result);
 
             if ( result.matches("1/1\\sRunning")){
@@ -56,7 +56,7 @@ public class K8sCmd {
 
         try {
 
-            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+", jenkinsJobName));
+            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
             return result;
 
         } catch (Exception e) {
