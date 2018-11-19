@@ -7,52 +7,45 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 
 /**
  * Created by yefei on 2018/8/2.
  */
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "datasource")
-@Slf4j
 public class DataSourceConfiguration {
-    private String driverClassName;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfiguration.class);
 
-    private String url;
 
-    private String username;
+    @Bean(name = "shardDB")
+    @Autowired
+    public DynamicDataSource shardRouteDataSource(@Qualifier("k8s") DataSource k8sDataSource,
+                                                     @Qualifier("apm") DataSource apmDataSource){
+        DynamicDataSource dynamicDataSource =  new DynamicDataSource();
+        HashMap<Object, Object> targetDataSources = new HashMap<Object, Object>() {{
+            this.put(DatabaseType.db_pre_k8s_op, k8sDataSource);
+            this.put(DatabaseType.kepler_management, apmDataSource);
+        }};
+        dynamicDataSource.setTargetDataSources(targetDataSources);
+//        dynamicDataSource.setDefaultTargetDataSource(shardDB1DataSource); // health监测用
+        dynamicDataSource.afterPropertiesSet();
+        return dynamicDataSource;
 
-    private String password;
-
-    private int initialSize;
-
-    private int maxActive;
-
-    private int minIdle;
-
-    private String validationQuery;
-
-//    @Bean(initMethod = "init", destroyMethod = "close")
-    @Bean
-    public DataSource druidDataSource() {
-        return DataSourceConfigSupport.getDataSource(
-                driverClassName,
-                url,
-                username,
-                password,
-                initialSize,
-                minIdle,
-                maxActive,
-                validationQuery);
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
+    public SqlSessionFactory sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws Exception {
 
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 
@@ -62,7 +55,7 @@ public class DataSourceConfiguration {
 //        ibatisConfiguration.setMapUnderscoreToCamelCase(true);
 //        sqlSessionFactoryBean.setConfiguration(ibatisConfiguration);
 
-        sqlSessionFactoryBean.setDataSource(druidDataSource());
+        sqlSessionFactoryBean.setDataSource(dynamicDataSource);
         return sqlSessionFactoryBean.getObject();
     }
 

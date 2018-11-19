@@ -45,7 +45,7 @@ spring:
 
 
 
-datasource:
+k8sdatasource:
   url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
   username: root
   password: root
@@ -57,6 +57,18 @@ datasource:
   maxActive: 300
   minIdle: 50
   validationQuery: SELECT 1
+
+
+apmdatasource:
+  url: jdbc:mysql://172.16.33.2:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: apm
+  password: Apm@123456
+  driverClassName: com.mysql.jdbc.Driver
+  initialSize: 100
+  maxActive: 300
+  minIdle: 50
+  validationQuery: SELECT 1
+
 
 k8s:
   jenkinsJarPath: /Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar
