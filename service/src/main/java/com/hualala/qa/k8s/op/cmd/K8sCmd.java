@@ -79,10 +79,10 @@ public class K8sCmd {
         if(writeYaml(jenkinsJobName, version)){
             System.out.println(111);
             try {
-                String s = exec(String.format("kubectl delete -f {}", jenkinsJobName + ".yaml"));
+                String s = exec(String.format("kubectl delete -f %s", jenkinsJobName + ".yaml"));
                 log.debug(s);
 
-                String s1 = exec(String.format("kubectl create -f {}", jenkinsJobName + ".yaml"));
+                String s1 = exec(String.format("kubectl create -f %s", jenkinsJobName + ".yaml"));
                 log.debug(s1);
 
             } catch (Exception e) {

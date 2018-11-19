@@ -206,8 +206,9 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/getK8sStatus.ajax")
     @ResponseBody
-    public Object getK8sStatus(@RequestParam("jenkinsJobName") String jenkinsJobName){
+    public Object getK8sStatus(@RequestBody JSONObject param){
         try {
+            String jenkinsJobName = param.containsKey("jenkinsJobName") ? param.getString("jenkinsJobName") : "";
             String k8sStatus = k8sService.getK8sStatus(jenkinsJobName);
 
             return responseAdapter.success(k8sStatus);
