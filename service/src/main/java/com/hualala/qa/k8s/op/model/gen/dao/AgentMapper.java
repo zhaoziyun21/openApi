@@ -18,8 +18,6 @@ public interface AgentMapper {
 
     List<Agent> selectByExample(AgentExample example);
 
-    List<Agent> selectSuccess();
-
     Agent selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") Agent record, @Param("example") AgentExample example);

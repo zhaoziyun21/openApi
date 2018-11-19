@@ -68,7 +68,8 @@ public class AgentDaoImpl implements IAgentDao {
     @Override
     public List<Agent> queryAllService() {
         DatabaseContextHolder.setDatabaseType(DatabaseType.kepler_management);
-        return agentMapper.selectSuccess();
+        AgentExample example = buildExample();
+        return agentMapper.selectByExample(example);
     }
 
     @Override
@@ -85,7 +86,6 @@ public class AgentDaoImpl implements IAgentDao {
         AgentExample example = new AgentExample();
         AgentExample.Criteria criteria = example.createCriteria();
 
-        example.setOrderByClause("k8sStatus asc, apmStatus asc");
         return example;
     }
 }

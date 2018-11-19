@@ -84,52 +84,20 @@
     original_name
   </sql>
   <select id="selectByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.AgentExample" resultMap="BaseResultMap">
-    select count(*) from agent where tier_id in (select tier.id from agent app, agent tier
-    WHERE
-    tier.app_id = app.id
-    AND tier.tier_id = 0
-    AND app. NAME IN (
-    'SaaS及云店服务',
-    '报表',
-    '订多多',
-    '会员营销',
-    '基本档',
-    '开放平台',
-    '权益账户',
-    '人事线服务',
-    '三方外卖及订单',
-    '商户中心',
-    '线上餐厅及商城',
-    '新线上餐厅',
-    '支付'
-    )
-    )
-    AND STATUS = 1;
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from agent
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
   </select>
 
-  <select id="selectSuccess"  resultMap="BaseResultMap">
-    select count(*) from agent where tier_id in (select tier.id from agent app, agent tier
-    WHERE
-    tier.app_id = app.id
-    AND tier.tier_id = 0
-    AND app. NAME IN (
-    'SaaS及云店服务',
-    '报表',
-    '订多多',
-    '会员营销',
-    '基本档',
-    '开放平台',
-    '权益账户',
-    '人事线服务',
-    '三方外卖及订单',
-    '商户中心',
-    '线上餐厅及商城',
-    '新线上餐厅',
-    '支付'
-    )
-    )
-    AND STATUS = 1;
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -53,9 +53,9 @@ k8sdatasource:
 #  username: root
 #  password: Pass@123
   driverClassName: com.mysql.jdbc.Driver
-  initialSize: 100
-  maxActive: 300
-  minIdle: 50
+  initialSize: 10
+  maxActive: 30
+  minIdle: 5
   validationQuery: SELECT 1
 
 
@@ -64,9 +64,9 @@ apmdatasource:
   username: apm
   password: Apm@123456
   driverClassName: com.mysql.jdbc.Driver
-  initialSize: 100
-  maxActive: 300
-  minIdle: 50
+  initialSize: 5
+  maxActive: 10
+  minIdle: 5
   validationQuery: SELECT 1
 
 
