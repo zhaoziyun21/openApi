@@ -45,6 +45,7 @@ public class K8sServiceImpl implements IK8sService{
 
         TblPreServiceStatus service = projectService.getService(jenkinsJobName);
         if (service != null){
+            service.setK8sStatus(k8sStatus.isRunning());
             projectDao.updatePreServiceStatus(service);
         }
         return k8sStatus.getStatus();
