@@ -22,4 +22,6 @@ public interface IProjectService {
     List<TblPreServiceStatus> queryUnneedDeployService();
 
     List<TblPreServiceStatus> queryNeedDeployService();
+
+    TblPreServiceStatus getService(String jenkinsJobName);
 }

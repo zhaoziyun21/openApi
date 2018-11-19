@@ -41,8 +41,13 @@ public class K8sServiceImpl implements IK8sService{
 
     @Override
     public String getK8sStatus(String jenkinsJobName){
+        K8sCmd.K8sStatus k8sStatus = k8sCmd.getK8sStatus(jenkinsJobName);
 
-        return k8sCmd.getK8sStatus(jenkinsJobName);
+        TblPreServiceStatus service = projectService.getService(jenkinsJobName);
+        if (service != null){
+            projectDao.updatePreServiceStatus(service);
+        }
+        return k8sStatus.getStatus();
     }
 
 

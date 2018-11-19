@@ -78,4 +78,17 @@ public class ProjectServiceImpl implements IProjectService {
         return projectDao.queryService(example);
     }
 
+    @Override
+    public TblPreServiceStatus getService(String jenkinsJobName){
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andJenkinsJobNameEqualTo(jenkinsJobName);
+
+        List<TblPreServiceStatus> list = projectDao.queryService(example);
+        if (list.size() > 0){
+            return list.get(0);
+        }else{
+            return null;
+        }
+    }
+
 }

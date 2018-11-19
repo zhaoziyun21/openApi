@@ -6,6 +6,7 @@ import com.hualala.qa.k8s.op.config.BeanScanner;
 import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
+import com.hualala.qa.k8s.op.service.IAgentService;
 import com.hualala.qa.k8s.op.service.IK8sService;
 import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +39,9 @@ public class PreServiceController extends BaseController {
 
     @Autowired
     private IK8sService k8sService;
+
+    @Autowired
+    private IAgentService agentService;
 
     @Autowired
     private ObjectMapper jacksonFormater;
@@ -237,6 +239,27 @@ public class PreServiceController extends BaseController {
             }else{
                 k8sService.reloadK8s(jenkinsJobName);
             }
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/syncApmStatus.ajax")
+    @ResponseBody
+    public Object syncApmStatus(){
+        try {
+
+            agentService.syncApnStatus();
 
             return responseAdapter.success();
 

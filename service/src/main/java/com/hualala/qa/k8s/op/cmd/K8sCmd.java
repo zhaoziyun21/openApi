@@ -58,17 +58,38 @@ public class K8sCmd {
         return false;
     }
 
+    @Data
+    public class K8sStatus{
+        String status;
+        boolean isRunning;
 
-    public String getK8sStatus(String jenkinsJobName){
+        public void setStatus(String status){
+            this.status = status;
+            String pattern = ".*?1/1\\s+Running.*?";
+            Pattern p = Pattern.compile(pattern, Pattern.UNIX_LINES);
+            Matcher matcher = p.matcher(status);
 
+            if ( matcher.find()){
+                this.isRunning = true;
+            }else{
+                this.isRunning = false;
+            }
+
+        }
+    }
+
+
+    public K8sStatus getK8sStatus(String jenkinsJobName){
         try {
 
             String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
-            return result;
+            K8sStatus k8sStatus = new K8sStatus();
+            k8sStatus.setStatus(result);
+            return k8sStatus;
 
         } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
-            return "";
+            return null;
         }
     }
 

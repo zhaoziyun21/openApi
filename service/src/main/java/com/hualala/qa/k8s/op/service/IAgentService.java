@@ -12,6 +12,10 @@ import java.util.List;
 public interface IAgentService {
     List<Agent> queryAllService();
 
+    List<Agent> queryActiveService();
+
+    void syncApnStatus();
+
 //    List<Agent> queryApmFailService();
 //
 //    List<Agent> queryApmSuccessService();
