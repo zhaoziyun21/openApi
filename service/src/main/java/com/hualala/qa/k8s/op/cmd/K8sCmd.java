@@ -38,8 +38,14 @@ public class K8sCmd {
 
             result  = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
             log.info("查询k8s是否正常：{} -> {}", jenkinsJobName, result);
+//
+//            result = "111\n inventory-amount-service-6b9b64b767-ddzqc        1/1       Running             0          2d";
 
-            if ( result.matches(".*?1/1\\sRunning.*?")){
+            String pattern = ".*?1/1\\s+Running.*?";
+            Pattern p = Pattern.compile(pattern, Pattern.UNIX_LINES);
+            Matcher matcher = p.matcher(result);
+
+            if ( matcher.find()){
                 log.info("{} k8s 运行正常", jenkinsJobName);
                 return true;
             }
@@ -227,11 +233,12 @@ public class K8sCmd {
     public static void main(String[] args) throws IOException, InterruptedException {
         String jenkinsJobName = "order-service";
         K8sCmd k8sCmd = new K8sCmd();
-        String s = k8sCmd.exec("ls -l | grep service");
-        System.out.println(s);
+//        String s = k8sCmd.exec("ls -l | grep service");
+//        System.out.println(s);
+//
+//        k8sCmd.k8sReload(jenkinsJobName);
 
-        k8sCmd.k8sReload(jenkinsJobName);
-
+        k8sCmd.getK8sIsRunning(jenkinsJobName);
 //        String jenkinsVersion = k8sCmd.getJenkinsVersion("order-service");
     }
 

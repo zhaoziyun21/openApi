@@ -5,6 +5,7 @@
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
         <a class="layui-btn" href="/project/edit.html">新增项目</a>
         <a class="layui-btn" href="javascript:ayncK8sStatus()">同步k8s状态</a>
+        <a class="layui-btn layui-btn-primary total-records" href="javascript:void(0);">总记录数：</a>
     </div>
     <div style="/* padding: 15px; */" id="item-list" lay-even ></div>
 </div>
@@ -40,6 +41,9 @@
                     "count": res.data.total, //解析数据长度
                     "data": res.data.list //解析数据列表
                 };
+
+                $(".total-records").text('总记录数：'+ res.data.total)
+
                 return data;
             }
         });
@@ -48,7 +52,7 @@
 
 
     function ayncK8sStatus(){
-        ajaxPost('/project/ayncK8sStatus.ajax', {ID:ID},function(response) {
+        ajaxPost('/project/ayncK8sStatus.ajax', {},function(response) {
             layer.msg("同步完成")
             setTimeout(function () {
                 location.reload();
@@ -72,13 +76,23 @@
         msg = "确定要重启K8s:<span style='color:red'>" + name + "</span>?"
 
         layer.confirm(msg, function(index){
-            ajaxPost('/project/reloadK8s.ajax', {jenkinsJobName:jenkinsJobName},function(response) {
+            ajaxPost('/project/reloadK8s.ajax', {jenkinsJobName:jenkinsJobName}, function(response) {
                 // location.reload();
                 layer.msg("已执行操作")
             })
             layer.close(index);
         })
     }
+
+
+    function getK8sStatus(jenkinsJobName){
+        ajaxPost('/project/getK8sStatus.ajax', {jenkinsJobName:jenkinsJobName}, function() {
+            layer.msg(response.message)
+        })
+
+        return false;
+    }
+
 
     function reloadAllFailK8s(jenkinsJobName){
         msg = "确定要重启<span style='color:red'>所有无活跃探针的服务</span>?"
@@ -101,6 +115,7 @@
 
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">重启k8s</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取k8s状态</a>
 
         <!-- 这里同样支持 laytpl 语法，如： -->
 
