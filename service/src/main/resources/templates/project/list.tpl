@@ -87,7 +87,7 @@
 
     function getK8sStatus(jenkinsJobName){
         ajaxPost('/project/getK8sStatus.ajax', {jenkinsJobName:jenkinsJobName}, function(response) {
-            layer.msg(response.message)
+            layer.msg(response.message, {time: 5000})
         })
 
         return false;
