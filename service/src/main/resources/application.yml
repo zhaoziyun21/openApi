@@ -131,9 +131,9 @@ spring:
 k8s:
   jenkinsJarPath: /opt/jenkins-cli.build2.jar
   jenkinsHost: http://172.16.0.63:8080
-  yamlDirPath: /home/pre
+  yamlDirPath: /home/pre/
 
-datasource:
+k8sdatasource:
   url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
   username: root
   password: root
@@ -142,6 +142,19 @@ datasource:
   maxActive: 300
   minIdle: 50
   validationQuery: SELECT 1
+
+
+
+apmdatasource:
+  url: jdbc:mysql://172.16.33.2:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: apm
+  password: Apm@123456
+  driverClassName: com.mysql.jdbc.Driver
+  initialSize: 100
+  maxActive: 300
+  minIdle: 50
+  validationQuery: SELECT 1
+
 
 mybatis:
   mapper-locations: classpath:com.hualala.qa.mockserver.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径

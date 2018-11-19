@@ -86,8 +86,8 @@
 
 
     function getK8sStatus(jenkinsJobName){
-        ajaxPost('/project/getK8sStatus.ajax', {jenkinsJobName:jenkinsJobName}, function() {
-            layer.msg(response.message)
+        ajaxPost('/project/getK8sStatus.ajax', {jenkinsJobName:jenkinsJobName}, function(response) {
+            layer.msg(response.message, {time: 5000})
         })
 
         return false;
@@ -115,7 +115,7 @@
 
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">重启k8s</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取k8s状态</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:getK8sStatus('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取k8s状态</a>
 
         <!-- 这里同样支持 laytpl 语法，如： -->
 
