@@ -57,11 +57,11 @@ public class AgentServiceImpl implements IAgentService {
 
         List<TblPreServiceStatus> list = projectDao.queryAllService();
         for (TblPreServiceStatus item : list){
-            if(item.getServiceName().equals("transformer-service")){
+            if(item.getJenkinsJobName().equals("pay-bank-service-21")){
                 System.out.println(item);
             }
 
-            if (activeAgentSet.contains(item.getServiceName())){
+            if (activeAgentSet.contains(item.getJenkinsJobName())){
                 item.setApmStatus(true);
             }else{
                 item.setApmStatus(false);
