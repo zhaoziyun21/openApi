@@ -57,6 +57,10 @@ public class AgentServiceImpl implements IAgentService {
 
         List<TblPreServiceStatus> list = projectDao.queryAllService();
         for (TblPreServiceStatus item : list){
+            if(item.getServiceName().equals("transformer-service")){
+                System.out.println(item);
+            }
+
             if (activeAgentSet.contains(item.getServiceName())){
                 item.setApmStatus(true);
             }else{
