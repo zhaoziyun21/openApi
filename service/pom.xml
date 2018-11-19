@@ -205,7 +205,7 @@
 					<!--<overwrite>true</overwrite>-->
 					<!--&lt;!&ndash; 自动生成的配置 &ndash;&gt;-->
 					<!--<configurationFile>-->
-						<!--src/main/resources/mybatis-generator-config.xml</configurationFile>-->
+						<!--src/main/resources/mybatis-generator-config-apm.xml</configurationFile>-->
 				<!--</configuration>-->
 			<!--</plugin>-->
 
