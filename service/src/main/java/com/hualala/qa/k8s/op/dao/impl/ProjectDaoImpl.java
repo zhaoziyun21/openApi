@@ -60,7 +60,6 @@ public class ProjectDaoImpl implements IProjectDao {
         TblPreServiceStatusExample example = new TblPreServiceStatusExample();
         TblPreServiceStatusExample.Criteria criteria = example.createCriteria();
 
-        example.setOrderByClause("k8sStatus asc, apmStatus asc");
         return example;
     }
 

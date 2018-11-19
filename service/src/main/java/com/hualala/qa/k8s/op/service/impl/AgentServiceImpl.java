@@ -1,6 +1,7 @@
 package com.hualala.qa.k8s.op.service.impl;
 
 import com.hualala.qa.k8s.op.constants.ApmStatus;
+import com.hualala.qa.k8s.op.constants.K8sStatus;
 import com.hualala.qa.k8s.op.dao.IAgentDao;
 import com.hualala.qa.k8s.op.dao.IProjectDao;
 import com.hualala.qa.k8s.op.model.gen.pojo.Agent;
@@ -30,7 +31,9 @@ public class AgentServiceImpl implements IAgentService {
 
     @Override
     public List<Agent> queryAllService() {
-        return agentDao.queryAllService();
+        AgentExample example = new AgentExample();
+        example.createCriteria().andStatusEqualTo(new Byte("1")).andTier_idGreaterThan(0l);
+        return agentDao.queryService(example);
     }
 
 
