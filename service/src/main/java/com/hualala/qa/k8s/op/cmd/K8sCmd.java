@@ -33,13 +33,14 @@ public class K8sCmd {
     private long lastJenkinsActionTime = 0;
 
     public boolean getK8sIsRunning(String jenkinsJobName){
-
+        String result;
         try {
 
-            String result = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
+            result  = exec(String.format("kubectl get pod |egrep '^%s-\\w+-\\w+'", jenkinsJobName));
             log.info("查询k8s是否正常：{} -> {}", jenkinsJobName, result);
 
-            if ( result.matches("1/1\\sRunning")){
+            if ( result.matches(".*?1/1\\sRunning.*?")){
+                log.info("{} k8s 运行正常", jenkinsJobName);
                 return true;
             }
 
@@ -47,7 +48,7 @@ public class K8sCmd {
             log.error(ExceptionUtils.getStackTrace(e));
             return false;
         }
-
+        log.info("{} k8s 运行异常：{}", jenkinsJobName, result);
         return false;
     }
 
