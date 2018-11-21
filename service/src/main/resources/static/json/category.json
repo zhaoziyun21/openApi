@@ -9,15 +9,24 @@
                     "url":"/project/list.html?method=queryAllServiceStatusList"
                 }
                 ,{
+                    "title":"需要部署服务",
+                    "url":"/project/list.html?method=queryNeedDeployServiceList"
+                }                ,{
+                    "title":"不需要部署服务",
+                    "url":"/project/list.html?method=queryUnNeedDeployServiceList"
+                }                ,{
                     "title":"活跃探针服务",
                     "url":"/project/list.html?method=queryApmSuccessServiceList"
-                },{
+                }
+                ,{
                     "title":"探针失败服务",
                     "url":"/project/list.html?method=queryOPFailServiceList"
-                },{
+                }
+                ,{
                     "title":"活跃k8s服务",
                     "url":"/project/list.html?method=queryK8sSuccessServiceList"
-                },{
+                }
+                ,{
                     "title":"k8s失败服务",
                     "url":"/project/list.html?method=queryK8sFailServiceList"
                 }

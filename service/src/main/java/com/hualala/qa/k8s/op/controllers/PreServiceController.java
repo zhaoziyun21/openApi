@@ -64,7 +64,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryAllServiceStatusList.ajax")
     @ResponseBody
-    public Object queryAllServiceStatusList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryAllServiceStatusList(){
         try {
 
             List<TblPreServiceStatus> list = projectService.queryAllService();
@@ -86,9 +86,56 @@ public class PreServiceController extends BaseController {
     }
 
 
+    @RequestMapping("/queryNeedDeployServiceList.ajax")
+    @ResponseBody
+    public Object queryNeedDeployServiceList(){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryNeedDeployService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+    @RequestMapping("/queryUnNeedDeployServiceList.ajax")
+    @ResponseBody
+    public Object queryUnNeedDeployServiceList(){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryUnneedDeployService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
     @RequestMapping("/queryApmSuccessServiceList.ajax")
     @ResponseBody
-    public Object queryApmSuccessServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryApmSuccessServiceList(){
         try {
 
             List<TblPreServiceStatus> list = projectService.queryApmSuccessService();
@@ -112,7 +159,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryOPFailServiceList.ajax")
     @ResponseBody
-    public Object queryOPFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryOPFailServiceList(){
         try {
 
             List<TblPreServiceStatus> list = projectService.queryApmFailService();

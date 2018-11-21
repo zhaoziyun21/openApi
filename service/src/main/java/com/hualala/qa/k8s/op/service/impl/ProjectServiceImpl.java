@@ -49,7 +49,7 @@ public class ProjectServiceImpl implements IProjectService {
     public List<TblPreServiceStatus> queryUnneedDeployService(){
         TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andNeedDeployEqualTo(false);
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryService(example);
     }
 
 
@@ -57,7 +57,7 @@ public class ProjectServiceImpl implements IProjectService {
     public List<TblPreServiceStatus> queryNeedDeployService(){
         TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andNeedDeployEqualTo(true);
-        return projectDao.queryPreServiceStatusList();
+        return projectDao.queryService(example);
     }
 
 
