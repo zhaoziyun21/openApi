@@ -11,5 +11,7 @@ public interface IK8sService {
 
     void reloadK8s(String jenkinsJobName);
 
+    void reloadAllK8s();
+
     void reloadK8s();
 }

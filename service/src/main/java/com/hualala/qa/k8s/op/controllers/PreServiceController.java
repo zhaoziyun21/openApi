@@ -226,8 +226,6 @@ public class PreServiceController extends BaseController {
     }
 
 
-
-
     @RequestMapping("/reloadK8s.ajax")
     @ResponseBody
     public Object reloadK8sService(@RequestBody JSONObject param){
@@ -239,6 +237,26 @@ public class PreServiceController extends BaseController {
             }else{
                 k8sService.reloadK8s(jenkinsJobName);
             }
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+    @RequestMapping("/reloadAllK8s.ajax")
+    @ResponseBody
+    public Object reloadAllK8sService(){
+        try {
+
+            k8sService.reloadAllK8s();
 
             return responseAdapter.success();
 
@@ -272,6 +290,7 @@ public class PreServiceController extends BaseController {
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
     }
+
 
 
 

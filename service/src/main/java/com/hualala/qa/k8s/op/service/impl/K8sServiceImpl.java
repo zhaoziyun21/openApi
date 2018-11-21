@@ -59,6 +59,17 @@ public class K8sServiceImpl implements IK8sService{
     }
 
 
+
+    @Override
+    public void reloadAllK8s(){
+
+        List<TblPreServiceStatus> list = queryNeedDeployService();
+        for (TblPreServiceStatus item : list){
+            k8sCmd.k8sReload(item.getJenkinsJobName());
+        }
+    }
+
+
     @Override
     public void reloadK8s(){
         List<TblPreServiceStatus> list = projectService.queryApmFailService();

@@ -4,6 +4,7 @@
     <!-- 内容主体区域 -->
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
         <a class="layui-btn" href="/project/edit.html">新增项目</a>
+        <a class="layui-btn" href="javascript:reloadAllK8s()">重启所有k8s服务</a>
         <a class="layui-btn" href="javascript:ayncK8sStatus()">同步k8s状态</a>
         <a class="layui-btn" href="javascript:ayncApmStatus()">同步APM状态</a>
         <a class="layui-btn layui-btn-primary total-records" href="javascript:void(0);">总记录数：</a>
@@ -88,6 +89,19 @@
 
         layer.confirm(msg, function(index){
             ajaxPost('/project/reloadK8s.ajax', {jenkinsJobName:jenkinsJobName}, function(response) {
+                // location.reload();
+                layer.msg("已执行操作")
+            })
+            layer.close(index);
+        })
+    }
+
+
+    function reloadAllK8s(){
+        msg = "确定要重启:<span style='color:red'>所有K8s服务</span>?"
+
+        layer.confirm(msg, function(index){
+            ajaxPost('/project/reloadAllK8s.ajax', {}, function(response) {
                 // location.reload();
                 layer.msg("已执行操作")
             })
