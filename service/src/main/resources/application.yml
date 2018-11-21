@@ -64,9 +64,9 @@ apmdatasource:
   username: apm
   password: Apm@123456
   driverClassName: com.mysql.jdbc.Driver
-  initialSize: 5
-  maxActive: 10
-  minIdle: 5
+  initialSize: 2
+  maxActive: 4
+  minIdle: 2
   validationQuery: SELECT 1
 
 
@@ -150,9 +150,9 @@ apmdatasource:
   username: apm
   password: Apm@123456
   driverClassName: com.mysql.jdbc.Driver
-  initialSize: 5
-  maxActive: 10
-  minIdle: 5
+  initialSize: 2
+  maxActive: 4
+  minIdle: 2
   validationQuery: SELECT 1
 
 
