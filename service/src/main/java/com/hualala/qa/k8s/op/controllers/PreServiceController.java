@@ -62,6 +62,28 @@ public class PreServiceController extends BaseController {
 
     }
 
+    @RequestMapping("/save.ajax")
+    @ResponseBody
+    public Object save(@RequestBody JSONObject params){
+        try {
+
+            if (projectService.save(params) > 0){
+                return responseAdapter.success();
+            }else{
+                return responseAdapter.failure("保存失败");
+            }
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
     @RequestMapping("/queryAllServiceStatusList.ajax")
     @ResponseBody
     public Object queryAllServiceStatusList(){

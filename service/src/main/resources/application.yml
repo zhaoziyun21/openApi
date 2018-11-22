@@ -32,6 +32,12 @@ spring:
       username: guest
       password: guest
 
+  quartz:
+    properties:
+      org:
+        quartz:
+          scheduler:
+
   freemarker:
     cache: false
     request-context-attribute: req  #req访问request
@@ -115,6 +121,14 @@ spring:
       port: 5672
       username: admin
       password: admin
+
+
+  quartz:
+    properties:
+      org:
+        quartz:
+          scheduler:
+
 
   freemarker:
     cache: false

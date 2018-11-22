@@ -814,6 +814,76 @@ public class TblPreServiceStatusExample {
             addCriterion("k8sUpdateTime not between", value1, value2, "k8sUpdateTime");
             return (Criteria) this;
         }
+
+        public Criteria andApmAgentIsNull() {
+            addCriterion("apmAgent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentIsNotNull() {
+            addCriterion("apmAgent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentEqualTo(String value) {
+            addCriterion("apmAgent =", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentNotEqualTo(String value) {
+            addCriterion("apmAgent <>", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentGreaterThan(String value) {
+            addCriterion("apmAgent >", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentGreaterThanOrEqualTo(String value) {
+            addCriterion("apmAgent >=", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentLessThan(String value) {
+            addCriterion("apmAgent <", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentLessThanOrEqualTo(String value) {
+            addCriterion("apmAgent <=", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentLike(String value) {
+            addCriterion("apmAgent like", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentNotLike(String value) {
+            addCriterion("apmAgent not like", value, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentIn(List<String> values) {
+            addCriterion("apmAgent in", values, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentNotIn(List<String> values) {
+            addCriterion("apmAgent not in", values, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentBetween(String value1, String value2) {
+            addCriterion("apmAgent between", value1, value2, "apmAgent");
+            return (Criteria) this;
+        }
+
+        public Criteria andApmAgentNotBetween(String value1, String value2) {
+            addCriterion("apmAgent not between", value1, value2, "apmAgent");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -25,6 +25,8 @@ public class TblPreServiceStatus {
 
     private Date k8sUpdateTime;
 
+    private String apmAgent;
+
     public Integer getID() {
         return ID;
     }
@@ -111,5 +113,13 @@ public class TblPreServiceStatus {
 
     public void setK8sUpdateTime(Date k8sUpdateTime) {
         this.k8sUpdateTime = k8sUpdateTime;
+    }
+
+    public String getApmAgent() {
+        return apmAgent;
+    }
+
+    public void setApmAgent(String apmAgent) {
+        this.apmAgent = apmAgent == null ? null : apmAgent.trim();
     }
 }

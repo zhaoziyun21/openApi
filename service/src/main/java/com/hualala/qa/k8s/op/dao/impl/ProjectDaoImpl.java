@@ -44,7 +44,9 @@ public class ProjectDaoImpl implements IProjectDao {
     public List<TblPreServiceStatus> queryPreServiceStatusList(){
         DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
         TblPreServiceStatusExample example = buildExample();
-        return tblPreServiceStatusMapper.selectByExample(example);
+        List<TblPreServiceStatus> list =  tblPreServiceStatusMapper.selectByExample(example);
+        this.genAgentCode(list);
+        return list;
 
     }
 
@@ -66,21 +68,32 @@ public class ProjectDaoImpl implements IProjectDao {
     @Override
     public TblPreServiceStatus getPreServiceStatus(int id){
         DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
-        return tblPreServiceStatusMapper.selectByPrimaryKey(id);
+        TblPreServiceStatus item = tblPreServiceStatusMapper.selectByPrimaryKey(id);
+        item.setApmAgent(String.format("-javaagent:/home/agent/kepler-agent-bootstrap-0.0.1-SNAPSHOT.jar=kepler.agent.application.name=%s:kepler.agent.tier.name=%s:kepler.agent.onthefly=true", item.getBusiness(), item.getServiceName()));
+        return item;
     }
 
     @Override
     public List<TblPreServiceStatus> queryAllService() {
         DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
         TblPreServiceStatusExample example = buildExample();
-        return tblPreServiceStatusMapper.selectByExample(example);
+        List<TblPreServiceStatus> list =  tblPreServiceStatusMapper.selectByExample(example);
+        this.genAgentCode(list);
+        return list;
     }
 
     @Override
     public List<TblPreServiceStatus> queryService(TblPreServiceStatusExample example) {
         DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
-        return tblPreServiceStatusMapper.selectByExample(example);
+        List<TblPreServiceStatus> list = tblPreServiceStatusMapper.selectByExample(example);
+        this.genAgentCode(list);
+        return list;
     }
 
 
+    private void genAgentCode(List<TblPreServiceStatus> list){
+        list.forEach(item->{
+            item.setApmAgent(String.format("-javaagent:/home/agent/kepler-agent-bootstrap-0.0.1-SNAPSHOT.jar=kepler.agent.application.name=%s:kepler.agent.tier.name=%s:kepler.agent.onthefly=true", item.getBusiness(), item.getServiceName()));
+        });
+    }
 }

@@ -9,7 +9,7 @@
         <a class="layui-btn" href="javascript:ayncApmStatus()">同步APM状态</a>
         <a class="layui-btn layui-btn-primary total-records" href="javascript:void(0);">总记录数：</a>
     </div>
-    <div style="/* padding: 15px; */" id="item-list" lay-even ></div>
+    <div style="/* padding: 15px; */" id="item-list"  lay-filter='project-list'></div>
 </div>
 
 
@@ -25,15 +25,16 @@
             ,contentType : "application/json"
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[
-                {field:'serviceName', title: '服务名'},
-                {field:'jenkinsJobName', title: 'jenkinsJobName'},
-                {field:'serviceDescribe', title: '服务描述'},
-                {field:'business', title: '业务领域'},
-                {field:'needDeploy', title: '是否需要部署'},
-                {field:'k8sStatus', title: 'k8s服务状态'},
-                {field:'apmStatus', title: '探针状态'},
-                {field:'remark', title: '备注'},
-                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理'} //这里的toolbar值是模板元素的选择器
+                {field:'serviceName', title: '服务名', width:'180'},
+                {field:'jenkinsJobName', title: 'jenkinsJobName', width:'180'},
+                {field:'serviceDescribe', title: '服务描述', width:'180'},
+                {field:'business', title: '业务领域', width:'128'},
+                {field:'needDeploy', title: '需要部署', width:'88', edit:'text'},
+                {field:'k8sStatus', title: 'k8s服务状态', width:'110'},
+                {field:'apmStatus', title: '探针状态', width:'90'},
+                {field:'apmAgent', title: 'agent', width:'180'},
+                {field:'remark', title: '备注', width:'180', edit:'text'},
+                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理', width:'216'} //这里的toolbar值是模板元素的选择器
 
             ]]
             ,parseData : function (res) {
@@ -50,7 +51,27 @@
             }
         });
 
+
+        table.on('edit(project-list)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+            console.log(obj.value); //得到修改后的值
+            console.log(obj.field); //当前编辑的字段名
+            console.log(obj.data); //当前编辑的字段名
+
+            if (obj.field == 'needDeploy' && ['true', 'false'].indexOf(obj.value) == -1){
+                layer.msg('值只能是"true"或者"false"')
+                return;
+            }
+
+            ajaxPost('/project/save.ajax', obj.data,function(response) {
+                layer.msg("保存成功")
+
+            })
+        });
+
     });
+
+
+
 
     function ayncApmStatus(){
         ajaxPost('/project/syncApmStatus.ajax', {},function(response) {

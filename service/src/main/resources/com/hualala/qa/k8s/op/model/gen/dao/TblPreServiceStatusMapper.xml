@@ -13,6 +13,7 @@
     <result column="needDeploy" jdbcType="BIT" property="needDeploy" />
     <result column="apmuUpdateTime" jdbcType="TIMESTAMP" property="apmuUpdateTime" />
     <result column="k8sUpdateTime" jdbcType="TIMESTAMP" property="k8sUpdateTime" />
+    <result column="apmAgent" jdbcType="VARCHAR" property="apmAgent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     ID, serviceName, jenkinsJobName, serviceDescribe, business, apmStatus, k8sStatus, 
-    remark, needDeploy, apmuUpdateTime, k8sUpdateTime
+    remark, needDeploy, apmuUpdateTime, k8sUpdateTime, apmAgent
   </sql>
   <select id="selectByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,13 @@
     insert into tbl_pre_service_status (ID, serviceName, jenkinsJobName, 
       serviceDescribe, business, apmStatus, 
       k8sStatus, remark, needDeploy, 
-      apmuUpdateTime, k8sUpdateTime)
+      apmuUpdateTime, k8sUpdateTime, apmAgent
+      )
     values (#{ID,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, #{jenkinsJobName,jdbcType=VARCHAR}, 
       #{serviceDescribe,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{apmStatus,jdbcType=BIT}, 
       #{k8sStatus,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{needDeploy,jdbcType=BIT}, 
-      #{apmuUpdateTime,jdbcType=TIMESTAMP}, #{k8sUpdateTime,jdbcType=TIMESTAMP})
+      #{apmuUpdateTime,jdbcType=TIMESTAMP}, #{k8sUpdateTime,jdbcType=TIMESTAMP}, #{apmAgent,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
     insert into tbl_pre_service_status
@@ -152,6 +155,9 @@
       <if test="k8sUpdateTime != null">
         k8sUpdateTime,
       </if>
+      <if test="apmAgent != null">
+        apmAgent,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ID != null">
@@ -186,6 +192,9 @@
       </if>
       <if test="k8sUpdateTime != null">
         #{k8sUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apmAgent != null">
+        #{apmAgent,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,6 +240,9 @@
       <if test="record.k8sUpdateTime != null">
         k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.apmAgent != null">
+        apmAgent = #{record.apmAgent,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +260,8 @@
       remark = #{record.remark,jdbcType=VARCHAR},
       needDeploy = #{record.needDeploy,jdbcType=BIT},
       apmuUpdateTime = #{record.apmuUpdateTime,jdbcType=TIMESTAMP},
-      k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP}
+      k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP},
+      apmAgent = #{record.apmAgent,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +299,9 @@
       <if test="k8sUpdateTime != null">
         k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="apmAgent != null">
+        apmAgent = #{apmAgent,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{ID,jdbcType=INTEGER}
   </update>
@@ -300,7 +316,8 @@
       remark = #{remark,jdbcType=VARCHAR},
       needDeploy = #{needDeploy,jdbcType=BIT},
       apmuUpdateTime = #{apmuUpdateTime,jdbcType=TIMESTAMP},
-      k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP}
+      k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP},
+      apmAgent = #{apmAgent,jdbcType=VARCHAR}
     where ID = #{ID,jdbcType=INTEGER}
   </update>
 </mapper>
