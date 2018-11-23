@@ -26,7 +26,7 @@
             ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[
                 {field:'serviceName', title: '服务名', width:'180'},
-                {field:'jenkinsJobName', title: 'jenkinsJobName', width:'180'},
+                {field:'jenkinsJobName', title: 'jenkinsJobName', width:'180', edit:'text'},
                 {field:'serviceDescribe', title: '服务描述', width:'180'},
                 {field:'business', title: '业务领域', width:'128'},
                 {field:'needDeploy', title: '需要部署', width:'88', edit:'text'},

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @desc: 定时任务配置
  */
 
-@Component
 @Slf4j
 public class SchedulerApmConfig {
 
