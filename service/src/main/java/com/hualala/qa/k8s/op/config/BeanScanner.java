@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author: yefei
  * @date: 2018/10/10 18:59
  */
-//@Component
+@Component
 public class BeanScanner {
 
     private HashMap<String, List<BeanField>> beanMap;

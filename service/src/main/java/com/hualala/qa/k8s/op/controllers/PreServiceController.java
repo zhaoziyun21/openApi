@@ -46,6 +46,11 @@ public class PreServiceController extends BaseController {
     @Autowired
     private ObjectMapper jacksonFormater;
 
+    @Autowired
+    private BeanScanner beanScanner;
+
+    private final String nav = "project";
+
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
     public ModelAndView queryAllServiceStatus(@RequestParam(value = "method", defaultValue = "queryAllServiceStatusList") String method) throws IOException {
 
@@ -64,7 +69,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryAllServiceStatusList.ajax")
     @ResponseBody
-    public Object queryAllServiceStatusList(){
+    public Object queryAllServiceStatusList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryAllService();
@@ -74,11 +79,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -88,7 +93,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryNeedDeployServiceList.ajax")
     @ResponseBody
-    public Object queryNeedDeployServiceList(){
+    public Object queryNeedDeployServiceList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryNeedDeployService();
@@ -98,11 +103,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -111,7 +116,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryUnNeedDeployServiceList.ajax")
     @ResponseBody
-    public Object queryUnNeedDeployServiceList(){
+    public Object queryUnNeedDeployServiceList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryUnneedDeployService();
@@ -121,11 +126,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -135,7 +140,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryApmSuccessServiceList.ajax")
     @ResponseBody
-    public Object queryApmSuccessServiceList(){
+    public Object queryApmSuccessServiceList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryApmSuccessService();
@@ -145,11 +150,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -159,7 +164,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryOPFailServiceList.ajax")
     @ResponseBody
-    public Object queryOPFailServiceList(){
+    public Object queryOPFailServiceList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryApmFailService();
@@ -169,11 +174,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -183,7 +188,7 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryK8sSuccessServiceList.ajax")
     @ResponseBody
-    public Object queryK8sSuccessServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryK8sSuccessServiceList(HttpServletRequest request, @RequestBody JSONObject params) {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryK8sSuccessService();
@@ -193,11 +198,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -205,10 +210,9 @@ public class PreServiceController extends BaseController {
     }
 
 
-
     @RequestMapping("/queryK8sFailServiceList.ajax")
     @ResponseBody
-    public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params) {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryK8sFailService();
@@ -218,11 +222,11 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success(resp);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -230,21 +234,19 @@ public class PreServiceController extends BaseController {
     }
 
 
-
-
     @RequestMapping("/ayncK8sStatus.ajax")
     @ResponseBody
-    public Object syncK8sStatus(){
+    public Object syncK8sStatus() {
         try {
             k8sService.syncK8sStatus();
 
             return responseAdapter.success();
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -252,21 +254,20 @@ public class PreServiceController extends BaseController {
     }
 
 
-
     @RequestMapping("/getK8sStatus.ajax")
     @ResponseBody
-    public Object getK8sStatus(@RequestBody JSONObject param){
+    public Object getK8sStatus(@RequestBody JSONObject param) {
         try {
             String jenkinsJobName = param.containsKey("jenkinsJobName") ? param.getString("jenkinsJobName") : "";
             String k8sStatus = k8sService.getK8sStatus(jenkinsJobName);
 
             return responseAdapter.success(k8sStatus);
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -275,23 +276,23 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/reloadK8s.ajax")
     @ResponseBody
-    public Object reloadK8sService(@RequestBody JSONObject param){
+    public Object reloadK8sService(@RequestBody JSONObject param) {
         try {
             String jenkinsJobName = param.containsKey("jenkinsJobName") ? param.getString("jenkinsJobName") : "";
 
-            if (StringUtils.isBlank(jenkinsJobName)){
+            if (StringUtils.isBlank(jenkinsJobName)) {
                 k8sService.reloadK8s();
-            }else{
+            } else {
                 k8sService.reloadK8s(jenkinsJobName);
             }
 
             return responseAdapter.success();
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
@@ -300,47 +301,59 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/reloadAllK8s.ajax")
     @ResponseBody
-    public Object reloadAllK8sService(){
+    public Object reloadAllK8sService() {
         try {
 
             k8sService.reloadAllK8s();
 
             return responseAdapter.success();
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
     }
 
 
-
     @RequestMapping("/syncApmStatus.ajax")
     @ResponseBody
-    public Object syncApmStatus(){
+    public Object syncApmStatus() {
         try {
 
             agentService.syncApnStatus();
 
             return responseAdapter.success();
 
-        }catch (ServerBaseException e){
+        } catch (ServerBaseException e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
     }
 
+    @RequestMapping(value = "/edit.html", method = RequestMethod.GET)
+    public ModelAndView groupInfo(@RequestParam(value = "serviceName", defaultValue = "" ) String serviceName) throws IOException {
 
+        ModelAndView view = new ModelAndView("project/edit");
 
+        this.buildCategory(view, nav);
 
+        List<BeanScanner.BeanField> fields = getFields();
+        view.addObject("fields", fields);
 
+        return view;
+
+    }
+
+    private List<BeanScanner.BeanField> getFields(){
+        return beanScanner.getBeanFields("TblPreServiceStatus", "");
+    }
 
 }
