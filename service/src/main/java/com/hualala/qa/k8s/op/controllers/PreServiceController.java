@@ -312,8 +312,12 @@ public class PreServiceController extends BaseController {
     @ResponseBody
     public Object syncK8sStatus(){
         try {
-            k8sService.syncK8sStatus();
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    k8sService.syncK8sStatus();
+                }
+            }).start();
             return responseAdapter.success();
 
         }catch (ServerBaseException e){

@@ -129,10 +129,7 @@
 
     function syncK8sStatus(){
         ajaxPost('/project/syncK8sStatus.ajax', {},function(response) {
-            layer.msg("同步完成")
-            setTimeout(function () {
-                location.reload();
-            },2000)
+            layer.msg("操作成功！当前操作比较耗时，请耐心等待，不要重复操作！")
         })
 
         return false;
