@@ -418,8 +418,14 @@ public class PreServiceController extends BaseController {
     @ResponseBody
     public Object syncJenkinsStatus(){
         try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    jenkinsService.syncJenkinsStatus();
+                }
+            }).start();
 
-            jenkinsService.syncJenkinsStatus();
+
 
             return responseAdapter.success();
 
@@ -444,7 +450,13 @@ public class PreServiceController extends BaseController {
             if (params.containsKey("jenkinsJobName") && StringUtils.isNoneBlank(params.getString("jenkinsJobName"))){
                 jenkinsService.buildJenkins(params.getString("jenkinsJobName"));
             }else{
-                jenkinsService.buildJenkins();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        jenkinsService.buildJenkins();
+                    }
+                }).start();
+
             }
 
             return responseAdapter.success();

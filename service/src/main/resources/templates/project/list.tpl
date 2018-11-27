@@ -78,8 +78,9 @@
         msg = "确定要重新构建所有Jenkins?"
         layer.confirm(msg, function(index){
 
-            layer.msg("当前操作比较耗时，请耐心等待，不要重复操作！")
-            buildJenkins("")
+            ajaxPost('/project/buildJenkins.ajax', {}, function(response) {
+                layer.msg( "操作成功！当前操作比较耗时，请耐心等待，不要重复操作！")
+            })
             layer.close(index);
         })
     }
@@ -88,7 +89,7 @@
     function buildJenkins(jenkinsJobName){
         layer.msg("当前操作比较耗时，请耐心等待，不要重复操作！")
         ajaxPost('/project/buildJenkins.ajax', !!jenkinsJobName ? {jenkinsJobName:jenkinsJobName} : {}, function(response) {
-            layer.msg("操作成功！")
+            layer.msg(response.message ? response.message : "操作成功！")
         })
 
         return false;
@@ -107,10 +108,8 @@
 
     function syncJenkinsStatus(){
         ajaxPost('/project/syncJenkinsStatus.ajax', {},function(response) {
-            layer.msg("同步完成")
-            setTimeout(function () {
-                location.reload();
-            },2000)
+            layer.msg("操作成功！当前操作比较耗时，请耐心等待，不要重复操作！")
+
         })
 
         return false;

@@ -21,7 +21,7 @@ public class SchedulerJenkinsConfig {
     @Scheduled(fixedRate = 3600000, initialDelay = 600000)
     private void process(){
 
-        log.info("spring boot scheduler running: syncK8sStatus ");
+        log.info("spring boot scheduler running: syncJenkinsStatus ");
         jenkinsService.syncJenkinsStatus();
     }
 
