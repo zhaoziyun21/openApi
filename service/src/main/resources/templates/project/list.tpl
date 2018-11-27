@@ -37,7 +37,7 @@
                 {field:'apmStatus', title: '探针状态', width:'90'},
                 {field:'apmAgent', title: 'agent', width:'180'},
                 {field:'remark', title: '备注', width:'180', edit:'text'},
-                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理', width:'350'} //这里的toolbar值是模板元素的选择器
+                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理', width:'415'} //这里的toolbar值是模板元素的选择器
 
             ]]
             ,parseData : function (res) {
