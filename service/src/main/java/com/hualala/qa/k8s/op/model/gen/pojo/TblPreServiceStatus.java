@@ -13,6 +13,8 @@ public class TblPreServiceStatus {
 
     private String business;
 
+    private Boolean jenkinsStatus;
+
     private Boolean apmStatus;
 
     private Boolean k8sStatus;
@@ -22,6 +24,8 @@ public class TblPreServiceStatus {
     private Boolean needDeploy;
 
     private Date apmuUpdateTime;
+
+    private Date jenkinsUpdateTime;
 
     private Date k8sUpdateTime;
 
@@ -67,6 +71,14 @@ public class TblPreServiceStatus {
         this.business = business == null ? null : business.trim();
     }
 
+    public Boolean getJenkinsStatus() {
+        return jenkinsStatus;
+    }
+
+    public void setJenkinsStatus(Boolean jenkinsStatus) {
+        this.jenkinsStatus = jenkinsStatus;
+    }
+
     public Boolean getApmStatus() {
         return apmStatus;
     }
@@ -105,6 +117,14 @@ public class TblPreServiceStatus {
 
     public void setApmuUpdateTime(Date apmuUpdateTime) {
         this.apmuUpdateTime = apmuUpdateTime;
+    }
+
+    public Date getJenkinsUpdateTime() {
+        return jenkinsUpdateTime;
+    }
+
+    public void setJenkinsUpdateTime(Date jenkinsUpdateTime) {
+        this.jenkinsUpdateTime = jenkinsUpdateTime;
     }
 
     public Date getK8sUpdateTime() {

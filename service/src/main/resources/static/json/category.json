@@ -30,6 +30,14 @@
                     "title":"k8s失败服务",
                     "url":"/project/list.html?method=queryK8sFailServiceList"
                 }
+                ,{
+                    "title":"Jenkins成功服务",
+                    "url":"/project/list.html?method=queryJenkinsSuccessServiceList"
+                }
+                ,{
+                    "title":"Jenkins失败服务",
+                    "url":"/project/list.html?method=queryJenkinsFailServiceList"
+                }
             ]
         }
     ]

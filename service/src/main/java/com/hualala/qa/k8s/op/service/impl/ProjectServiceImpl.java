@@ -69,6 +69,20 @@ public class ProjectServiceImpl implements IProjectService {
     }
 
     @Override
+    public List<TblPreServiceStatus> queryJenkinsFailService(){
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andJenkinsStatusEqualTo(false).andNeedDeployEqualTo(true);
+        return projectDao.queryService(example);
+    }
+
+    @Override
+    public List<TblPreServiceStatus> queryJenkinsSuccessService() {
+        TblPreServiceStatusExample example = buildExample();
+        example.createCriteria().andJenkinsStatusEqualTo(true).andNeedDeployEqualTo(true);
+        return projectDao.queryService(example);
+    }
+
+    @Override
     public List<TblPreServiceStatus> queryUnneedDeployService(){
         TblPreServiceStatusExample example = buildExample();
         example.createCriteria().andNeedDeployEqualTo(false);

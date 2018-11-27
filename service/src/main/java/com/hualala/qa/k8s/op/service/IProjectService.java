@@ -23,6 +23,10 @@ public interface IProjectService {
 
     List<TblPreServiceStatus> queryK8sFailService();
 
+    List<TblPreServiceStatus> queryJenkinsFailService();
+
+    List<TblPreServiceStatus> queryJenkinsSuccessService();
+
     List<TblPreServiceStatus> queryUnneedDeployService();
 
     List<TblPreServiceStatus> queryNeedDeployService();

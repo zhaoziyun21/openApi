@@ -5,8 +5,10 @@
     <div class="layui-btn-container" style="padding: 15px 0px 0px 5px">
         <a class="layui-btn" href="/project/edit.html">新增项目</a>
         <a class="layui-btn" href="javascript:reloadAllK8s()">重启所有k8s服务</a>
-        <a class="layui-btn" href="javascript:ayncK8sStatus()">同步k8s状态</a>
-        <a class="layui-btn" href="javascript:ayncApmStatus()">同步APM状态</a>
+        <a class="layui-btn" href="javascript:syncK8sStatus()">同步k8s状态</a>
+        <a class="layui-btn" href="javascript:syncApmStatus()">同步APM状态</a>
+        <a class="layui-btn" href="javascript:syncJenkinsStatus()">同步Jenkins状态</a>
+        <a class="layui-btn" href="javascript:buildAllJenkins()">重新构建所有Jenkins</a>
         <a class="layui-btn layui-btn-primary total-records" href="javascript:void(0);">总记录数：</a>
     </div>
     <div style="/* padding: 15px; */" id="item-list"  lay-filter='project-list'></div>
@@ -30,11 +32,12 @@
                 {field:'serviceDescribe', title: '服务描述', width:'180'},
                 {field:'business', title: '业务领域', width:'128'},
                 {field:'needDeploy', title: '需要部署', width:'88', edit:'text'},
+                {field:'jenkinsStatus', title: 'jenkins状态', width:'110'},
                 {field:'k8sStatus', title: 'k8s服务状态', width:'110'},
                 {field:'apmStatus', title: '探针状态', width:'90'},
                 {field:'apmAgent', title: 'agent', width:'180'},
                 {field:'remark', title: '备注', width:'180', edit:'text'},
-                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理', width:'216'} //这里的toolbar值是模板元素的选择器
+                {fixed: 'right', align:'center', toolbar: '#barDemo', title:'管理', width:'350'} //这里的toolbar值是模板元素的选择器
 
             ]]
             ,parseData : function (res) {
@@ -71,9 +74,50 @@
     });
 
 
+    function buildAllJenkins () {
+        msg = "确定要重新构建所有Jenkins?"
+        layer.confirm(msg, function(index){
+
+            layer.msg("当前操作比较耗时，请耐心等待，不要重复操作！")
+            buildJenkins("")
+            layer.close(index);
+        })
+    }
 
 
-    function ayncApmStatus(){
+    function buildJenkins(jenkinsJobName){
+        layer.msg("当前操作比较耗时，请耐心等待，不要重复操作！")
+        ajaxPost('/project/buildJenkins.ajax', !!jenkinsJobName ? {jenkinsJobName:jenkinsJobName} : {}, function(response) {
+            layer.msg("操作成功！")
+        })
+
+        return false;
+    }
+
+
+    function getJenkinsStatus(jenkinsJobName){
+        layer.msg("当前操作比较耗时，请耐心等待，不要重复操作！")
+        ajaxPost('/project/getJenkinsStatus.ajax', {jenkinsJobName:jenkinsJobName}, function(response) {
+            layer.msg(response.message, {time: 5000, area:['500px']})
+        })
+
+        return false;
+    }
+
+
+    function syncJenkinsStatus(){
+        ajaxPost('/project/syncJenkinsStatus.ajax', {},function(response) {
+            layer.msg("同步完成")
+            setTimeout(function () {
+                location.reload();
+            },2000)
+        })
+
+        return false;
+    }
+
+
+    function syncApmStatus(){
         ajaxPost('/project/syncApmStatus.ajax', {},function(response) {
             layer.msg("同步完成")
             setTimeout(function () {
@@ -84,8 +128,8 @@
         return false;
     }
 
-    function ayncK8sStatus(){
-        ajaxPost('/project/ayncK8sStatus.ajax', {},function(response) {
+    function syncK8sStatus(){
+        ajaxPost('/project/syncK8sStatus.ajax', {},function(response) {
             layer.msg("同步完成")
             setTimeout(function () {
                 location.reload();
@@ -162,6 +206,8 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">重启k8s</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:getK8sStatus('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取k8s状态</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:buildJenkins('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">构建Jenkins</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:getJenkinsStatus('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取Jenkins日志</a>
 
         <!-- 这里同样支持 laytpl 语法，如： -->
 

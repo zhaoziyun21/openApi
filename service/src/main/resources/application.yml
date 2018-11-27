@@ -77,9 +77,11 @@ apmdatasource:
 
 
 k8s:
+  yamlDirPath: /Users/yefei/
+
+jenkins:
   jenkinsJarPath: /Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar
   jenkinsHost: http://172.16.0.63:8080
-  yamlDirPath: /Users/yefei/
 
 mybatis:
 #  mapper-locations: classpath:com.hualala.qa.mockserver.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
@@ -143,9 +145,12 @@ spring:
 
 
 k8s:
+  yamlDirPath: /home/pre/
+
+jenkins:
   jenkinsJarPath: /opt/jenkins-cli.build2.jar
   jenkinsHost: http://172.16.0.63:8080
-  yamlDirPath: /home/pre/
+
 
 k8sdatasource:
   url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8

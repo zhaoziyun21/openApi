@@ -7,11 +7,13 @@
     <result column="jenkinsJobName" jdbcType="VARCHAR" property="jenkinsJobName" />
     <result column="serviceDescribe" jdbcType="VARCHAR" property="serviceDescribe" />
     <result column="business" jdbcType="VARCHAR" property="business" />
+    <result column="jenkinsStatus" jdbcType="BIT" property="jenkinsStatus" />
     <result column="apmStatus" jdbcType="BIT" property="apmStatus" />
     <result column="k8sStatus" jdbcType="BIT" property="k8sStatus" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="needDeploy" jdbcType="BIT" property="needDeploy" />
     <result column="apmuUpdateTime" jdbcType="TIMESTAMP" property="apmuUpdateTime" />
+    <result column="jenkinsUpdateTime" jdbcType="TIMESTAMP" property="jenkinsUpdateTime" />
     <result column="k8sUpdateTime" jdbcType="TIMESTAMP" property="k8sUpdateTime" />
     <result column="apmAgent" jdbcType="VARCHAR" property="apmAgent" />
   </resultMap>
@@ -74,8 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, serviceName, jenkinsJobName, serviceDescribe, business, apmStatus, k8sStatus, 
-    remark, needDeploy, apmuUpdateTime, k8sUpdateTime, apmAgent
+    ID, serviceName, jenkinsJobName, serviceDescribe, business, jenkinsStatus, apmStatus, 
+    k8sStatus, remark, needDeploy, apmuUpdateTime, jenkinsUpdateTime, k8sUpdateTime, 
+    apmAgent
   </sql>
   <select id="selectByExample" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatusExample" resultMap="BaseResultMap">
     select
@@ -109,15 +112,15 @@
   </delete>
   <insert id="insert" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
     insert into tbl_pre_service_status (ID, serviceName, jenkinsJobName, 
-      serviceDescribe, business, apmStatus, 
-      k8sStatus, remark, needDeploy, 
-      apmuUpdateTime, k8sUpdateTime, apmAgent
-      )
+      serviceDescribe, business, jenkinsStatus, 
+      apmStatus, k8sStatus, remark, 
+      needDeploy, apmuUpdateTime, jenkinsUpdateTime, 
+      k8sUpdateTime, apmAgent)
     values (#{ID,jdbcType=INTEGER}, #{serviceName,jdbcType=VARCHAR}, #{jenkinsJobName,jdbcType=VARCHAR}, 
-      #{serviceDescribe,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{apmStatus,jdbcType=BIT}, 
-      #{k8sStatus,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{needDeploy,jdbcType=BIT}, 
-      #{apmuUpdateTime,jdbcType=TIMESTAMP}, #{k8sUpdateTime,jdbcType=TIMESTAMP}, #{apmAgent,jdbcType=VARCHAR}
-      )
+      #{serviceDescribe,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{jenkinsStatus,jdbcType=BIT}, 
+      #{apmStatus,jdbcType=BIT}, #{k8sStatus,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
+      #{needDeploy,jdbcType=BIT}, #{apmuUpdateTime,jdbcType=TIMESTAMP}, #{jenkinsUpdateTime,jdbcType=TIMESTAMP}, 
+      #{k8sUpdateTime,jdbcType=TIMESTAMP}, #{apmAgent,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus">
     insert into tbl_pre_service_status
@@ -137,6 +140,9 @@
       <if test="business != null">
         business,
       </if>
+      <if test="jenkinsStatus != null">
+        jenkinsStatus,
+      </if>
       <if test="apmStatus != null">
         apmStatus,
       </if>
@@ -151,6 +157,9 @@
       </if>
       <if test="apmuUpdateTime != null">
         apmuUpdateTime,
+      </if>
+      <if test="jenkinsUpdateTime != null">
+        jenkinsUpdateTime,
       </if>
       <if test="k8sUpdateTime != null">
         k8sUpdateTime,
@@ -175,6 +184,9 @@
       <if test="business != null">
         #{business,jdbcType=VARCHAR},
       </if>
+      <if test="jenkinsStatus != null">
+        #{jenkinsStatus,jdbcType=BIT},
+      </if>
       <if test="apmStatus != null">
         #{apmStatus,jdbcType=BIT},
       </if>
@@ -189,6 +201,9 @@
       </if>
       <if test="apmuUpdateTime != null">
         #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jenkinsUpdateTime != null">
+        #{jenkinsUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="k8sUpdateTime != null">
         #{k8sUpdateTime,jdbcType=TIMESTAMP},
@@ -222,6 +237,9 @@
       <if test="record.business != null">
         business = #{record.business,jdbcType=VARCHAR},
       </if>
+      <if test="record.jenkinsStatus != null">
+        jenkinsStatus = #{record.jenkinsStatus,jdbcType=BIT},
+      </if>
       <if test="record.apmStatus != null">
         apmStatus = #{record.apmStatus,jdbcType=BIT},
       </if>
@@ -236,6 +254,9 @@
       </if>
       <if test="record.apmuUpdateTime != null">
         apmuUpdateTime = #{record.apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jenkinsUpdateTime != null">
+        jenkinsUpdateTime = #{record.jenkinsUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.k8sUpdateTime != null">
         k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP},
@@ -255,11 +276,13 @@
       jenkinsJobName = #{record.jenkinsJobName,jdbcType=VARCHAR},
       serviceDescribe = #{record.serviceDescribe,jdbcType=VARCHAR},
       business = #{record.business,jdbcType=VARCHAR},
+      jenkinsStatus = #{record.jenkinsStatus,jdbcType=BIT},
       apmStatus = #{record.apmStatus,jdbcType=BIT},
       k8sStatus = #{record.k8sStatus,jdbcType=BIT},
       remark = #{record.remark,jdbcType=VARCHAR},
       needDeploy = #{record.needDeploy,jdbcType=BIT},
       apmuUpdateTime = #{record.apmuUpdateTime,jdbcType=TIMESTAMP},
+      jenkinsUpdateTime = #{record.jenkinsUpdateTime,jdbcType=TIMESTAMP},
       k8sUpdateTime = #{record.k8sUpdateTime,jdbcType=TIMESTAMP},
       apmAgent = #{record.apmAgent,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -281,6 +304,9 @@
       <if test="business != null">
         business = #{business,jdbcType=VARCHAR},
       </if>
+      <if test="jenkinsStatus != null">
+        jenkinsStatus = #{jenkinsStatus,jdbcType=BIT},
+      </if>
       <if test="apmStatus != null">
         apmStatus = #{apmStatus,jdbcType=BIT},
       </if>
@@ -295,6 +321,9 @@
       </if>
       <if test="apmuUpdateTime != null">
         apmuUpdateTime = #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jenkinsUpdateTime != null">
+        jenkinsUpdateTime = #{jenkinsUpdateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="k8sUpdateTime != null">
         k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP},
@@ -311,11 +340,13 @@
       jenkinsJobName = #{jenkinsJobName,jdbcType=VARCHAR},
       serviceDescribe = #{serviceDescribe,jdbcType=VARCHAR},
       business = #{business,jdbcType=VARCHAR},
+      jenkinsStatus = #{jenkinsStatus,jdbcType=BIT},
       apmStatus = #{apmStatus,jdbcType=BIT},
       k8sStatus = #{k8sStatus,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},
       needDeploy = #{needDeploy,jdbcType=BIT},
       apmuUpdateTime = #{apmuUpdateTime,jdbcType=TIMESTAMP},
+      jenkinsUpdateTime = #{jenkinsUpdateTime,jdbcType=TIMESTAMP},
       k8sUpdateTime = #{k8sUpdateTime,jdbcType=TIMESTAMP},
       apmAgent = #{apmAgent,jdbcType=VARCHAR}
     where ID = #{ID,jdbcType=INTEGER}

@@ -445,6 +445,66 @@ public class TblPreServiceStatusExample {
             return (Criteria) this;
         }
 
+        public Criteria andJenkinsStatusIsNull() {
+            addCriterion("jenkinsStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusIsNotNull() {
+            addCriterion("jenkinsStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusEqualTo(Boolean value) {
+            addCriterion("jenkinsStatus =", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusNotEqualTo(Boolean value) {
+            addCriterion("jenkinsStatus <>", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusGreaterThan(Boolean value) {
+            addCriterion("jenkinsStatus >", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("jenkinsStatus >=", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusLessThan(Boolean value) {
+            addCriterion("jenkinsStatus <", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("jenkinsStatus <=", value, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusIn(List<Boolean> values) {
+            addCriterion("jenkinsStatus in", values, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusNotIn(List<Boolean> values) {
+            addCriterion("jenkinsStatus not in", values, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("jenkinsStatus between", value1, value2, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("jenkinsStatus not between", value1, value2, "jenkinsStatus");
+            return (Criteria) this;
+        }
+
         public Criteria andApmStatusIsNull() {
             addCriterion("apmStatus is null");
             return (Criteria) this;
@@ -752,6 +812,66 @@ public class TblPreServiceStatusExample {
 
         public Criteria andApmuUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("apmuUpdateTime not between", value1, value2, "apmuUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeIsNull() {
+            addCriterion("jenkinsUpdateTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeIsNotNull() {
+            addCriterion("jenkinsUpdateTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeEqualTo(Date value) {
+            addCriterion("jenkinsUpdateTime =", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeNotEqualTo(Date value) {
+            addCriterion("jenkinsUpdateTime <>", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeGreaterThan(Date value) {
+            addCriterion("jenkinsUpdateTime >", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("jenkinsUpdateTime >=", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeLessThan(Date value) {
+            addCriterion("jenkinsUpdateTime <", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("jenkinsUpdateTime <=", value, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeIn(List<Date> values) {
+            addCriterion("jenkinsUpdateTime in", values, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeNotIn(List<Date> values) {
+            addCriterion("jenkinsUpdateTime not in", values, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("jenkinsUpdateTime between", value1, value2, "jenkinsUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andJenkinsUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("jenkinsUpdateTime not between", value1, value2, "jenkinsUpdateTime");
             return (Criteria) this;
         }
 

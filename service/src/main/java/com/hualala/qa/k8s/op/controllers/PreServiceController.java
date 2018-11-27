@@ -7,6 +7,7 @@ import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
 import com.hualala.qa.k8s.op.service.IAgentService;
+import com.hualala.qa.k8s.op.service.IJenkinsService;
 import com.hualala.qa.k8s.op.service.IK8sService;
 import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,9 @@ public class PreServiceController extends BaseController {
 
     @Autowired
     private ObjectMapper jacksonFormater;
+
+    @Autowired
+    private IJenkinsService jenkinsService;
 
     @RequestMapping(value = "/list.html", method = RequestMethod.GET)
     public ModelAndView queryAllServiceStatus(@RequestParam(value = "method", defaultValue = "queryAllServiceStatusList") String method) throws IOException {
@@ -230,10 +234,60 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryK8sFailServiceList.ajax")
     @ResponseBody
-    public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+    public Object queryK8sFailServiceList(){
         try {
 
             List<TblPreServiceStatus> list = projectService.queryK8sFailService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+    @RequestMapping("/queryJenkinsSuccessServiceList.ajax")
+    @ResponseBody
+    public Object queryJenkinsSuccessServiceList(){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryJenkinsSuccessService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+    @RequestMapping("/queryJenkinsFailServiceList.ajax")
+    @ResponseBody
+    public Object queryJenkinsFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryJenkinsFailService();
             HashMap resp = new HashMap();
             resp.put("list", list);
             resp.put("total", list.size());
@@ -339,8 +393,6 @@ public class PreServiceController extends BaseController {
         }
     }
 
-
-
     @RequestMapping("/syncApmStatus.ajax")
     @ResponseBody
     public Object syncApmStatus(){
@@ -349,6 +401,76 @@ public class PreServiceController extends BaseController {
             agentService.syncApnStatus();
 
             return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/syncJenkinsStatus.ajax")
+    @ResponseBody
+    public Object syncJenkinsStatus(){
+        try {
+
+            jenkinsService.syncJenkinsStatus();
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/buildJenkins.ajax")
+    @ResponseBody
+    public Object buildJenkins(@RequestBody JSONObject params){
+        try {
+
+
+            if (params.containsKey("jenkinsJobName") && StringUtils.isNoneBlank(params.getString("jenkinsJobName"))){
+                jenkinsService.buildJenkins(params.getString("jenkinsJobName"));
+            }else{
+                jenkinsService.buildJenkins();
+            }
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/getJenkinsStatus.ajax")
+    @ResponseBody
+    public Object getJenkinsStatus(@RequestBody JSONObject params){
+        try {
+
+            String jenkinsJobName = params.getString("jenkinsJobName");
+            String jenkinsStatus = jenkinsService.getJenkinsStatus(jenkinsJobName);
+            jenkinsStatus = jenkinsStatus.replaceAll("\\n", "<br>");
+
+            return responseAdapter.success(jenkinsStatus);
 
         }catch (ServerBaseException e){
             log.error(ExceptionUtils.getStackTrace(e));
