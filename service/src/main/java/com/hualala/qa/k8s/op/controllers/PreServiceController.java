@@ -308,10 +308,11 @@ public class PreServiceController extends BaseController {
 
 
 
-    @RequestMapping("/ayncK8sStatus.ajax")
+    @RequestMapping("/syncK8sStatus.ajax")
     @ResponseBody
     public Object syncK8sStatus(){
         try {
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
