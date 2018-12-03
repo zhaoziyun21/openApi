@@ -42,11 +42,7 @@ public class ProjectDaoImpl implements IProjectDao {
 
     @Override
     public List<TblPreServiceStatus> queryPreServiceStatusList(){
-        DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
-        TblPreServiceStatusExample example = buildExample();
-        List<TblPreServiceStatus> list =  tblPreServiceStatusMapper.selectByExample(example);
-        this.genAgentCode(list);
-        return list;
+        return queryAllService();
 
     }
 
