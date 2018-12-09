@@ -67,7 +67,7 @@ public class ResponseAdapter {
         return responseJSON(ResponseCodeEnum.FAIL.getCode(), ResponseCodeEnum.FAIL.getReason());
 	}
 
-	public JSONObject failure( ServerBaseException ex) {
+	public JSONObject failure(ServerBaseException ex) {
 
         return responseJSON(ex.getCode(), ex.getMessage());
 	}

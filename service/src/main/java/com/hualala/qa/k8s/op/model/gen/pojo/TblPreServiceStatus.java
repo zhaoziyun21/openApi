@@ -13,6 +13,8 @@ public class TblPreServiceStatus {
 
     private String business;
 
+    private Boolean jenkinsStatus;
+
     private Boolean apmStatus;
 
     private Boolean k8sStatus;
@@ -23,7 +25,11 @@ public class TblPreServiceStatus {
 
     private Date apmuUpdateTime;
 
+    private Date jenkinsUpdateTime;
+
     private Date k8sUpdateTime;
+
+    private String apmAgent;
 
     public Integer getID() {
         return ID;
@@ -63,6 +69,14 @@ public class TblPreServiceStatus {
 
     public void setBusiness(String business) {
         this.business = business == null ? null : business.trim();
+    }
+
+    public Boolean getJenkinsStatus() {
+        return jenkinsStatus;
+    }
+
+    public void setJenkinsStatus(Boolean jenkinsStatus) {
+        this.jenkinsStatus = jenkinsStatus;
     }
 
     public Boolean getApmStatus() {
@@ -105,11 +119,27 @@ public class TblPreServiceStatus {
         this.apmuUpdateTime = apmuUpdateTime;
     }
 
+    public Date getJenkinsUpdateTime() {
+        return jenkinsUpdateTime;
+    }
+
+    public void setJenkinsUpdateTime(Date jenkinsUpdateTime) {
+        this.jenkinsUpdateTime = jenkinsUpdateTime;
+    }
+
     public Date getK8sUpdateTime() {
         return k8sUpdateTime;
     }
 
     public void setK8sUpdateTime(Date k8sUpdateTime) {
         this.k8sUpdateTime = k8sUpdateTime;
+    }
+
+    public String getApmAgent() {
+        return apmAgent;
+    }
+
+    public void setApmAgent(String apmAgent) {
+        this.apmAgent = apmAgent == null ? null : apmAgent.trim();
     }
 }

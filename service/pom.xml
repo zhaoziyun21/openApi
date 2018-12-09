@@ -73,6 +73,14 @@
 			<optional>true</optional>
 		</dependency>
 
+
+		<!-- 调度器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -172,7 +180,7 @@
 			</plugin>
 
 
-			<!--  Mybatis Generator  -->
+			<!--&lt;!&ndash;  Mybatis Generator  &ndash;&gt;-->
 			<!--<plugin>-->
 				<!--<groupId>org.mybatis.generator</groupId>-->
 				<!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
@@ -205,7 +213,7 @@
 					<!--<overwrite>true</overwrite>-->
 					<!--&lt;!&ndash; 自动生成的配置 &ndash;&gt;-->
 					<!--<configurationFile>-->
-						<!--src/main/resources/mybatis-generator-config-apm.xml</configurationFile>-->
+						<!--src/main/resources/mybatis-generator-config.xml</configurationFile>-->
 				<!--</configuration>-->
 			<!--</plugin>-->
 

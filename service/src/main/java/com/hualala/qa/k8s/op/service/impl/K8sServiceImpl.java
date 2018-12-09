@@ -30,11 +30,11 @@ public class K8sServiceImpl implements IK8sService{
 
     @Override
     public void syncK8sStatus(){
-        List<TblPreServiceStatus> list = queryNeedDeployService();
+        List<TblPreServiceStatus> list = projectService.queryAllService();
         for (TblPreServiceStatus item : list){
             boolean isRunning = k8sCmd.getK8sIsRunning(item.getJenkinsJobName());
             item.setK8sStatus(isRunning);
-            item.setApmuUpdateTime(new Date());
+            item.setK8sUpdateTime(new Date());
             projectDao.updatePreServiceStatus(item);
         }
     }
@@ -46,6 +46,7 @@ public class K8sServiceImpl implements IK8sService{
         TblPreServiceStatus service = projectService.getService(jenkinsJobName);
         if (service != null){
             service.setK8sStatus(k8sStatus.isRunning());
+            service.setK8sUpdateTime(new Date());
             projectDao.updatePreServiceStatus(service);
         }
         return k8sStatus.getStatus();

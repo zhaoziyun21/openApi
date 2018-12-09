@@ -7,6 +7,7 @@ import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
 import com.hualala.qa.k8s.op.service.IAgentService;
+import com.hualala.qa.k8s.op.service.IJenkinsService;
 import com.hualala.qa.k8s.op.service.IK8sService;
 import com.hualala.qa.k8s.op.service.IProjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,9 @@ public class PreServiceController extends BaseController {
     private ObjectMapper jacksonFormater;
 
     @Autowired
+    private IJenkinsService jenkinsService;
+
+    @Autowired
     private BeanScanner beanScanner;
 
     private final String nav = "project";
@@ -64,6 +68,28 @@ public class PreServiceController extends BaseController {
         this.buildCategory(view, "system");
 
         return view;
+
+    }
+
+    @RequestMapping("/save.ajax")
+    @ResponseBody
+    public Object save(@RequestBody JSONObject params){
+        try {
+
+            if (projectService.save(params) > 0){
+                return responseAdapter.success();
+            }else{
+                return responseAdapter.failure("保存失败");
+            }
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
 
     }
 
@@ -212,7 +238,8 @@ public class PreServiceController extends BaseController {
 
     @RequestMapping("/queryK8sFailServiceList.ajax")
     @ResponseBody
-    public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params) {
+    public Object queryK8sFailServiceList(){
+//        public Object queryK8sFailServiceList(HttpServletRequest request, @RequestBody JSONObject params) {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryK8sFailService();
@@ -234,12 +261,69 @@ public class PreServiceController extends BaseController {
     }
 
 
-    @RequestMapping("/ayncK8sStatus.ajax")
+
+    @RequestMapping("/queryJenkinsSuccessServiceList.ajax")
+    @ResponseBody
+    public Object queryJenkinsSuccessServiceList(){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryJenkinsSuccessService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+    @RequestMapping("/queryJenkinsFailServiceList.ajax")
+    @ResponseBody
+    public Object queryJenkinsFailServiceList(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+
+            List<TblPreServiceStatus> list = projectService.queryJenkinsFailService();
+            HashMap resp = new HashMap();
+            resp.put("list", list);
+            resp.put("total", list.size());
+
+            return responseAdapter.success(resp);
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+
+
+
+
+    @RequestMapping("/syncK8sStatus.ajax")
     @ResponseBody
     public Object syncK8sStatus() {
         try {
-            k8sService.syncK8sStatus();
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    k8sService.syncK8sStatus();
+                }
+            }).start();
             return responseAdapter.success();
 
         } catch (ServerBaseException e) {
@@ -318,7 +402,6 @@ public class PreServiceController extends BaseController {
         }
     }
 
-
     @RequestMapping("/syncApmStatus.ajax")
     @ResponseBody
     public Object syncApmStatus() {
@@ -328,7 +411,89 @@ public class PreServiceController extends BaseController {
 
             return responseAdapter.success();
 
-        } catch (ServerBaseException e) {
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/syncJenkinsStatus.ajax")
+    @ResponseBody
+    public Object syncJenkinsStatus(){
+        try {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    jenkinsService.syncJenkinsStatus();
+                }
+            }).start();
+
+
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/buildJenkins.ajax")
+    @ResponseBody
+    public Object buildJenkins(@RequestBody JSONObject params){
+        try {
+
+
+            if (params.containsKey("jenkinsJobName") && StringUtils.isNoneBlank(params.getString("jenkinsJobName"))){
+                jenkinsService.buildJenkins(params.getString("jenkinsJobName"));
+            }else{
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        jenkinsService.buildJenkins();
+                    }
+                }).start();
+
+            }
+
+            return responseAdapter.success();
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
+
+    @RequestMapping("/getJenkinsStatus.ajax")
+    @ResponseBody
+    public Object getJenkinsStatus(@RequestBody JSONObject params){
+        try {
+
+            String jenkinsJobName = params.getString("jenkinsJobName");
+            String jenkinsStatus = jenkinsService.getJenkinsStatus(jenkinsJobName);
+            jenkinsStatus = jenkinsStatus.replaceAll("\\n", "<br>");
+
+            return responseAdapter.success(jenkinsStatus);
+
+        }catch (ServerBaseException e){
             log.error(ExceptionUtils.getStackTrace(e));
             return responseAdapter.failure(e);
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -24,13 +25,13 @@ import java.util.regex.Pattern;
 @Data
 public class K8sCmd {
 
-    private String jenkinsJarPath;
-    private String jenkinsHost;
-
-//    final private String yamlDirPath = "/home/pre/";
     private String yamlDirPath;
 
     private long lastJenkinsActionTime = 0;
+
+
+    @Autowired
+    private JenkinsCmd jenkinsCmd;
 
     public boolean getK8sIsRunning(String jenkinsJobName){
         String result;
@@ -96,7 +97,7 @@ public class K8sCmd {
 
     public boolean k8sReload(String jenkinsJobName){
         jenkinsJobName = jenkinsJonRename(jenkinsJobName);
-        String version = getJenkinsVersion(jenkinsJobName);
+        String version = jenkinsCmd.getJenkinsVersion(jenkinsJobName);
         if(writeYaml(jenkinsJobName, version)){
             System.out.println(111);
             try {
@@ -174,53 +175,6 @@ public class K8sCmd {
         return true;
     }
 
-    private void jenkinsLogin() throws IOException, InterruptedException {
-        String cmd = String.format("java -jar %s -s %s login", jenkinsJarPath, jenkinsHost);
-        log.info("jenkins login: {}", cmd);
-
-        exec(cmd);
-        lastJenkinsActionTime = System.currentTimeMillis();
-
-    }
-
-    private String getJenkinsVersion(String jenkinsJobName){
-        String version = "";
-        try {
-            if (System.currentTimeMillis() - lastJenkinsActionTime > 10000){
-                jenkinsLogin();
-            }
-
-            jenkinsJobName = jenkinsJonRename(jenkinsJobName);
-
-            String cmd = String.format("java -jar %s  -s %s console %s -f -n 20", jenkinsJarPath, jenkinsHost, jenkinsJobName);
-
-            log.info("begin get jenkins version: {}", cmd);
-
-            String result = exec(cmd);
-
-            lastJenkinsActionTime = System.currentTimeMillis();
-
-
-            if (result.endsWith("Finished: SUCCESS")){
-                // 创建 Pattern 对象
-                Pattern r = Pattern.compile("(\\w{6}): digest: sha");
-
-                // 现在创建 matcher 对象
-                Matcher m = r.matcher(result);
-                if (m.find( )) {
-
-                    version = m.group(1);
-                }
-            }
-
-        }catch (Exception e){
-            log.error(ExceptionUtils.getStackTrace(e));
-        }
-
-        log.info("end get jenkins version: {}", version);
-
-        return version;
-    }
 
 
     private String exec(String cmd) throws IOException, InterruptedException {
