@@ -32,4 +32,6 @@ public interface IProjectService {
     List<TblPreServiceStatus> queryNeedDeployService();
 
     TblPreServiceStatus getService(String jenkinsJobName);
+
+    boolean deleteProjectServer(int groupID);
 }

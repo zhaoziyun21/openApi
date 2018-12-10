@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hualala.qa.k8s.op.config.BeanScanner;
 import com.hualala.qa.k8s.op.config.ResponseAdapter;
 import com.hualala.qa.k8s.op.exception.ServerBaseException;
+import com.hualala.qa.k8s.op.exception.UnknownDataException;
 import com.hualala.qa.k8s.op.model.gen.pojo.TblPreServiceStatus;
 import com.hualala.qa.k8s.op.service.IAgentService;
 import com.hualala.qa.k8s.op.service.IJenkinsService;
@@ -519,6 +520,30 @@ public class PreServiceController extends BaseController {
 
     private List<BeanScanner.BeanField> getFields(){
         return beanScanner.getBeanFields("TblPreServiceStatus", "ID","k8sUpdateTime","apmuUpdateTime","jenkinsUpdateTime");
+    }
+
+    @RequestMapping("/delete.ajax")
+    @ResponseBody
+    public Object delete(HttpServletRequest request, @RequestBody JSONObject params){
+        try {
+            int ID = params.getInteger("ID");
+
+            if (projectService.deleteProjectServer(ID)){
+                return responseAdapter.success();
+            }else{
+                throw new UnknownDataException();
+            }
+
+
+        }catch (ServerBaseException e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(e);
+
+        }catch (Exception e){
+            log.error(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+        }
+
     }
 
 }

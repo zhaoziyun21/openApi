@@ -136,5 +136,9 @@ public class ProjectServiceImpl implements IProjectService {
         }
     }
 
+    @Override
+    public boolean deleteProjectServer(int ID){
+        return projectDao.deletePreServiceStatus(ID) > 0 ? true : false;
+    }
 
 }

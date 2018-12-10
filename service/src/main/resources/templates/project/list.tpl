@@ -135,10 +135,10 @@
         return false;
     }
 
-    function deleteItem(ID, name){
+    function deleteItem(id, name){
         msg = "确定要删除<span style='color:red'>" + name + "</span>?"
         layer.confirm(msg, function(index){
-            ajaxPost('/project/delete.ajax', {ID:ID},function(response) {
+            ajaxPost('/project/delete.ajax', {ID:id},function(response) {
                 location.reload();
             })
             layer.close(index);
@@ -199,7 +199,7 @@
 
     <script type="text/html" id="barDemo">
 
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.ID}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" href="javascript:deleteItem({{d.id}}, '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">删除</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:reloadK8s('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">重启k8s</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:getK8sStatus('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">获取k8s状态</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit"  href="javascript:buildJenkins('{{d.jenkinsJobName}}', '{{ d.serviceDescribe.replace(/["\']/g, "")}}');">构建Jenkins</a>
