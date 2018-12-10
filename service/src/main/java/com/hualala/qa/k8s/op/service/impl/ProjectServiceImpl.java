@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,10 @@ public class ProjectServiceImpl implements IProjectService {
     public int save(JSONObject params) throws IOException {
 
         TblPreServiceStatus preServiceStatus = jacksonFormatter.readValue(params.toJSONString(), TblPreServiceStatus.class);
+
+        preServiceStatus.setK8sUpdateTime(new Date());
+        preServiceStatus.setJenkinsUpdateTime(new Date());
+        preServiceStatus.setApmuUpdateTime(new Date());
 
         if ( preServiceStatus.getID() > 0){
 

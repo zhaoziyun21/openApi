@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.hualala.qa"})
+@ComponentScan(basePackages = {"com.hualala.qa.k8s.op"})
 public class ServiceApplication {
 
 	public static void main(String[] args) {

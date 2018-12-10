@@ -84,7 +84,7 @@ public class BeanScanner {
 
         scanner.addIncludeFilter(new ClassNameFilter());
 
-        for (BeanDefinition bd : scanner.findCandidateComponents("com.hualala.qa.mockserver.model*")) {
+        for (BeanDefinition bd : scanner.findCandidateComponents("com.hualala.qa.k8s.op.model.gen.pojo")) {
 
             Class aClass = Class.forName(bd.getBeanClassName());
             String simpleName = aClass.getSimpleName();

@@ -504,7 +504,7 @@ public class PreServiceController extends BaseController {
     }
 
     @RequestMapping(value = "/edit.html", method = RequestMethod.GET)
-    public ModelAndView groupInfo(@RequestParam(value = "serviceName", defaultValue = "" ) String serviceName) throws IOException {
+    public ModelAndView groupInfo(@RequestParam(value = "ID", defaultValue = "0" ) int ID) throws IOException {
 
         ModelAndView view = new ModelAndView("project/edit");
 
@@ -518,7 +518,7 @@ public class PreServiceController extends BaseController {
     }
 
     private List<BeanScanner.BeanField> getFields(){
-        return beanScanner.getBeanFields("TblPreServiceStatus", "");
+        return beanScanner.getBeanFields("TblPreServiceStatus", "ID","k8sUpdateTime","apmuUpdateTime","jenkinsUpdateTime");
     }
 
 }
