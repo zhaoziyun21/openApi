@@ -65,7 +65,7 @@ public class PreServiceController extends BaseController {
         view.addObject("method", method);
         view.addObject("taskTypeAndConfigList", jacksonFormater.writeValueAsString(taskTypeAndConfigList));
 
-        this.buildCategory(view, "system");
+        this.buildCategory(view, "project");
 
         return view;
 
