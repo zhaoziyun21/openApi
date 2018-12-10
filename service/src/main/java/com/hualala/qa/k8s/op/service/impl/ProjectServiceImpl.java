@@ -37,12 +37,14 @@ public class ProjectServiceImpl implements IProjectService {
         preServiceStatus.setJenkinsUpdateTime(new Date());
         preServiceStatus.setApmuUpdateTime(new Date());
 
-        if ( preServiceStatus.getID() > 0){
+        if ( preServiceStatus.getID() != null && preServiceStatus.getID() > 0){
 
             return projectDao.updatePreServiceStatus(preServiceStatus);
 
         }else{
+
             return projectDao.insertPreServiceStatus(preServiceStatus);
+
         }
 
     }
