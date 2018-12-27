@@ -73,6 +73,7 @@ public class ProjectDaoImpl implements IProjectDao {
     public List<TblPreServiceStatus> queryAllService() {
         DatabaseContextHolder.setDatabaseType(DatabaseType.db_pre_k8s_op);
         TblPreServiceStatusExample example = buildExample();
+        example.setOrderByClause("business asc, needDeploy desc");
         List<TblPreServiceStatus> list =  tblPreServiceStatusMapper.selectByExample(example);
         this.genAgentCode(list);
         return list;
