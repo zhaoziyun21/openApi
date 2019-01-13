@@ -32,6 +32,10 @@ spring:
       username: guest
       password: guest
 
+  redis:
+    host: 172.16.0.27
+    port: 19000
+
   quartz:
     properties:
       org:
@@ -104,6 +108,21 @@ logging:
   config: classpath:logback-local.xml
 
 
+redisStock:
+  host: 172.16.0.27
+  #host: 172.16.32.96
+  #host: codis.test.hualala.com
+  port: 19000
+  db: 0
+  pool:
+    maxActive: 100
+    maxWait: 10000
+    writeTimeout: 1000
+    readTimeout: 1000
+    maxIdle: 5
+    minIdle: 5
+
+
 
 ---
 spring:
@@ -123,6 +142,10 @@ spring:
       port: 5672
       username: admin
       password: admin
+
+  redis:
+    host: 172.16.0.27
+    port: 19000
 
 
   quartz:
@@ -192,5 +215,18 @@ http:
 logging:
   config: classpath:logback-pre.xml
 
+redisStock:
+  host: 172.16.0.27
+  #host: 172.16.32.96
+  #host: codis.test.hualala.com
+  port: 19000
+  db: 0
+  pool:
+    maxActive: 100
+    maxWait: 10000
+    writeTimeout: 1000
+    readTimeout: 1000
+    maxIdle: 5
+    minIdle: 5
 
 
