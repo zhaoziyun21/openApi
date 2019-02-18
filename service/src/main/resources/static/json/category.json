@@ -20,7 +20,7 @@
                 }
                 ,{
                     "title":"探针失败服务",
-                    "url":"/project/list.html?method=queryOPFailServiceList"
+                    "url":"/project/list.html?method=queryApmFailServiceList"
                 }
                 ,{
                     "title":"活跃k8s服务",

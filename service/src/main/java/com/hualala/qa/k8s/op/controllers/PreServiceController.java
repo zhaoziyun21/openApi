@@ -189,9 +189,9 @@ public class PreServiceController extends BaseController {
     }
 
 
-    @RequestMapping("/queryOPFailServiceList.ajax")
+    @RequestMapping("/queryApmFailServiceList.ajax")
     @ResponseBody
-    public Object queryOPFailServiceList() {
+    public Object queryApmFailServiceList() {
         try {
 
             List<TblPreServiceStatus> list = projectService.queryApmFailService();
