@@ -57,7 +57,7 @@ public class ProjectServiceImpl implements IProjectService {
     @Override
     public List<TblPreServiceStatus> queryApmFailService(){
         TblPreServiceStatusExample example = buildExample();
-        example.createCriteria().andApmStatusEqualTo(false).andNeedDeployEqualTo(true);
+        example.createCriteria().andApmStatusEqualTo(false).andK8sStatusEqualTo(true).andNeedDeployEqualTo(true);
         return projectDao.queryService(example);
     }
 
