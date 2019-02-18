@@ -70,9 +70,9 @@ k8sdatasource:
 
 
 apmdatasource:
-  url: jdbc:mysql://172.16.33.2:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: apm
-  password: Apm@123456
+  url: jdbc:mysql://172.16.33.11:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: root
+  password: admin
   driverClassName: com.mysql.jdbc.Driver
   initialSize: 2
   maxActive: 4
@@ -188,9 +188,9 @@ k8sdatasource:
 
 
 apmdatasource:
-  url: jdbc:mysql://172.16.33.2:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: apm
-  password: Apm@123456
+  url: jdbc:mysql://172.16.33.11:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: root
+  password: admin
   driverClassName: com.mysql.jdbc.Driver
   initialSize: 2
   maxActive: 4

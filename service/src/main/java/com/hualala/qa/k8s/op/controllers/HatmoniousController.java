@@ -104,6 +104,15 @@ public class HatmoniousController {
         return true;
     }
 
+    @RequestMapping("/queryShopID.ajax")
+    @ResponseBody
+    public Object queryShopIDs() throws IOException{
+        //得到restricBlackList所有的值
+        Set set = redisStockClient.smembers(restricBlackList);
+
+        return responseAdapter.success(set);
+    }
+
 }
 
 
