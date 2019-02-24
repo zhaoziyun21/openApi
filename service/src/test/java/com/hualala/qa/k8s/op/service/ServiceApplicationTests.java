@@ -11,6 +11,7 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.print(123);
 	}
 
 }

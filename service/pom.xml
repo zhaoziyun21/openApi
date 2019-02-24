@@ -6,7 +6,7 @@
 	<groupId>com.hualala.qa.k8s.op</groupId>
 	<artifactId>service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>service</name>
 	<description>Demo project for Spring Boot</description>
@@ -27,6 +27,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -160,7 +165,12 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
+		<!--生成 sig-->
+			<dependency>
+				<groupId>com.github.tencentyun</groupId>
+				<artifactId>tls-sig-api</artifactId>
+				<version>1.2</version>
+			</dependency>
 	</dependencies>
 
 	<build>
