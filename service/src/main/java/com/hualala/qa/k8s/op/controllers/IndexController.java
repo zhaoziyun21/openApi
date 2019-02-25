@@ -79,7 +79,7 @@ public class IndexController{
         tblRoom.setOperator(userID);
         tblRoom.setRoomName(userID+"创建的房间");
         DatabaseContextHolder.setDatabaseType(DatabaseType.tencent_video);
-        Long   roomID = roomService.insertSelective(tblRoom);
+        Long roomID = roomService.insertSelective(tblRoom);
         Map<String,Object> result = new HashMap<>();
         result.put("roomID",roomID);
         result.put("skdAppid",skdAppid);

@@ -16,7 +16,11 @@ public class RoomDaoImpl implements IRoomDao{
     private TblRoomMapper tblRoomMapper;
     @Override
     public Long insertSelective(TblRoom room) {
-        return tblRoomMapper.insertSelective(room);
+        if (tblRoomMapper.insertSelective(room) == 1){
+            return room.getId();
+        }else{
+            return 0L;
+        }
     }
 
     @Override
