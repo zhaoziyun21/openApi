@@ -24,18 +24,18 @@
 
         <!-- !!!! Model Configurations !!!! -->
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.hualala.qa.k8s.op.model.gen.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.hualala.api.model.gen.pojo" targetProject="src/main/java">
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- !!!! Mapper XML Configurations !!!! -->
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="com.hualala.qa.k8s.op.model.gen.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.hualala.api.model.gen.mapper" targetProject="src/main/java">
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator targetPackage="com.hualala.qa.k8s.op.model.gen.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.hualala.api.model.gen.dao" targetProject="src/main/java" type="XMLMAPPER">
         </javaClientGenerator>
 
 
