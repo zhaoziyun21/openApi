@@ -11,5 +11,5 @@ package com.hualala.qa.k8s.op.config.db;
  7  * 2）DatabaseType中的变量名称就是数据库的名称
  8  */
 public enum DatabaseType {
-    db_pre_k8s_op, kepler_management
+    tencent_video
 }

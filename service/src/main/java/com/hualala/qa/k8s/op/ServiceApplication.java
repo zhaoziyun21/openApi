@@ -26,6 +26,6 @@ public class ServiceApplication extends SpringBootServletInitializer {
 		SpringApplication.run(ServiceApplication.class, args);
 	}
 	@Configuration
-	@MapperScan(basePackages = {"com.hualala.qa.k8s.op.model.gen.dao"}, sqlSessionFactoryRef="sqlSessionFactoryBean")
+	@MapperScan(basePackages = {"com.hualala.qa.k8s.op.model.gen.dao","com.hualala.qa.k8s.op.controllers"}, sqlSessionFactoryRef="sqlSessionFactoryBean")
 	class DBConfig{}
 }

@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="/Users/yefei/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <classPathEntry location="D:\project\k8s-op\service\target\k8s-op\WEB-INF\lib\mysql-connector-java-5.1.46.jar"/>
     <!--<classPathEntry location="/Users/longlive/Documents/maven/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>-->
 
     <context id="context" targetRuntime="MyBatis3">
@@ -16,7 +16,7 @@
         </commentGenerator>
 
         <!-- !!!! Database Configurations !!!! -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op" userId="root" password="root"/>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.32.243:3306/tencent_video" userId="root" password="root"/>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="true"/>
@@ -40,14 +40,14 @@
 
 
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="tbl_pre_service_status"
+        <table tableName="tbl_room"
                enableCountByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                enableUpdateByExample="true"
                enableUpdateByPrimaryKey="true">
             <property name="useActualColumnNames" value="true" />
-            <generatedKey column="groupID" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
     </context>

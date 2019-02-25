@@ -30,12 +30,10 @@ public class DataSourceConfiguration {
 
     @Bean(name = "shardDB")
     @Autowired
-    public DynamicDataSource shardRouteDataSource(@Qualifier("k8s") DataSource k8sDataSource,
-                                                     @Qualifier("apm") DataSource apmDataSource){
+    public DynamicDataSource shardRouteDataSource(@Qualifier("video") DataSource videoDataSource){
         DynamicDataSource dynamicDataSource =  new DynamicDataSource();
         HashMap<Object, Object> targetDataSources = new HashMap<Object, Object>() {{
-            this.put(DatabaseType.db_pre_k8s_op, k8sDataSource);
-            this.put(DatabaseType.kepler_management, apmDataSource);
+            this.put(DatabaseType.tencent_video, videoDataSource);
         }};
         dynamicDataSource.setTargetDataSources(targetDataSources);
 //        dynamicDataSource.setDefaultTargetDataSource(shardDB1DataSource); // health监测用
@@ -43,18 +41,10 @@ public class DataSourceConfiguration {
         return dynamicDataSource;
 
     }
-
     @Bean
     public SqlSessionFactory sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws Exception {
 
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-
-        //Can no longer use application.properties for mybatis configuration settings, so this is a hack for
-        //application.properties: mybatis.configuration.map-underscore-to-camel-case=true
-//        org.apache.ibatis.session.Configuration ibatisConfiguration = new org.apache.ibatis.session.Configuration();
-//        ibatisConfiguration.setMapUnderscoreToCamelCase(true);
-//        sqlSessionFactoryBean.setConfiguration(ibatisConfiguration);
-
         sqlSessionFactoryBean.setDataSource(dynamicDataSource);
         return sqlSessionFactoryBean.getObject();
     }

@@ -53,7 +53,17 @@ spring:
     settings:
       number_format: '0.##'   #数字格式化，无小数点
 
-
+tencent:
+  skdAppid: 1400000000
+  privstr: "-----BEGIN PRIVATE KEY-----\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
+            J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
+            z4xNPoXUninTg/PbSu94CGYTYWxfbA4AT8XxHST7EYcnunlhlybGwA/w\n
+            -----END PRIVATE KEY-----"
+  pubstr: "-----BEGIN PUBLIC KEY-----\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1YkMLZkQJzhvpn9OFhezPfGfX6T1\n
+           Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
+           -----END PUBLIC KEY-----"
 
 k8sdatasource:
   url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -68,6 +78,18 @@ k8sdatasource:
   minIdle: 5
   validationQuery: SELECT 1
 
+videodatasource:
+  url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: root
+  password: root
+#  url: jdbc:mysql://localhost:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
+#  username: root
+#  password: Pass@123
+  driverClassName: com.mysql.jdbc.Driver
+  initialSize: 10
+  maxActive: 30
+  minIdle: 5
+  validationQuery: SELECT 1
 
 apmdatasource:
   url: jdbc:mysql://172.16.33.11:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -86,9 +108,8 @@ k8s:
 jenkins:
   jenkinsJarPath: /Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar
   jenkinsHost: http://172.16.0.63:8080
-
 mybatis:
-#  mapper-locations: classpath:com.hualala.qa.mockserver.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  mapper-locations: classpath:com.hualala.qa.k8s.op.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.hualala.qa.k8s.op.model.gen.pojo # 注意：对应实体类的路径
   config-location: classpath:mybatis-config.xml
 
@@ -211,7 +232,9 @@ http:
   socketTimeout: 10000                #数据传输的最长时间
   staleConnectionCheckEnabled: true   #提交请求前测试连接是否可用
 
-
+keystr:
+  privStr: -----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkTfHxPa8YusG+va8\n1CRztNQBOEr90TBEjlQBZ5d1Y0ChRANCAAS9isP/xLib7EZ1vS5OUy+gOsYBwees\nPMDvWiTygPAUsGZv1PHLoa0ciqsElkO1fMGwNrzOKJx1Oo194Ri+SypV\n-----END PRIVATE KEY-----
+  pubStr: -----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEvYrD/8S4m+xGdb0uTlMvoDrGAcHn\nrDzA71ok8oDwFLBmb9Txy6GtHIqrBJZDtXzBsDa8ziicdTqNfeEYvksqVQ==\n-----END PUBLIC KEY-----
 logging:
   config: classpath:logback-pre.xml
 
