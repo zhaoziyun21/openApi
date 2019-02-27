@@ -24,7 +24,7 @@ public class RoomDaoImpl implements IRoomDao {
     }
 
     @Override
-    public TblRoom queryRoomByID(Long id) {
-        return tblRoomMapper.selectByPrimaryKey(id);
+    public TblRoom queryRoomByMeetingID(Long meetingID) {
+        return tblRoomMapper.selectByMeetingID(meetingID);
     }
 }

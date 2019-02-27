@@ -7,6 +7,8 @@ public class TblRoom {
 
     private String roomName;
 
+    private Long meetingID;
+
     private Date createTime;
 
     private Date endTime;
@@ -29,6 +31,14 @@ public class TblRoom {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName == null ? null : roomName.trim();
+    }
+
+    public Long getMeetingID() {
+        return meetingID;
+    }
+
+    public void setMeetingID(Long meetingID) {
+        this.meetingID = meetingID;
     }
 
     public Date getCreateTime() {

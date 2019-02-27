@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hualala.api.model.gen.pojo.TblRoom">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="roomName" jdbcType="VARCHAR" property="roomName" />
+    <result column="meetingID" jdbcType="BIGINT" property="meetingID" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
     <result column="actionTime" jdbcType="TIMESTAMP" property="actionTime" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, roomName, createTime, endTime, actionTime, operator
+    id, roomName, meetingID, createTime, endTime, actionTime, operator
   </sql>
   <select id="selectByExample" parameterType="com.hualala.api.model.gen.pojo.TblRoomExample" resultMap="BaseResultMap">
     select
@@ -90,6 +91,12 @@
     from tbl_room
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByMeetingID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_room
+    where meetingID = #{meetingID,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tbl_room
     where id = #{id,jdbcType=BIGINT}
@@ -104,10 +111,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into tbl_room (roomName, createTime, endTime, 
-      actionTime, operator)
-    values (#{roomName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{actionTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR})
+    insert into tbl_room (roomName, meetingID, createTime, 
+      endTime, actionTime, operator
+      )
+    values (#{roomName,jdbcType=VARCHAR}, #{meetingID,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{actionTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hualala.api.model.gen.pojo.TblRoom">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -117,6 +126,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roomName != null">
         roomName,
+      </if>
+      <if test="meetingID != null">
+        meetingID,
       </if>
       <if test="createTime != null">
         createTime,
@@ -134,6 +146,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roomName != null">
         #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingID != null">
+        #{meetingID,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -164,6 +179,9 @@
       <if test="record.roomName != null">
         roomName = #{record.roomName,jdbcType=VARCHAR},
       </if>
+      <if test="record.meetingID != null">
+        meetingID = #{record.meetingID,jdbcType=BIGINT},
+      </if>
       <if test="record.createTime != null">
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -185,6 +203,7 @@
     update tbl_room
     set id = #{record.id,jdbcType=BIGINT},
       roomName = #{record.roomName,jdbcType=VARCHAR},
+      meetingID = #{record.meetingID,jdbcType=BIGINT},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       endTime = #{record.endTime,jdbcType=TIMESTAMP},
       actionTime = #{record.actionTime,jdbcType=TIMESTAMP},
@@ -198,6 +217,9 @@
     <set>
       <if test="roomName != null">
         roomName = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingID != null">
+        meetingID = #{meetingID,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
@@ -217,6 +239,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hualala.api.model.gen.pojo.TblRoom">
     update tbl_room
     set roomName = #{roomName,jdbcType=VARCHAR},
+      meetingID = #{meetingID,jdbcType=BIGINT},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       endTime = #{endTime,jdbcType=TIMESTAMP},
       actionTime = #{actionTime,jdbcType=TIMESTAMP},

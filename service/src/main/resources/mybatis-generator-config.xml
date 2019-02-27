@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- !!!! Driver Class Path !!!! -->
-    <classPathEntry location="D:\project\k8s-op\service\target\k8s-op\WEB-INF\lib\mysql-connector-java-5.1.46.jar"/>
+    <classPathEntry location="D:\project\tencent-video-api\service\target\tencent-video-api\WEB-INF\lib\mysql-connector-java-5.1.46.jar"/>
     <!--<classPathEntry location="/Users/longlive/Documents/maven/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>-->
 
     <context id="context" targetRuntime="MyBatis3">

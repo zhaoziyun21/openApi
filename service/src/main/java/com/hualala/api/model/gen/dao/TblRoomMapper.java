@@ -1,8 +1,7 @@
 package com.hualala.api.model.gen.dao;
 
-import com.hualala.api.model.gen.pojo.TblRoomExample;
 import com.hualala.api.model.gen.pojo.TblRoom;
-
+import com.hualala.api.model.gen.pojo.TblRoomExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,4 +27,6 @@ public interface TblRoomMapper {
     int updateByPrimaryKeySelective(TblRoom record);
 
     int updateByPrimaryKey(TblRoom record);
+
+    TblRoom selectByMeetingID(Long meetingID);
 }

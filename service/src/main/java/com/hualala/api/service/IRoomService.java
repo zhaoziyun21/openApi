@@ -9,6 +9,6 @@ import com.hualala.api.model.gen.pojo.TblRoom;
 public interface IRoomService {
     Long insertSelective(TblRoom room);
 
-    TblRoom queryRoomByID(Long id);
+    TblRoom queryRoomByMeetingID(Long meetingID);
 
 }

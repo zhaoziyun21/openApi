@@ -21,7 +21,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public TblRoom queryRoomByID(Long id) {
-        return roomDao.queryRoomByID(id);
+    public TblRoom queryRoomByMeetingID(Long meetingID) {
+        return roomDao.queryRoomByMeetingID(meetingID);
     }
 }

@@ -9,5 +9,5 @@ public interface IRoomDao {
 
     Long insertSelective(TblRoom room);
 
-    TblRoom queryRoomByID(Long id);
+    TblRoom queryRoomByMeetingID(Long meetingID);
 }

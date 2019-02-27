@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "tencent")
 @Data
 @Slf4j
+@CrossOrigin
 public class IndexController{
     @Autowired
     private ResponseAdapter responseAdapter;
@@ -67,13 +69,18 @@ public class IndexController{
      */
     @RequestMapping("/genRoomID.ajax")
     @ResponseBody
-    public Object genRoomID(@RequestParam(name = "userID") String userID) {
-
-        TblRoom tblRoom = new TblRoom();
-        tblRoom.setOperator(userID);
-        tblRoom.setRoomName(userID+"创建的房间");
-        DatabaseContextHolder.setDatabaseType(DatabaseType.tencent_video);
-        Long roomID = roomService.insertSelective(tblRoom);
+    public Object genRoomID(@RequestParam(name = "userID") String userID,@RequestParam(name = "meetingID") Long meetingID) {
+        TblRoom tblRoom = roomService.queryRoomByMeetingID(meetingID);
+        Long roomID = 0L;
+        if(tblRoom == null){
+            tblRoom = new TblRoom();
+            tblRoom.setOperator(userID);
+            tblRoom.setRoomName(userID+"创建的房间");
+            DatabaseContextHolder.setDatabaseType(DatabaseType.tencent_video);
+            roomID = roomService.insertSelective(tblRoom);
+        }else{
+            roomID = tblRoom.getId();
+        }
         Map<String,Object> result = new HashMap<>();
         result.put("roomID",roomID);
         result.put("skdAppid",skdAppid);

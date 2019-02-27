@@ -235,6 +235,66 @@ public class TblRoomExample {
             return (Criteria) this;
         }
 
+        public Criteria andMeetingIDIsNull() {
+            addCriterion("meetingID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDIsNotNull() {
+            addCriterion("meetingID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDEqualTo(Long value) {
+            addCriterion("meetingID =", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDNotEqualTo(Long value) {
+            addCriterion("meetingID <>", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDGreaterThan(Long value) {
+            addCriterion("meetingID >", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDGreaterThanOrEqualTo(Long value) {
+            addCriterion("meetingID >=", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDLessThan(Long value) {
+            addCriterion("meetingID <", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDLessThanOrEqualTo(Long value) {
+            addCriterion("meetingID <=", value, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDIn(List<Long> values) {
+            addCriterion("meetingID in", values, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDNotIn(List<Long> values) {
+            addCriterion("meetingID not in", values, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDBetween(Long value1, Long value2) {
+            addCriterion("meetingID between", value1, value2, "meetingID");
+            return (Criteria) this;
+        }
+
+        public Criteria andMeetingIDNotBetween(Long value1, Long value2) {
+            addCriterion("meetingID not between", value1, value2, "meetingID");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("createTime is null");
             return (Criteria) this;
