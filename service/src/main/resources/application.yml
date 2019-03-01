@@ -38,7 +38,7 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 
 tencent:
-  skdAppid: 1400000000
+  skdAppid: 1400185998
   privstr: "-----BEGIN PRIVATE KEY-----\n
             MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
             J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
@@ -99,7 +99,7 @@ spring:
 
 
 tencent:
-  skdAppid: 1400000000
+  skdAppid: 1400185998
   privstr: "-----BEGIN PRIVATE KEY-----\n
             MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
             J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
