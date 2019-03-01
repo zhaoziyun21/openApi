@@ -6,7 +6,7 @@ spring:
 
 
 server:
-  port: 61034
+  port: 8110
   tomcat:
     max-threads: 2000
     max-connections: 2000
@@ -64,7 +64,7 @@ tencent:
            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1YkMLZkQJzhvpn9OFhezPfGfX6T1\n
            Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
            -----END PUBLIC KEY-----"
-
+  accountType: 36862
 k8sdatasource:
   url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
   username: root

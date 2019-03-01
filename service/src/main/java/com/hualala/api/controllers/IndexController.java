@@ -37,6 +37,7 @@ public class IndexController{
     private String pubstr;
     private String privstr;
     private int skdAppid;
+    private int accountType;
 
     /**
      * 生成token
@@ -55,6 +56,7 @@ public class IndexController{
             Map<String,Object> resultMap = new HashMap<>();
             resultMap.put("token",result.urlSig);
             resultMap.put("skdAppid",skdAppid);
+            resultMap.put("accountType",accountType);
             return responseAdapter.success(resultMap);
         } catch (Exception e) {
             e.printStackTrace();
