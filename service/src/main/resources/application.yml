@@ -139,5 +139,5 @@ http:
 
 
 logging:
-  config: classpath:logback-pre.xml
+  config: classpath:logback-yefei.xml
 

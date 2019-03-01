@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@EnableScheduling
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.hualala.api"})
 public class ServiceApplication extends SpringBootServletInitializer {
