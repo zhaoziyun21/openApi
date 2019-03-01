@@ -26,22 +26,6 @@ spring:
       enabled: true
       force: true
 
-  rabbitmq:
-      host: 172.16.0.29
-      port: 5672
-      username: guest
-      password: guest
-
-  redis:
-    host: 172.16.0.27
-    port: 19000
-
-  quartz:
-    properties:
-      org:
-        quartz:
-          scheduler:
-
   freemarker:
     cache: false
     request-context-attribute: req  #req访问request
@@ -65,18 +49,6 @@ tencent:
            Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
            -----END PUBLIC KEY-----"
   accountType: 36862
-k8sdatasource:
-  url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: root
-  password: root
-#  url: jdbc:mysql://localhost:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
-#  username: root
-#  password: Pass@123
-  driverClassName: com.mysql.jdbc.Driver
-  initialSize: 10
-  maxActive: 30
-  minIdle: 5
-  validationQuery: SELECT 1
 
 videodatasource:
   url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -91,63 +63,19 @@ videodatasource:
   minIdle: 5
   validationQuery: SELECT 1
 
-apmdatasource:
-  url: jdbc:mysql://172.16.33.11:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: root
-  password: admin
-  driverClassName: com.mysql.jdbc.Driver
-  initialSize: 2
-  maxActive: 4
-  minIdle: 2
-  validationQuery: SELECT 1
-
-
-k8s:
-  yamlDirPath: /Users/yefei/
-
-jenkins:
-  jenkinsJarPath: /Users/yefei/Documents/jenkins-cli/jenkins-cli.build2.jar
-  jenkinsHost: http://172.16.0.63:8080
 mybatis:
   mapper-locations: classpath:com.hualala.api.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.hualala.api.model.gen.pojo # 注意：对应实体类的路径
   config-location: classpath:mybatis-config.xml
 
 
-http:
-  maxTotal: 100                       #最大连接数
-  defaultMaxPerRoute: 20              #并发数
-  connectTimeout: 1000                #创建连接的最长时间
-  connectionRequestTimeout: 500       #从连接池中获取到连接的最长时间
-  socketTimeout: 10000                #数据传输的最长时间
-  staleConnectionCheckEnabled: true   #提交请求前测试连接是否可用
-
-
-
-
 logging:
   config: classpath:logback-local.xml
 
 
-redisStock:
-  host: 172.16.0.27
-  #host: 172.16.32.96
-  #host: codis.test.hualala.com
-  port: 19000
-  db: 0
-  pool:
-    maxActive: 100
-    maxWait: 10000
-    writeTimeout: 1000
-    readTimeout: 1000
-    maxIdle: 5
-    minIdle: 5
-
-
-
 ---
 spring:
-  profiles: pre
+  profiles: yefei
   aop:
     auto: true
   mvc:
@@ -157,24 +85,6 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-
-  rabbitmq:
-      host: 172.16.0.28
-      port: 5672
-      username: admin
-      password: admin
-
-  redis:
-    host: 172.16.0.27
-    port: 19000
-
-
-  quartz:
-    properties:
-      org:
-        quartz:
-          scheduler:
-
 
   freemarker:
     cache: false
@@ -188,35 +98,29 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 
 
-k8s:
-  yamlDirPath: /home/pre/
+tencent:
+  skdAppid: 1400000000
+  privstr: "-----BEGIN PRIVATE KEY-----\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
+            J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
+            z4xNPoXUninTg/PbSu94CGYTYWxfbA4AT8XxHST7EYcnunlhlybGwA/w\n
+            -----END PRIVATE KEY-----"
+  pubstr: "-----BEGIN PUBLIC KEY-----\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1YkMLZkQJzhvpn9OFhezPfGfX6T1\n
+           Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
+           -----END PUBLIC KEY-----"
+  accountType: 36862
 
-jenkins:
-  jenkinsJarPath: /opt/jenkins-cli.build2.jar
-  jenkinsHost: http://172.16.0.63:8080
-
-
-k8sdatasource:
-  url: jdbc:mysql://172.16.32.243:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: root
-  password: root
+videodatasource:
+  url: jdbc:mysql://localhost:3306/tencent_vedio?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: yefei
+  password: Yefei123456!
   driverClassName: com.mysql.jdbc.Driver
   initialSize: 10
   maxActive: 30
   minIdle: 5
   validationQuery: SELECT 1
 
-
-
-apmdatasource:
-  url: jdbc:mysql://172.16.33.11:3306/kepler_management?useSSL=false&useUnicode=true&characterEncoding=utf8
-  username: root
-  password: admin
-  driverClassName: com.mysql.jdbc.Driver
-  initialSize: 2
-  maxActive: 4
-  minIdle: 2
-  validationQuery: SELECT 1
 
 
 mybatis:
@@ -232,24 +136,8 @@ http:
   socketTimeout: 10000                #数据传输的最长时间
   staleConnectionCheckEnabled: true   #提交请求前测试连接是否可用
 
-keystr:
-  privStr: -----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkTfHxPa8YusG+va8\n1CRztNQBOEr90TBEjlQBZ5d1Y0ChRANCAAS9isP/xLib7EZ1vS5OUy+gOsYBwees\nPMDvWiTygPAUsGZv1PHLoa0ciqsElkO1fMGwNrzOKJx1Oo194Ri+SypV\n-----END PRIVATE KEY-----
-  pubStr: -----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEvYrD/8S4m+xGdb0uTlMvoDrGAcHn\nrDzA71ok8oDwFLBmb9Txy6GtHIqrBJZDtXzBsDa8ziicdTqNfeEYvksqVQ==\n-----END PUBLIC KEY-----
+
+
 logging:
   config: classpath:logback-pre.xml
-
-redisStock:
-  host: 172.16.0.27
-  #host: 172.16.32.96
-  #host: codis.test.hualala.com
-  port: 19000
-  db: 0
-  pool:
-    maxActive: 100
-    maxWait: 10000
-    writeTimeout: 1000
-    readTimeout: 1000
-    maxIdle: 5
-    minIdle: 5
-
 
