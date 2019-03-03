@@ -27,6 +27,4 @@ public interface TblRoomMapper {
     int updateByPrimaryKeySelective(TblRoom record);
 
     int updateByPrimaryKey(TblRoom record);
-
-    TblRoom selectByMeetingID(Long meetingID);
 }

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DatabaseContextHolder {
     private static final ThreadLocal<DatabaseType> contextHolder = new ThreadLocal<>();
 
-     public static void setDatabaseType(DatabaseType type){
+    public static void setDatabaseType(DatabaseType type){
          contextHolder.set(type);
      }
 

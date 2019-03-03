@@ -91,12 +91,6 @@
     from tbl_room
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectByMeetingID" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from tbl_room
-    where meetingID = #{meetingID,jdbcType=BIGINT}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tbl_room
     where id = #{id,jdbcType=BIGINT}

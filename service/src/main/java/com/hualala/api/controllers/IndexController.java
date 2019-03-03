@@ -27,7 +27,6 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "tencent")
 @Data
 @Slf4j
-@CrossOrigin
 public class IndexController{
     @Autowired
     private ResponseAdapter responseAdapter;
@@ -78,7 +77,6 @@ public class IndexController{
             tblRoom = new TblRoom();
             tblRoom.setOperator(userID);
             tblRoom.setRoomName(userID+"创建的房间");
-            DatabaseContextHolder.setDatabaseType(DatabaseType.tencent_video);
             roomID = roomService.insertSelective(tblRoom);
         }else{
             roomID = tblRoom.getId();
