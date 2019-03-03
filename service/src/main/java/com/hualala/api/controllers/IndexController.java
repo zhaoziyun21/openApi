@@ -70,8 +70,8 @@ public class IndexController{
      */
     @RequestMapping("/genRoomID.ajax")
     @ResponseBody
-    public Object genRoomID(@RequestParam(name = "userID") String userID,@RequestParam(name = "meetingID") Long meetingID) {
-        TblRoom tblRoom = roomService.queryRoomByMeetingID(meetingID);
+    public Object genRoomID(@RequestParam(name = "userID") String userID,@RequestParam(name = "meetingID") String meetingID) {
+        TblRoom tblRoom = roomService.queryRoomByMeetingID(Long.parseLong(meetingID));
         Long roomID = 0L;
         if(tblRoom == null){
             tblRoom = new TblRoom();
