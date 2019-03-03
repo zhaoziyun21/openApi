@@ -10,4 +10,5 @@ public interface IRoomDao {
     Long insertSelective(TblRoom room);
 
     TblRoom queryRoomByMeetingID(Long meetingID);
+    boolean updateRoomByMeetingID(Long roomID,String groupID);
 }

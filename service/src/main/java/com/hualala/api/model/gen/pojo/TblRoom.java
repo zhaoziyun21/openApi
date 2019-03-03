@@ -17,6 +17,8 @@ public class TblRoom {
 
     private String operator;
 
+    private String groupID;
+
     public Long getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class TblRoom {
 
     public void setOperator(String operator) {
         this.operator = operator == null ? null : operator.trim();
+    }
+
+    public String getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(String groupID) {
+        this.groupID = groupID == null ? null : groupID.trim();
     }
 }

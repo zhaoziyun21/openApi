@@ -45,4 +45,21 @@ public class RoomDaoImpl implements IRoomDao {
         }
 
     }
+
+    @Override
+    public boolean updateRoomByMeetingID(Long meetingID,String groupID) {
+        DatabaseContextHolder.setDatabaseType(DatabaseType.tencent_video);
+        TblRoom tblRoom = new TblRoom();
+        tblRoom.setGroupID(groupID);
+        TblRoomExample tblRoomExample = new TblRoomExample();
+        tblRoomExample.createCriteria().andMeetingIDEqualTo(meetingID);
+        TblRoomExample.Criteria criteria = tblRoomExample.createCriteria();
+        criteria.andMeetingIDEqualTo(meetingID);
+        int i = tblRoomMapper.updateByExampleSelective(tblRoom,tblRoomExample);
+        if(i > 0){
+            return  true;
+        }else{
+            return  false;
+        }
+    }
 }

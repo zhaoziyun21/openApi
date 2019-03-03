@@ -11,4 +11,6 @@ public interface IRoomService {
 
     TblRoom queryRoomByMeetingID(Long meetingID);
 
+    boolean updateRoomByMeetingID(Long meetingID,String groupID);
+
 }

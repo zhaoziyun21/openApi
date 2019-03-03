@@ -109,6 +109,7 @@ public class IndexController{
         Map<String,Object> result = new HashMap<>();
         result.put("roomID",roomID);
         result.put("skdAppid",skdAppid);
+        result.put("groupID",tblRoom.getGroupID());
         return  responseAdapter.success(result);
     }
     /**
@@ -134,6 +135,7 @@ public class IndexController{
         Map<String,Object> result = new HashMap<>();
         result.put("roomID",roomID);
         result.put("skdAppid",skdAppid);
+        result.put("groupID",tblRoom.getGroupID());
         return callback+"("+responseAdapter.success(result)+")";
     }
     /*
@@ -159,6 +161,24 @@ public class IndexController{
         Map<String,Object> result = new HashMap<>();
         result.put("skdAppid",skdAppid);
         return callback+"("+responseAdapter.success(result)+")";
+    }
+
+    /*
+    *
+    * @return 获取getSkdAppid
+    * @throws IOException
+    */
+    @RequestMapping("/createRoomSuccessCallBackUpgrade.ajax")
+    @ResponseBody
+    public Object updateCreateFlagForJsonp(@RequestParam(name = "meetingID") String meetingID,@RequestParam(name = "groupID") String groupID,String callback)  {
+        boolean b = roomService.updateRoomByMeetingID(Long.parseLong(meetingID),groupID);
+        Map<String,Object> result = new HashMap<>();
+        if(b){
+            return callback+"("+responseAdapter.success(result)+")";
+        }else{
+            return callback+"("+responseAdapter.failure("更新创建groupID失败")+")";
+        }
+
     }
 }
 

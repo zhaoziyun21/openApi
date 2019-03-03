@@ -9,6 +9,7 @@
     <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
     <result column="actionTime" jdbcType="TIMESTAMP" property="actionTime" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="groupID" jdbcType="VARCHAR" property="groupID" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, roomName, meetingID, createTime, endTime, actionTime, operator
+    id, roomName, meetingID, createTime, endTime, actionTime, operator, groupID
   </sql>
   <select id="selectByExample" parameterType="com.hualala.api.model.gen.pojo.TblRoomExample" resultMap="BaseResultMap">
     select
@@ -106,11 +107,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into tbl_room (roomName, meetingID, createTime, 
-      endTime, actionTime, operator
-      )
+      endTime, actionTime, operator, 
+      groupID)
     values (#{roomName,jdbcType=VARCHAR}, #{meetingID,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{actionTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
-      )
+      #{endTime,jdbcType=TIMESTAMP}, #{actionTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{groupID,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hualala.api.model.gen.pojo.TblRoom">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -136,6 +137,9 @@
       <if test="operator != null">
         operator,
       </if>
+      <if test="groupID != null">
+        groupID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="roomName != null">
@@ -155,6 +159,9 @@
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="groupID != null">
+        #{groupID,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -188,6 +195,9 @@
       <if test="record.operator != null">
         operator = #{record.operator,jdbcType=VARCHAR},
       </if>
+      <if test="record.groupID != null">
+        groupID = #{record.groupID,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +211,8 @@
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       endTime = #{record.endTime,jdbcType=TIMESTAMP},
       actionTime = #{record.actionTime,jdbcType=TIMESTAMP},
-      operator = #{record.operator,jdbcType=VARCHAR}
+      operator = #{record.operator,jdbcType=VARCHAR},
+      groupID = #{record.groupID,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +238,9 @@
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
+      <if test="groupID != null">
+        groupID = #{groupID,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -237,7 +251,8 @@
       createTime = #{createTime,jdbcType=TIMESTAMP},
       endTime = #{endTime,jdbcType=TIMESTAMP},
       actionTime = #{actionTime,jdbcType=TIMESTAMP},
-      operator = #{operator,jdbcType=VARCHAR}
+      operator = #{operator,jdbcType=VARCHAR},
+      groupID = #{groupID,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
