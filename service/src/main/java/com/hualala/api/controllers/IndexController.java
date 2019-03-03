@@ -62,6 +62,30 @@ public class IndexController{
         }
     return  null;
     }
+    /**
+     * 生成token jsonp实现
+     * @param userID
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/genSignUpgrade.ajax")
+    @ResponseBody
+    public Object genSignForJsonp(@RequestParam(name = "userID") String userID,String callback)  {
+        try {
+            // generate signature
+            tls_sigature.GenTLSSignatureResult result = tls_sigature.GenTLSSignatureEx(skdAppid, userID, privstr);
+            // check signature
+            tls_sigature.CheckTLSSignatureResult checkResult = tls_sigature.CheckTLSSignatureEx(result.urlSig, skdAppid, userID, pubstr);
+            Map<String,Object> resultMap = new HashMap<>();
+            resultMap.put("token",result.urlSig);
+            resultMap.put("skdAppid",skdAppid);
+            resultMap.put("accountType",accountType);
+            return callback+"("+responseAdapter.success(resultMap)+")";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
      /**
       * roomID生成
      * @param userID
@@ -77,6 +101,7 @@ public class IndexController{
             tblRoom = new TblRoom();
             tblRoom.setOperator(userID);
             tblRoom.setRoomName(userID+"创建的房间");
+            tblRoom.setMeetingID(Long.parseLong(meetingID));
             roomID = roomService.insertSelective(tblRoom);
         }else{
             roomID = tblRoom.getId();
@@ -86,7 +111,31 @@ public class IndexController{
         result.put("skdAppid",skdAppid);
         return  responseAdapter.success(result);
     }
-
+    /**
+     * roomID生成  jsonp实现
+     * @param userID
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/genRoomIDUpgrade.ajax")
+    @ResponseBody
+    public Object genRoomIDForJsonp(@RequestParam(name = "userID") String userID,@RequestParam(name = "meetingID") String meetingID,String callback) {
+        TblRoom tblRoom = roomService.queryRoomByMeetingID(Long.parseLong(meetingID));
+        Long roomID = 0L;
+        if(tblRoom == null){
+            tblRoom = new TblRoom();
+            tblRoom.setOperator(userID);
+            tblRoom.setRoomName(userID+"创建的房间");
+            tblRoom.setMeetingID(Long.parseLong(meetingID));
+            roomID = roomService.insertSelective(tblRoom);
+        }else{
+            roomID = tblRoom.getId();
+        }
+        Map<String,Object> result = new HashMap<>();
+        result.put("roomID",roomID);
+        result.put("skdAppid",skdAppid);
+        return callback+"("+responseAdapter.success(result)+")";
+    }
     /*
      *
      * @return 获取getSkdAppid
@@ -98,6 +147,18 @@ public class IndexController{
         Map<String,Object> result = new HashMap<>();
         result.put("skdAppid",skdAppid);
         return  responseAdapter.success(result);
+    }
+    /*
+    *
+    * @return 获取getSkdAppid
+    * @throws IOException
+    */
+    @RequestMapping("/getSkdAppidUpgrade.ajax")
+    @ResponseBody
+    public Object getSkdAppidForJsonp(String callback)  {
+        Map<String,Object> result = new HashMap<>();
+        result.put("skdAppid",skdAppid);
+        return callback+"("+responseAdapter.success(result)+")";
     }
 }
 
