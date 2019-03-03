@@ -38,15 +38,15 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 
 tencent:
-  skdAppid: 1400185998
+  skdAppid: 1400186528
   privstr: "-----BEGIN PRIVATE KEY-----\n
-            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
-            J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
-            z4xNPoXUninTg/PbSu94CGYTYWxfbA4AT8XxHST7EYcnunlhlybGwA/w\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHrhDgakjhrsrSpLj\n
+            gu5k2H3AOIRYc4SlRVc9VqJY/DOhRANCAAQJf2vvwYamt+2QQr9eVq565487B5ff\n
+            b+jAicmZyBHJWvn4FyozjrKa4a0x3GpzwKTpSxEAMvAjHTbA/kF24AjR\n
             -----END PRIVATE KEY-----"
   pubstr: "-----BEGIN PUBLIC KEY-----\n
-           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1YkMLZkQJzhvpn9OFhezPfGfX6T1\n
-           Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECX9r78GGprftkEK/XlaueuePOweX\n
+           32/owInJmcgRyVr5+BcqM46ymuGtMdxqc8Ck6UsRADLwIx02wP5BduAI0Q==\n
            -----END PUBLIC KEY-----"
   accountType: 36862
 
@@ -99,15 +99,15 @@ spring:
 
 
 tencent:
-  skdAppid: 1400185998
+  skdAppid: 1400186528
   privstr: "-----BEGIN PRIVATE KEY-----\n
-            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgfj0GG1UIewWmQcx3\n
-            J2wFmkOkHv3vif7vgUcLcLWb/ayhRANCAATViQwtmRAnOG+mf04WF7M98Z9fpPVj\n
-            z4xNPoXUninTg/PbSu94CGYTYWxfbA4AT8XxHST7EYcnunlhlybGwA/w\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHrhDgakjhrsrSpLj\n
+            gu5k2H3AOIRYc4SlRVc9VqJY/DOhRANCAAQJf2vvwYamt+2QQr9eVq565487B5ff\n
+            b+jAicmZyBHJWvn4FyozjrKa4a0x3GpzwKTpSxEAMvAjHTbA/kF24AjR\n
             -----END PRIVATE KEY-----"
   pubstr: "-----BEGIN PUBLIC KEY-----\n
-           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1YkMLZkQJzhvpn9OFhezPfGfX6T1\n
-           Y8+MTT6F1J4p04Pz20rveAhmE2FsX2wOAE/F8R0k+xGHJ7p5YZcmxsAP8A==\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECX9r78GGprftkEK/XlaueuePOweX\n
+           32/owInJmcgRyVr5+BcqM46ymuGtMdxqc8Ck6UsRADLwIx02wP5BduAI0Q==\n
            -----END PUBLIC KEY-----"
   accountType: 36862
 
