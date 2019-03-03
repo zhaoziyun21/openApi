@@ -69,7 +69,7 @@
     <!-- print sql -->
     <!-- additivity="false" avoid duplicate log-->
 
-    <root level="info">
+    <root level="debug">
         <!--<appender-ref ref="STDOUT" />-->
         <appender-ref ref="FILE_STDOUT" />
     </root>
