@@ -38,17 +38,17 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 
 tencent:
-  skdAppid: 1400186528
-  privstr: "-----BEGIN PRIVATE KEY-----\n
-            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHrhDgakjhrsrSpLj\n
-            gu5k2H3AOIRYc4SlRVc9VqJY/DOhRANCAAQJf2vvwYamt+2QQr9eVq565487B5ff\n
-            b+jAicmZyBHJWvn4FyozjrKa4a0x3GpzwKTpSxEAMvAjHTbA/kF24AjR\n
-            -----END PRIVATE KEY-----"
-  pubstr: "-----BEGIN PUBLIC KEY-----\n
-           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECX9r78GGprftkEK/XlaueuePOweX\n
-           32/owInJmcgRyVr5+BcqM46ymuGtMdxqc8Ck6UsRADLwIx02wP5BduAI0Q==\n
-           -----END PUBLIC KEY-----"
-  accountType: 36862
+  skdAppid: 1400183219
+    privstr: "-----BEGIN PRIVATE KEY-----\n
+              MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQghYLiQWBuiD4tFOMC\n
+              BebUTVIiJ8m9Gzb1AKpBfb01yyihRANCAAT1Y/5HcWYtn5Hc16eck48KJkJOhvWH\n
+              TrAMr900Nf6V1BXgKp2P1znxbgvMiWCiCebPo18o3CZRQOZCQmX2NKTx\n
+              -----END PRIVATE KEY-----"
+    pubstr: "-----BEGIN PUBLIC KEY-----\n
+             MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9WP+R3FmLZ+R3NennJOPCiZCTob1\n
+             h06wDK/dNDX+ldQV4Cqdj9c58W4LzIlgognmz6NfKNwmUUDmQkJl9jSk8Q==\n
+             -----END PUBLIC KEY-----"
+    accountType: 36862
 
 videodatasource:
   url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -99,15 +99,15 @@ spring:
 
 
 tencent:
-  skdAppid: 1400186528
+  skdAppid: 1400183219
   privstr: "-----BEGIN PRIVATE KEY-----\n
-            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHrhDgakjhrsrSpLj\n
-            gu5k2H3AOIRYc4SlRVc9VqJY/DOhRANCAAQJf2vvwYamt+2QQr9eVq565487B5ff\n
-            b+jAicmZyBHJWvn4FyozjrKa4a0x3GpzwKTpSxEAMvAjHTbA/kF24AjR\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQghYLiQWBuiD4tFOMC\n
+            BebUTVIiJ8m9Gzb1AKpBfb01yyihRANCAAT1Y/5HcWYtn5Hc16eck48KJkJOhvWH\n
+            TrAMr900Nf6V1BXgKp2P1znxbgvMiWCiCebPo18o3CZRQOZCQmX2NKTx\n
             -----END PRIVATE KEY-----"
   pubstr: "-----BEGIN PUBLIC KEY-----\n
-           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAECX9r78GGprftkEK/XlaueuePOweX\n
-           32/owInJmcgRyVr5+BcqM46ymuGtMdxqc8Ck6UsRADLwIx02wP5BduAI0Q==\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9WP+R3FmLZ+R3NennJOPCiZCTob1\n
+           h06wDK/dNDX+ldQV4Cqdj9c58W4LzIlgognmz6NfKNwmUUDmQkJl9jSk8Q==\n
            -----END PUBLIC KEY-----"
   accountType: 36862
 
