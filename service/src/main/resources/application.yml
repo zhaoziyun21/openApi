@@ -39,16 +39,16 @@ spring:
 
 tencent:
   skdAppid: 1400183219
-    privstr: "-----BEGIN PRIVATE KEY-----\n
-              MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQghYLiQWBuiD4tFOMC\n
-              BebUTVIiJ8m9Gzb1AKpBfb01yyihRANCAAT1Y/5HcWYtn5Hc16eck48KJkJOhvWH\n
-              TrAMr900Nf6V1BXgKp2P1znxbgvMiWCiCebPo18o3CZRQOZCQmX2NKTx\n
-              -----END PRIVATE KEY-----"
-    pubstr: "-----BEGIN PUBLIC KEY-----\n
-             MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9WP+R3FmLZ+R3NennJOPCiZCTob1\n
-             h06wDK/dNDX+ldQV4Cqdj9c58W4LzIlgognmz6NfKNwmUUDmQkJl9jSk8Q==\n
-             -----END PUBLIC KEY-----"
-    accountType: 36862
+  privstr: "-----BEGIN PRIVATE KEY-----\n
+            MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQghYLiQWBuiD4tFOMC\n
+            BebUTVIiJ8m9Gzb1AKpBfb01yyihRANCAAT1Y/5HcWYtn5Hc16eck48KJkJOhvWH\n
+            TrAMr900Nf6V1BXgKp2P1znxbgvMiWCiCebPo18o3CZRQOZCQmX2NKTx\n
+            -----END PRIVATE KEY-----"
+  pubstr: "-----BEGIN PUBLIC KEY-----\n
+           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE9WP+R3FmLZ+R3NennJOPCiZCTob1\n
+           h06wDK/dNDX+ldQV4Cqdj9c58W4LzIlgognmz6NfKNwmUUDmQkJl9jSk8Q==\n
+           -----END PUBLIC KEY-----"
+  accountType: 36862
 
 videodatasource:
   url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
