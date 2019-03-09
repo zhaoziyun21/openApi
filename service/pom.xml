@@ -6,8 +6,8 @@
 	<groupId>com.hualala.tencent.video.api</groupId>
 	<artifactId>service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!--<packaging>war</packaging>-->
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
+	<!--<packaging>jar</packaging>-->
 
 	<name>service</name>
 	<description>Demo project for Spring Boot</description>
@@ -31,8 +31,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<!--<scope>provided</scope>-->
-			<scope>compile</scope>
+			<scope>provided</scope>
+			<!--<scope>compile</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -174,7 +174,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<!--<skip>true</skip>-->
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 
