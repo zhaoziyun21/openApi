@@ -43,7 +43,6 @@ public class ScheduleTask {
 
         }catch (Exception e){
             sum += 1;
-            System.out.println("sum is: " + sum);
         }
         if(sum >=3 ){
             System.exit(0);
