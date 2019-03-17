@@ -39,7 +39,6 @@ public class ScheduleTask {
         try{
 
             String result = httpClient.client(url, method, params);
-            System.out.println("轮询结果result is: " + result);
             sum = 0;
 
         }catch (Exception e){
