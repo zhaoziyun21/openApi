@@ -58,9 +58,8 @@ public class IndexController{
             resultMap.put("accountType",accountType);
             return responseAdapter.success(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+            return responseAdapter.failure(e.getMessage());
         }
-    return  null;
     }
     /**
      * 生成token jsonp实现
@@ -82,9 +81,8 @@ public class IndexController{
             resultMap.put("accountType",accountType);
             return callback+"("+responseAdapter.success(resultMap)+")";
         } catch (Exception e) {
-            e.printStackTrace();
+            return responseAdapter.failure(e.getMessage());
         }
-        return  null;
     }
      /**
       * roomID生成
