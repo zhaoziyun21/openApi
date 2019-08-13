@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hualala.api.dao.TblClientDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hualala.api.model.TblClient">
+        <id column="id" property="id" />
+        <result column="clientName" property="clientName" />
+        <result column="clientTel" property="clientTel" />
+        <result column="clientType" property="clientType" />
+        <result column="clientManagerId" property="clientManagerId" />
+        <result column="clientManagerName" property="clientManagerName" />
+        <result column="isVisit" property="isVisit" />
+        <result column="socialSecurityPay" property="socialSecurityPay" />
+        <result column="socialSecurityYears" property="socialSecurityYears" />
+        <result column="gjjPay" property="gjjPay" />
+        <result column="isGjj" property="isGjj" />
+        <result column="gjjYears" property="gjjYears" />
+        <result column="clientStar" property="clientStar" />
+        <result column="salaryType" property="salaryType" />
+        <result column="salaryMoney" property="salaryMoney" />
+        <result column="salaryYears" property="salaryYears" />
+        <result column="createTime" property="createTime" />
+        <result column="actionTime" property="actionTime" />
+        <result column="createUser" property="createUser" />
+        <result column="updateUser" property="updateUser" />
+        <result column="status" property="status" />
+        <result column="followTime" property="followTime" />
+        <result column="signStatus" property="signStatus" />
+        <result column="applyPlatform" property="applyPlatform" />
+        <result column="applyAmount" property="applyAmount" />
+        <result column="applyTime" property="applyTime" />
+        <result column="isParticleLoan" property="isParticleLoan" />
+        <result column="particleLoanAmount" property="particleLoanAmount" />
+        <result column="houseType" property="houseType" />
+        <result column="houseMonthPay" property="houseMonthPay" />
+        <result column="houseYears" property="houseYears" />
+        <result column="isBjCarNo" property="isBjCarNo" />
+        <result column="carAmount" property="carAmount" />
+        <result column="insureBillYearPay" property="insureBillYearPay" />
+        <result column="insureBillYearCount" property="insureBillYearCount" />
+        <result column="insureBillMonthPay" property="insureBillMonthPay" />
+        <result column="insureBillMonthCount" property="insureBillMonthCount" />
+        <result column="workPlace" property="workPlace" />
+        <result column="birthdate" property="birthdate" />
+        <result column="idCard" property="idCard" />
+        <result column="sex" property="sex" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="age" property="age" />
+        <result column="creditCard" property="creditCard" />
+        <result column="haveHouse" property="haveHouse" />
+        <result column="haveCar" property="haveCar" />
+        <result column="haveInsure" property="haveInsure" />
+        <result column="creditCardAmount" property="creditCardAmount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, clientName, clientTel, clientType, clientManagerId, clientManagerName, isVisit,
+        socialSecurityPay, socialSecurityYears, gjjPay,
+        gjjYears, clientStar,salaryType, salaryMoney,salaryYears, createTime,
+         actionTime,createUser,updateUser,tbl_client.status,followTime,
+         signStatus,applyPlatform,applyAmount,applyTime,
+         isParticleLoan,particleLoanAmount,isGjj,houseType,houseMonthPay,houseYears,
+         isBjCarNo,carAmount,insureBillYearPay,insureBillYearCount,insureBillMonthPay,
+         insureBillMonthCount,workPlace,remark,haveHouse,haveCar,haveInsure,creditCardAmount
+    </sql>
+
+    <select id="queryObject" resultType="com.hualala.api.model.TblClient">
+        select
+        <include refid="Base_Column_List"/>
+         from tbl_client where id = #{value}
+    </select>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.hualala.api.model.TblClient" >
+        insert into tbl_client
+        (
+        `clientName`,
+        `clientTel`,
+        `clientType`,
+        `clientManagerId`,
+        `clientManagerName`,
+        `isVisit`,
+        `socialSecurityPay`,
+        `socialSecurityYears`,
+        `gjjPay`,
+        `gjjYears`,
+        `clientStar`,
+        `salaryType`,
+        `salaryMoney`,
+        `salaryYears`,
+        `createTime`,
+        `updateUser`,
+        `createUser`,
+        `status`,
+        `followTime`,
+        `signStatus`,
+        `applyPlatform`,
+        `applyAmount`,
+        `applyTime`,
+        `isParticleLoan`,
+        `particleLoanAmount`,
+        `isGjj`,
+        `houseMonthPay`,
+        `houseType`,
+        `houseYears`,
+        `isBjCarNo`,
+        `carAmount`,
+        `insureBillYearPay`,
+        `insureBillYearCount`,
+        `insureBillMonthPay`,
+        `insureBillMonthCount`,
+        `workPlace`,
+        `remark`,
+        `birthdate`,
+        `idCard`,
+        `sex`,
+        `province`,
+        `city`,
+        `age`,
+        `creditCard`,
+        `haveHouse`,
+        `haveCar`,
+        `haveInsure`,
+        `creditCardAmount`
+        )
+        values
+        (
+        #{clientName},
+        #{clientTel},
+        #{clientType},
+        #{clientManagerId},
+        #{clientManagerName},
+        #{isVisit},
+        #{socialSecurityPay},
+        #{socialSecurityYears},
+        #{gjjPay},
+        #{gjjYears},
+        #{clientStar},
+        #{salaryType},
+        #{salaryMoney},
+        #{salaryYears},
+        #{createTime},
+        #{clientManagerName},
+        #{clientManagerName},
+        #{status},
+        #{followTime},
+        #{signStatus},
+        #{applyPlatform},
+        #{applyAmount},
+        #{applyTime},
+        #{isParticleLoan},
+        #{particleLoanAmount},
+        #{isGjj},
+        #{houseMonthPay},
+        #{houseType},
+        #{houseYears},
+        #{isBjCarNo},
+        #{carAmount},
+        #{insureBillYearPay},
+        #{insureBillYearCount},
+        #{insureBillMonthPay},
+        #{insureBillMonthCount},
+        #{workPlace},
+        #{remark},
+        #{birthdate},
+        #{idCard},
+        #{sex},
+        #{province},
+        #{city},
+        #{age},
+        #{creditCard},
+        #{haveHouse},
+        #{haveCar},
+        #{haveInsure},
+        #{creditCardAmount}
+        )
+    </insert>
+
+
+
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into tbl_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            createTime,
+            createUser,
+            updateUser,
+            clientManagerId,
+            clientTel,
+            clientName,
+            status,
+            clientManagerName
+        </trim>
+        values
+        <foreach collection="records" item="record" separator=",">
+            <trim prefix="(" suffix=")">
+                #{record.createTime},
+                #{record.createUser},
+                #{record.updateUser},
+                #{record.clientManagerId},
+                #{record.clientTel},
+                #{record.clientName},
+                #{record.status},
+                #{record.clientManagerName}
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

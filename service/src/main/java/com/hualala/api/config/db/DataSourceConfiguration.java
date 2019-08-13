@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -38,8 +39,31 @@ public class DataSourceConfiguration {
         return dynamicDataSource;
 
     }
-    @Bean
-    public SqlSessionFactory sqlSessionFactoryBean(DynamicDataSource dynamicDataSource) throws Exception {
+    @Bean(name="sqlSessionFactoryBean")
+    public SqlSessionFactory sqlSessionFactoryBean(@Qualifier("shardDB") DynamicDataSource dynamicDataSource) throws Exception {
+
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dynamicDataSource);
+        return sqlSessionFactoryBean.getObject();
+    }
+
+
+
+    @Bean(name = "platformDataSource")
+    @Autowired
+    public DynamicDataSource platformDataSource(@Qualifier("platform") DataSource platformDataSource){
+        DynamicDataSource dynamicDataSource =  new DynamicDataSource();
+        HashMap<Object, Object> targetDataSources = new HashMap<Object, Object>() {{
+            this.put(DatabaseType.platform, platformDataSource);
+        }};
+        dynamicDataSource.setTargetDataSources(targetDataSources);
+        dynamicDataSource.afterPropertiesSet();
+        return dynamicDataSource;
+
+    }
+    @Primary
+    @Bean(name="platformSessionFactoryBean")
+    public SqlSessionFactory platformSessionFactoryBean(@Qualifier("platformDataSource") DynamicDataSource dynamicDataSource) throws Exception {
 
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicDataSource);

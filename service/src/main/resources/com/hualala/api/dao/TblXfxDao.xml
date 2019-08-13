@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hualala.api.dao.TblXfxDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hualala.api.model.TblXfx">
+        <id column="id" property="id" />
+        <result column="clientId" property="clientId" />
+        <result column="mobile" property="clientTel" />
+        <result column="productId" property="productId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, clientId, mobile, productId
+    </sql>
+
+    <select id="queryObject" resultType="com.hualala.api.model.TblXfx">
+        select
+        <include refid="Base_Column_List"/>
+         from tbl_xfx where id = #{value}
+    </select>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.hualala.api.model.TblXfx" >
+        insert into tbl_xfx
+        (
+        `clientId`,
+        `mobile`,
+        `productId`
+        )
+        values
+        (
+        #{clientId},
+        #{mobile},
+        #{productId}
+        )
+    </insert>
+
+
+</mapper>

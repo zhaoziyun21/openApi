@@ -11,5 +11,6 @@ package com.hualala.api.config.db;
  7  * 2）DatabaseType中的变量名称就是数据库的名称
  8  */
 public enum DatabaseType {
-    tencent_video
+    tencent_video,
+    platform
 }

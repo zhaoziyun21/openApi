@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -16,8 +17,8 @@ import javax.sql.DataSource;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "videodatasource")
-public class VideoConfiguration {
+@ConfigurationProperties(prefix = "platformdatasource")
+public class PlatformConfiguration {
     private String driverClassName;
 
     private String url;
@@ -33,20 +34,21 @@ public class VideoConfiguration {
     private int minIdle;
 
     private String validationQuery;
-    private static final Logger LOGGER = LoggerFactory.getLogger(VideoConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformConfiguration.class);
 
 
-    @Bean(name = "video")
-    public DataSource shardDB1DataSource() {
+
+    @Bean(name = "platform")
+    public DataSource platformDataSource() {
         return DataSourceConfigSupport.getDataSource(
-            driverClassName,
-            url,
-            username,
-            password,
-            initialSize,
-            minIdle,
-            maxActive,
-            validationQuery);
+                driverClassName,
+                url,
+                username,
+                password,
+                initialSize,
+                minIdle,
+                maxActive,
+                validationQuery);
     }
 
 }
