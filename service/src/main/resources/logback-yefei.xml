@@ -4,7 +4,7 @@
     <contextName>${HOSTNAME}</contextName>
 
     <Property name="LOG_PROJECT" value="tencent-vedio-api" />
-    <Property name="LOG_BASE_PATH" value="/home/logs/${LOG_PROJECT}" />
+    <Property name="LOG_BASE_PATH" value="/tmp/logs/${LOG_PROJECT}" />
     <Property name="DEFAULT_PATTERN" value="%d{ISO8601}$$[%thread]$$[%logger]$$[%p]$$[%L]$$[%msg]%n" />
     <Property name="CONSOLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" />
     <Property name="MAX_HISTORY" value="30" />
@@ -69,7 +69,7 @@
     <!-- print sql -->
     <!-- additivity="false" avoid duplicate log-->
 
-    <root level="debug">
+    <root level="info">
         <!--<appender-ref ref="STDOUT" />-->
         <appender-ref ref="FILE_STDOUT" />
     </root>

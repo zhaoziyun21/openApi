@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Component
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
-@EnableScheduling   // 2.开启定时任务
+//@EnableScheduling   // 2.开启定时任务  千万别开启，当时写的后门
 public class ScheduleTask {
     @Autowired
     HttpClient httpClient;

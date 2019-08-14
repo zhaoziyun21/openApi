@@ -36,7 +36,10 @@ spring:
     charset: UTF-8 #编码格式
     settings:
       number_format: '0.##'   #数字格式化，无小数点
-
+openapi:
+  sKey: asdsdadsadwqedsd
+  testUrl: http://111.230.216.152:8001/loansupermarket/api/o/getClientInfo
+  prodUrl: https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo
 
 #对接数据的数据源
 videodatasource:

@@ -17,6 +17,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -33,6 +34,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/openApi")
+@ConfigurationProperties(prefix="openapi")
 @Data
 @Slf4j
 public class OpenApiController {
@@ -46,6 +48,9 @@ public class OpenApiController {
     @Autowired
     HttpClient httpClient;
 
+    private String sKey;
+    private String testUrl;
+    private String prodUrl;
 
      /**
       * 获取新分享的参数，入库，
@@ -59,17 +64,19 @@ public class OpenApiController {
     @ResponseBody
     public Object getXFXClientParams(@RequestParam(name = "clientId") String clientId
             ,@RequestParam(name = "mobile") String mobile
-             ,@RequestParam(name = "productId") String productId) {
+             ,@RequestParam(name = "productId") String productId
+            ,@RequestParam(name = "isTest") boolean isTest) {
         Map<String,Object> result = new HashMap<>();
         try{
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
-
-            //参数入库
-            TblXfx xfx = new TblXfx();
-            xfx.setClientId(clientId);
-            xfx.setMobile(mobile);
-            xfx.setProductId(productId);
-            tblXfxService.save(xfx);
+            if(!isTest){
+                //参数入库
+                TblXfx xfx = new TblXfx();
+                xfx.setClientId(clientId);
+                xfx.setMobile(mobile);
+                xfx.setProductId(productId);
+                tblXfxService.save(xfx);
+            }
 
         }catch (Exception e){
             logger.error("获取数据时异常："+ExceptionUtils.getStackTrace(e));
@@ -105,8 +112,6 @@ public class OpenApiController {
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
 
             //api url地址
-            String testUrl = "http://111.230.216.152:8001/loansupermarket/api/o/getClientInfo";
-            String prodUrl = "https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo";
             //get请求
             HttpMethod method = HttpMethod.GET;
             // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
@@ -118,15 +123,14 @@ public class OpenApiController {
             //发送http请求并返回结果
             String resp = "";
             if(isTest){
-                //            String resp = httpClient.client(testUrl, method, params);
+                 resp = httpClient.client(testUrl, method, params);
             }else{
-                //            String resp = httpClient.client(prodUrl, method, params);
+                 resp = httpClient.client(prodUrl, method, params);
             }
             resp = "{\"data\":\'{\"accumulationfund\":0,\"age\":28,\"birthdate\":\"1980-08-01\",\"city\":\"上海市\",\"creditCard\":1,\"expectation\":5.0,\"haveCar\":1,\"haveHouse\":1,\"idCard\":\"Kqnj1tfB3skpSOq8KSsjAeANOmW0SSgqoUbJ70EDvfY=\",\"insure\":1,\"mobile\":\"fPoskxKdE7uqzb/0lXxbyg==\",\"name\":\"7fFNh98Am2LdlayvpWek1Q==\",\"province\":\"上海市\",\"sex\":2,\"wagePayment\":1,\"weiLiDai\":1}\',\"code\": \"200\",\"msg\": \"OK\"}";
             JSONObject jsonObject = JSON.parseObject(resp);
             String data = (String) jsonObject.get("data");
             JSONObject clientInfo = JSON.parseObject(data);
-            String sKey = "asdsdadsadwqedsd";
 
             String mobile1 = SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey);
             System.out.println(mobile1.equals("13589526525"));

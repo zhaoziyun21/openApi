@@ -54,26 +54,16 @@
             </Pattern>
         </encoder>
 
-        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
-            <!--&lt;!&ndash; rollover daily &ndash;&gt;-->
-            <!--<fileNamePattern>${LOG_BASE_PATH}/stderr_${HOSTNAME}.%i.log.%d{yyyy-MM-dd}-->
-            <!--</fileNamePattern>-->
-            <!--<timeBasedFileNamingAndTriggeringPolicy-->
-                    <!--class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
-                <!--<maxFileSize>10000MB</maxFileSize>-->
-            <!--</timeBasedFileNamingAndTriggeringPolicy>-->
-        <!--</rollingPolicy>-->
-
     </appender>
 
     <!-- print sql -->
     <!-- additivity="false" avoid duplicate log-->
-    <logger name="com.hualala.order.mapper" level="DEBUG" additivity="false">
+    <logger name="com.hualala.order.mapper" level="info">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE_STDOUT" />
     </logger>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT" />
         <!--<appender-ref ref="FILE_STDOUT" />-->
     </root>

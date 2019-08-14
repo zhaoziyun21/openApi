@@ -13,6 +13,20 @@ import java.util.*;
 import org.apache.commons.codec.binary.Base64;
 
 public class SignUtils {
+    /**
+     * //默认的加密算法 字段
+     */
+    public static final String MODE = "ECB";
+    /**
+     * //默认的加密算法 字段
+     */
+    public static final String PADDING = "pkcs5padding";
+    public static final String KEY_ALGORITHM = "AES";
+    public static final String CIPHER_MODE = KEY_ALGORITHM + "/" + MODE + "/" + PADDING;
+    /**
+     * //默认的加密算法 编码
+     */
+    public static final String CHARACTER = "UTF-8";
 
     public static String getSHA256Str(String str) {
         MessageDigest messageDigest;
@@ -64,40 +78,60 @@ public class SignUtils {
         return sort;
     }
 
-    /**
-     *
-     * @param encryptContent  密文
-     * @param password   密钥
-     * @return
-     * @throws Exception
-     */
-    public static String decrypt(String encryptContent, String password) throws Exception {
-        try {
 
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+    /**
+     * AES 解密操作
+     *
+     * @param content
+     * @param password
+     * @return
+     */
+    public static String decrypt(String content, String password) {
+
+        try {
+            //实例化
+            Cipher cipher = Cipher.getInstance(CIPHER_MODE);
+
+            //使用密钥初始化，设置为解密模式
             cipher.init(Cipher.DECRYPT_MODE, getSecretKey(password));
-            try {
-                byte[] encryptByte = cipher.doFinal(new Base64().decode(encryptContent));
-                return Base64.encodeBase64String(encryptByte);
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                return null;
-            }
+
+            //执行操作
+            byte[] result = cipher.doFinal(Base64.decodeBase64(content));
+
+
+            return new String(result, CHARACTER);
         } catch (Exception ex) {
-            System.out.println(ex.toString());
-            return null;
+            ex.printStackTrace();
         }
+
+        return null;
     }
 
+    /**
+     * 生成加密秘钥
+     *
+     * @return
+     */
+    public static SecretKeySpec getSecretKey(final String password) {
+        //返回生成指定算法密钥生成器的 KeyGenerator 对象
+        KeyGenerator kg = null;
+        try {
+            kg = KeyGenerator.getInstance(KEY_ALGORITHM);
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            random.setSeed(password.getBytes());
+            //AES 要求密钥长度为 128
+            //kg.init(128, new SecureRandom(password.getBytes()));
+            kg.init(128, random);
 
-    private static SecretKeySpec getSecretKey(final String password) throws NoSuchAlgorithmException {
-        //生成指定算法密钥的生成器
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(128, new SecureRandom(password.getBytes()));
-        //生成密钥
-        SecretKey secretKey = keyGenerator.generateKey();
-        //转换成AES的密钥
-        return new SecretKeySpec(secretKey.getEncoded(), "AES");
+            //生成一个密钥
+            SecretKey secretKey = kg.generateKey();
+            // 转换为AES专用密钥
+            return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 
 }
