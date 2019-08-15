@@ -29,4 +29,12 @@ public class TblXfx {
 
     private String productId;
 
+    private String status;
+
+    private Date createTime;
+
+    private Date actionTime;
+
+
+
 }

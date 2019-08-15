@@ -20,7 +20,7 @@ public class ResponseAdapter {
 	private JSONObject responseJSON(int code , String message ){
 		JSONObject obj = new JSONObject();
 		obj.put("code", code);
-		obj.put("message",message);
+		obj.put("msg",message);
 		
 		return obj;
 	}
@@ -28,7 +28,7 @@ public class ResponseAdapter {
 	private JSONObject responseJSON(int code ,String message, Object msgData ){
 		JSONObject obj = new JSONObject();
 		obj.put("code", code);
-		obj.put("message",message);
+		obj.put("msg",message);
 		obj.put("data",msgData);
 
 		return obj;

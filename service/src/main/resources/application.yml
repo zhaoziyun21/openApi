@@ -38,9 +38,8 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 openapi:
   sKey: asdsdadsadwqedsd
-  testUrl: http://111.230.216.152:8001/loansupermarket/api/o/getClientInfo
-  prodUrl: https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo
-
+  url: http://111.230.216.152:8001/loansupermarket/api/o/getClientInfo?clientId={clientId}&productId={productId}&dataType={dataType}&sign={sign}
+  ownGetXfxClientUrl: http://localhost:8110/openApi/getXFXClientInfo.ajax?clientId={clientId}&productId={productId}&mobile={mobile}
 #对接数据的数据源
 videodatasource:
   url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -49,6 +48,67 @@ videodatasource:
 #  url: jdbc:mysql://localhost:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
 #  username: root
 #  password: Pass@123
+  driverClassName: com.mysql.jdbc.Driver
+  initialSize: 10
+  maxActive: 30
+  minIdle: 5
+  validationQuery: SELECT 1
+
+#管理系统数据源
+mybatis:
+  mapper-locations: classpath:com.hualala.api.model.gen.mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.hualala.api.model.gen.pojo # 注意：对应实体类的路径
+  config-location: classpath:mybatis-config.xml
+
+
+logging:
+  config: classpath:logback-local.xml
+
+platformdatasource:
+  url: jdbc:mysql://47.98.172.145:3306/platform-shop?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: root
+  password: 123456
+  driverClassName: com.mysql.jdbc.Driver
+  initialSize: 10
+  maxActive: 30
+  minIdle: 5
+  validationQuery: SELECT 1
+
+---
+spring:
+  profiles: product
+  aop:
+    auto: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  freemarker:
+    cache: false
+    request-context-attribute: req  #req访问request
+    suffix: .tpl  #后缀名
+    content-type: text/html
+    enabled: true
+    template-loader-path: classpath:/templates #模板加载路径 按需配置
+    charset: UTF-8 #编码格式
+    settings:
+      number_format: '0.##'   #数字格式化，无小数点
+openapi:
+  sKey: asdsdadsadwqedsd
+  url: https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo?clientId={clientId}&productId={productId}&dataType={dataType}&sign={sign}
+  ownGetXfxClientUrl: http://47.98.172.145:8110/openApi/getXFXClientInfo.ajax?clientId={clientId}&productId={productId}&mobile={mobile}
+#对接数据的数据源
+videodatasource:
+  url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
+  username: root
+  password: root
+  #  url: jdbc:mysql://localhost:3306/db_pre_k8s_op?useSSL=false&useUnicode=true&characterEncoding=utf8
+  #  username: root
+  #  password: Pass@123
   driverClassName: com.mysql.jdbc.Driver
   initialSize: 10
   maxActive: 30

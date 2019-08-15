@@ -3,10 +3,13 @@ package com.hualala.api.config.db;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -51,4 +54,8 @@ public class PlatformConfiguration {
                 validationQuery);
     }
 
+    @Bean(name="transactionManager")
+    public DataSourceTransactionManager transactionManager(){
+        return new DataSourceTransactionManager(platformDataSource());
+    }
 }

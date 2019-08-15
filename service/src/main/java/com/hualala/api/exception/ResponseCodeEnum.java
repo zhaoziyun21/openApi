@@ -3,7 +3,7 @@ package com.hualala.api.exception;
 
 public enum ResponseCodeEnum {
 	
-	SUSCCESS(0,"success")
+	SUSCCESS(200,"成功")
 	, FAIL(1001,"系统繁忙，请稍后重试！")
 	, WELCOME(2001, "欢迎使用MockServer")
 	, UnknownOperator(2011, "未知条件运算符，条件运算符只能是 && || ")

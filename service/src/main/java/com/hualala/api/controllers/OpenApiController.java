@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -49,8 +50,7 @@ public class OpenApiController {
     HttpClient httpClient;
 
     private String sKey;
-    private String testUrl;
-    private String prodUrl;
+    private String url;
 
      /**
       * 获取新分享的参数，入库，
@@ -64,30 +64,24 @@ public class OpenApiController {
     @ResponseBody
     public Object getXFXClientParams(@RequestParam(name = "clientId") String clientId
             ,@RequestParam(name = "mobile") String mobile
-             ,@RequestParam(name = "productId") String productId
-            ,@RequestParam(name = "isTest") boolean isTest) {
+             ,@RequestParam(name = "productId") String productId) {
         Map<String,Object> result = new HashMap<>();
         try{
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
-            if(!isTest){
-                //参数入库
-                TblXfx xfx = new TblXfx();
-                xfx.setClientId(clientId);
-                xfx.setMobile(mobile);
-                xfx.setProductId(productId);
-                tblXfxService.save(xfx);
-            }
+            //参数入库
+            TblXfx xfx = new TblXfx();
+            xfx.setClientId(clientId);
+            xfx.setMobile(mobile);
+            xfx.setProductId(productId);
+            xfx.setStatus("0");
+            tblXfxService.save(xfx);
 
         }catch (Exception e){
             logger.error("获取数据时异常："+ExceptionUtils.getStackTrace(e));
-            result.put("code",111);
-            result.put("msg","失败");
-            result.put("data", ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
         }
 
 
-        result.put("code",200);
-        result.put("msg","成功");
         return  responseAdapter.success(result);
     }
 
@@ -100,77 +94,70 @@ public class OpenApiController {
      * @return
      * @throws IOException
      */
-    @RequestMapping("/getXFXClientInfo.ajax")
+    @RequestMapping(value = "/getXFXClientInfo.ajax", method = RequestMethod.GET)
     @ResponseBody
     public Object getXFXClientInfo(@RequestParam(name = "clientId") String clientId
             ,@RequestParam(name = "mobile") String mobile
-            ,@RequestParam(name = "productId") String productId
-            ,@RequestParam(name = "isTest") boolean isTest) {
+            ,@RequestParam(name = "productId") String productId) {
         Map<String,Object> result = new HashMap<>();
         try{
             String sign = SignUtils.xfxSignMethod(clientId, productId);
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
 
-            //api url地址
-            //get请求
-            HttpMethod method = HttpMethod.GET;
-            // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
-            MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
-            params.set("clientId",clientId);
-            params.set("productId",productId);
-            params.set("dataType","1");
-            params.set("sign",sign);
+            Map<String, String> params= new HashMap<>();
+            params.put("clientId",clientId);
+            params.put("productId",productId);
+            params.put("dataType","1");
+            params.put("sign",sign);
             //发送http请求并返回结果
-            String resp = "";
-            if(isTest){
-                 resp = httpClient.client(testUrl, method, params);
-            }else{
-                 resp = httpClient.client(prodUrl, method, params);
-            }
-            resp = "{\"data\":\'{\"accumulationfund\":0,\"age\":28,\"birthdate\":\"1980-08-01\",\"city\":\"上海市\",\"creditCard\":1,\"expectation\":5.0,\"haveCar\":1,\"haveHouse\":1,\"idCard\":\"Kqnj1tfB3skpSOq8KSsjAeANOmW0SSgqoUbJ70EDvfY=\",\"insure\":1,\"mobile\":\"fPoskxKdE7uqzb/0lXxbyg==\",\"name\":\"7fFNh98Am2LdlayvpWek1Q==\",\"province\":\"上海市\",\"sex\":2,\"wagePayment\":1,\"weiLiDai\":1}\',\"code\": \"200\",\"msg\": \"OK\"}";
+            String resp = httpClient.get(url, params);
+
+//          String  resp = httpClient.client(prodUrl, method, params);
+//            resp = "{\"data\":\'{\"accumulationfund\":0,\"age\":28,\"birthdate\":\"1980-08-01\",\"city\":\"上海市\",\"creditCard\":1,\"expectation\":5.0,\"haveCar\":1,\"haveHouse\":1,\"idCard\":\"Kqnj1tfB3skpSOq8KSsjAeANOmW0SSgqoUbJ70EDvfY=\",\"insure\":1,\"mobile\":\"fPoskxKdE7uqzb/0lXxbyg==\",\"name\":\"7fFNh98Am2LdlayvpWek1Q==\",\"province\":\"上海市\",\"sex\":2,\"wagePayment\":1,\"weiLiDai\":1}\',\"code\": \"200\",\"msg\": \"OK\"}";
             JSONObject jsonObject = JSON.parseObject(resp);
             String data = (String) jsonObject.get("data");
+            String msg = (String) jsonObject.get("msg");
             JSONObject clientInfo = JSON.parseObject(data);
+            if(clientInfo != null){
+                //入库
+                TblClient client = new TblClient();
+                client.setClientName(SignUtils.decrypt(clientInfo.get("name").toString(), sKey));
+                client.setIdCard(SignUtils.decrypt(clientInfo.get("idCard").toString(), sKey));
+                client.setClientTel(SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey));
+                client.setBirthdate(clientInfo.get("birthdate").toString());
+                client.setSex(clientInfo.get("sex").toString());
+                client.setCity(clientInfo.get("city").toString());
+                client.setApplyAmount(new BigDecimal(clientInfo.get("expectation").toString()));
+                client.setAge(Integer.parseInt(clientInfo.get("age").toString()));
+                client.setProvince(clientInfo.get("province").toString());
+                client.setSalaryType(clientInfo.get("wagePayment").toString());
+                client.setHaveHouse(clientInfo.get("haveHouse").toString());
+                client.setHaveCar(clientInfo.get("haveCar").toString());
+                if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) > 0){
+                    client.setIsGjj(1);
+                }
+                if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) == 2){
+                    client.setGjjYears("36个月");
+                }
 
-            String mobile1 = SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey);
-            System.out.println(mobile1.equals("13589526525"));
-            //入库
-            TblClient client = new TblClient();
-            client.setClientName(SignUtils.decrypt(clientInfo.get("name").toString(), sKey));
-            client.setIdCard(SignUtils.decrypt(clientInfo.get("idCard").toString(), sKey));
-            client.setClientTel(SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey));
-            client.setBirthdate(clientInfo.get("birthdate").toString());
-            client.setSex(clientInfo.get("sex").toString());
-            client.setCity(clientInfo.get("city").toString());
-            client.setApplyAmount(new BigDecimal(clientInfo.get("expectation").toString()));
-            client.setAge(Integer.parseInt(clientInfo.get("age").toString()));
-            client.setProvince(clientInfo.get("province").toString());
-            client.setSalaryType(clientInfo.get("wagePayment").toString());
-            client.setHaveHouse(clientInfo.get("haveHouse").toString());
-            client.setHaveCar(clientInfo.get("haveCar").toString());
-            if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) > 0){
-                client.setIsGjj(1);
-            }
-            if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) == 2){
-                client.setGjjYears("36个月");
+                if(Integer.parseInt(clientInfo.get("insure").toString()) > 0){
+                    client.setHaveInsure("1");
+                }
+
+                if(Integer.parseInt(clientInfo.get("insure").toString()) == 2){
+                    client.setInsureBillMonthPay(new BigDecimal("24"));
+                }
+                client.setCreditCard(clientInfo.get("accumulationfund").toString());
+                client.setIsParticleLoan(Integer.parseInt(clientInfo.get("weiLiDai").toString()));
+                client.setCreateTime(new Date());
+                tblClientService.save(client,clientId,mobile,productId);
+            }else{
+                return responseAdapter.failure(msg);
             }
 
-            if(Integer.parseInt(clientInfo.get("insure").toString()) > 0){
-                client.setHaveInsure("1");
-            }
-
-            if(Integer.parseInt(clientInfo.get("insure").toString()) == 2){
-                client.setInsureBillMonthPay(new BigDecimal("24"));
-            }
-            client.setCreditCard(clientInfo.get("accumulationfund").toString());
-            client.setIsParticleLoan(Integer.parseInt(clientInfo.get("weiLiDai").toString()));
-            client.setCreateTime(new Date());
-            tblClientService.save(client);
         }catch (Exception e){
-            logger.error("获取数据时异常："+ExceptionUtils.getStackTrace(e));
-            result.put("code",111);
-            result.put("msg","失败");
-            result.put("data", ExceptionUtils.getStackTrace(e));
+            logger.error("获取数据处理时异常,clientId:"+clientId);
+            return responseAdapter.failure("获取数据处理时异常");
         }
 
 

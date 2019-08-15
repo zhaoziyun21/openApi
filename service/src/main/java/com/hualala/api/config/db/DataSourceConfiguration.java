@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -24,29 +26,6 @@ import java.util.HashMap;
 @Configuration
 public class DataSourceConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfiguration.class);
-
-
-    @Bean(name = "shardDB")
-    @Autowired
-    public DynamicDataSource shardRouteDataSource(@Qualifier("video") DataSource videoDataSource){
-        DynamicDataSource dynamicDataSource =  new DynamicDataSource();
-        HashMap<Object, Object> targetDataSources = new HashMap<Object, Object>() {{
-            this.put(DatabaseType.tencent_video, videoDataSource);
-        }};
-        dynamicDataSource.setTargetDataSources(targetDataSources);
-//        dynamicDataSource.setDefaultTargetDataSource(shardDB1DataSource); // health监测用
-        dynamicDataSource.afterPropertiesSet();
-        return dynamicDataSource;
-
-    }
-    @Bean(name="sqlSessionFactoryBean")
-    public SqlSessionFactory sqlSessionFactoryBean(@Qualifier("shardDB") DynamicDataSource dynamicDataSource) throws Exception {
-
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dynamicDataSource);
-        return sqlSessionFactoryBean.getObject();
-    }
-
 
 
     @Bean(name = "platformDataSource")
@@ -69,5 +48,7 @@ public class DataSourceConfiguration {
         sqlSessionFactoryBean.setDataSource(dynamicDataSource);
         return sqlSessionFactoryBean.getObject();
     }
+
+
 
 }

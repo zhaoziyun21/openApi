@@ -10,6 +10,8 @@ import com.hualala.api.service.TblXfxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 客户表 服务实现类
@@ -27,6 +29,13 @@ public class TblXfxServiceImpl implements TblXfxService {
     public void save(TblXfx tblXfx) {
         DatabaseContextHolder.setDatabaseType(DatabaseType.platform);
         tblXfxDao.save(tblXfx);
+    }
+
+    @Override
+    public List<TblXfx> queryUnDeal() {
+        DatabaseContextHolder.setDatabaseType(DatabaseType.platform);
+        List<TblXfx> tblXfxes = tblXfxDao.queryUnDeal();
+        return tblXfxes;
     }
 
 }

@@ -17,6 +17,6 @@ public interface TblClientService {
     /**
      * 保存客戶
      */
-    void save(TblClient client);
+    public void save(TblClient client,String clientId,String mobile,String productId);
 
 }

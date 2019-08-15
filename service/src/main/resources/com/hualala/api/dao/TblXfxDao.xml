@@ -8,11 +8,14 @@
         <result column="clientId" property="clientId" />
         <result column="mobile" property="clientTel" />
         <result column="productId" property="productId" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+        <result column="actionTime" property="actionTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, clientId, mobile, productId
+        id, clientId, mobile, productId,status,createTime,actionTime
     </sql>
 
     <select id="queryObject" resultType="com.hualala.api.model.TblXfx">
@@ -27,15 +30,44 @@
         (
         `clientId`,
         `mobile`,
-        `productId`
+        `productId`,
+        `status`,
+        `createTime`
         )
         values
         (
         #{clientId},
         #{mobile},
-        #{productId}
+        #{productId},
+        #{status},
+        now()
         )
     </insert>
 
+    <select id="queryUnDeal" resultType="com.hualala.api.model.TblXfx">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_xfx where status = '0' order by createTime desc   limit 0,20
+    </select>
+    <select id="queryXfxParams" resultType="com.hualala.api.model.TblXfx">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_xfx
+        where clientId = #{clientId}
+         and mobile = #{mobile}
+         and productId = #{productId}
+    </select>
 
+
+    <update id="update" parameterType="com.hualala.api.model.TblXfx">
+        update tbl_xfx
+        <set>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="clientId != null">`clientId` = #{clientId},</if>
+            <if test="mobile != null">`mobile` = #{mobile},</if>
+            <if test="productId != null">`productId` = #{productId},</if>
+            `actionTime` = now()
+        </set>
+        where id = #{id}
+    </update>
 </mapper>
