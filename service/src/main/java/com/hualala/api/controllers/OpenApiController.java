@@ -22,10 +22,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
@@ -60,11 +57,15 @@ public class OpenApiController {
      * @return
      * @throws IOException
      */
-    @RequestMapping("/getXFXClientParams.ajax")
+    @RequestMapping(value = "/getXFXClientParams.ajax", method = RequestMethod.POST, produces="application/json")
     @ResponseBody
-    public Object getXFXClientParams(@RequestParam(name = "clientId") String clientId
-            ,@RequestParam(name = "mobile") String mobile
-             ,@RequestParam(name = "productId") String productId) {
+//    public Object getXFXClientParams(@RequestParam(name = "clientId") String clientId
+//            ,@RequestParam(name = "mobile") String mobile
+//             ,@RequestParam(name = "productId") String productId) {
+    public Object getXFXClientParams(@RequestBody HashMap<String, String> map ) {
+        String clientId = map.get("clientId");
+        String mobile = map.get("mobile");
+        String productId = map.get("productId");
         Map<String,Object> result = new HashMap<>();
         try{
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
