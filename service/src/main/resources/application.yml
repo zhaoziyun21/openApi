@@ -38,8 +38,10 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 openapi:
   sKey: asdsdadsadwqedsd
+  signKey: zC64yzKPvrUowwos
   url: http://111.230.216.152:8001/loansupermarket/api/o/getClientInfo?clientId={clientId}&productId={productId}&dataType={dataType}&sign={sign}
   ownGetXfxClientUrl: http://localhost:8110/openApi/getXFXClientInfo.ajax?clientId={clientId}&productId={productId}&mobile={mobile}
+
 #对接数据的数据源
 videodatasource:
   url: jdbc:mysql://172.16.32.243:3306/tencent_video?useSSL=false&useUnicode=true&characterEncoding=utf8
@@ -99,6 +101,7 @@ spring:
       number_format: '0.##'   #数字格式化，无小数点
 openapi:
   sKey: asdsdadsadwqedsd
+  signKey: zC64yzKPvrUowwos
   url: https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo?clientId={clientId}&productId={productId}&dataType={dataType}&sign={sign}
   ownGetXfxClientUrl: http://47.98.172.145:8110/openApi/getXFXClientInfo.ajax?clientId={clientId}&productId={productId}&mobile={mobile}
 #对接数据的数据源

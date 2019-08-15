@@ -44,14 +44,14 @@ public class SignUtils {
     }
 
 
-    public static String xfxSignMethod(@RequestParam(name = "clientId") String clientId, @RequestParam(name = "productId") String productId) {
+    public static String xfxSignMethod(@RequestParam(name = "clientId") String clientId, @RequestParam(name = "productId") String productId,String signKey) {
         SortedMap<String, String> dataMap = new TreeMap<>();
         dataMap.put("productId", productId);
         dataMap.put("clientId", clientId);
         dataMap.put("dataType", "1");
-        dataMap.put("signKey", "");
+        dataMap.put("signKey", signKey);
         String signData = sortData(dataMap);
-        String sign = SignUtils.getSHA256Str("");
+        String sign = SignUtils.getSHA256Str(signData);
         return sign;
     }
 

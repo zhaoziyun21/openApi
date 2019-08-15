@@ -48,10 +48,11 @@ public class OpenApiController {
 
     private String sKey;
     private String url;
+    private String signKey;
 
      /**
       * 获取新分享的参数，入库，
-     * @param clientId
+     * @param map
       *
       *
      * @return
@@ -102,7 +103,7 @@ public class OpenApiController {
             ,@RequestParam(name = "productId") String productId) {
         Map<String,Object> result = new HashMap<>();
         try{
-            String sign = SignUtils.xfxSignMethod(clientId, productId);
+            String sign = SignUtils.xfxSignMethod(clientId, productId,signKey);
             logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
 
             Map<String, String> params= new HashMap<>();
