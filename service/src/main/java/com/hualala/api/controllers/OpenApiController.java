@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -79,9 +80,12 @@ public class OpenApiController {
             xfx.setStatus("0");
             tblXfxService.save(xfx);
 
+        }catch (DuplicateKeyException e){
+            logger.error("获取数据时DuplicateKeyException异常："+ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ResponseCodeEnum.DUPLICATE_IN_DB.getCode(),ResponseCodeEnum.DUPLICATE_IN_DB.getReason());
         }catch (Exception e){
-            logger.error("获取数据时异常："+ExceptionUtils.getStackTrace(e));
-            return responseAdapter.failure(ResponseCodeEnum.DATA_NOT_IN_DB.getCode(),ResponseCodeEnum.DATA_NOT_IN_DB.getReason());
+            logger.error("获取数据时处理异常："+ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ResponseCodeEnum.DUPLICATE_IN_DB.getCode(),ResponseCodeEnum.DUPLICATE_IN_DB.getReason());
         }
 
 
