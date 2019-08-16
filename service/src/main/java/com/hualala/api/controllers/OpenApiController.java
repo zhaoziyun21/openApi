@@ -128,34 +128,72 @@ public class OpenApiController {
             if(clientInfo != null){
                 //入库
                 TblClient client = new TblClient();
-                client.setClientName(SignUtils.decrypt(clientInfo.get("name").toString(), sKey));
-                client.setIdCard(SignUtils.decrypt(clientInfo.get("idCard").toString(), sKey));
-                client.setClientTel(SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey));
-                client.setBirthdate(clientInfo.get("birthdate").toString());
-                client.setSex(clientInfo.get("sex").toString());
-                client.setCity(clientInfo.get("city").toString());
-                client.setApplyAmount(new BigDecimal(clientInfo.get("expectation").toString()));
-                client.setAge(Integer.parseInt(clientInfo.get("age").toString()));
-                client.setProvince(clientInfo.get("province").toString());
-                client.setSalaryType(clientInfo.get("wagePayment").toString());
-                client.setHaveHouse(clientInfo.get("haveHouse").toString());
-                client.setHaveCar(clientInfo.get("haveCar").toString());
-                if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) > 0){
+                if(clientInfo.get("name") != null){
+                    client.setClientName(SignUtils.decrypt(clientInfo.get("name").toString(), sKey));
+                }
+                if(clientInfo.get("idCard") != null){
+                    client.setIdCard(SignUtils.decrypt(clientInfo.get("idCard").toString(), sKey));
+                }
+                if(clientInfo.get("mobile").toString() != null){
+                    client.setClientTel(SignUtils.decrypt(clientInfo.get("mobile").toString(), sKey));
+                }
+                if(clientInfo.get("birthdate") != null){
+                    client.setBirthdate(clientInfo.get("birthdate").toString());
+                }
+                if(clientInfo.get("sex") != null){
+                    client.setSex(clientInfo.get("sex").toString());
+                }
+
+                if(clientInfo.get("city") != null){
+                    client.setCity(clientInfo.get("city").toString());
+                }
+                if(clientInfo.get("expectation") != null){
+                    client.setApplyAmount(new BigDecimal(clientInfo.get("expectation").toString()));
+                }
+
+                if(clientInfo.get("age") != null){
+                    client.setAge(Integer.parseInt(clientInfo.get("age").toString()));
+                }
+                if(clientInfo.get("province") != null){
+                    client.setProvince(clientInfo.get("province").toString());
+                }
+
+                if(clientInfo.get("wagePayment") != null){
+                    client.setSalaryType(clientInfo.get("wagePayment").toString());
+                }
+
+                if(clientInfo.get("haveHouse") != null){
+                    client.setHaveHouse(clientInfo.get("haveHouse").toString());
+                }
+                if(clientInfo.get("haveCar") != null){
+                    client.setHaveCar(clientInfo.get("haveCar").toString());
+                }
+
+
+
+                if(clientInfo.get("accumulationfund") != null && Integer.parseInt(clientInfo.get("accumulationfund").toString()) > 0){
                     client.setIsGjj(1);
                 }
-                if(Integer.parseInt(clientInfo.get("accumulationfund").toString()) == 2){
+                if(clientInfo.get("accumulationfund") != null &&  Integer.parseInt(clientInfo.get("accumulationfund").toString()) == 2){
                     client.setGjjYears("36个月");
                 }
 
-                if(Integer.parseInt(clientInfo.get("insure").toString()) > 0){
+                if(clientInfo.get("insure") != null &&  Integer.parseInt(clientInfo.get("insure").toString()) > 0){
                     client.setHaveInsure("1");
                 }
 
-                if(Integer.parseInt(clientInfo.get("insure").toString()) == 2){
+                if(clientInfo.get("insure") != null &&  Integer.parseInt(clientInfo.get("insure").toString()) == 2){
                     client.setInsureBillMonthPay(new BigDecimal("24"));
                 }
-                client.setCreditCard(clientInfo.get("accumulationfund").toString());
-                client.setIsParticleLoan(Integer.parseInt(clientInfo.get("weiLiDai").toString()));
+
+                if(clientInfo.get("creditCard") != null){
+                    client.setCreditCard(clientInfo.get("creditCard").toString());
+                }
+
+                if(clientInfo.get("weiLiDai") != null){
+                    client.setIsParticleLoan(Integer.parseInt(clientInfo.get("weiLiDai").toString()));
+                }
+
                 client.setCreateTime(new Date());
                 tblClientService.save(client,clientId,mobile,productId);
             }else{
@@ -164,7 +202,7 @@ public class OpenApiController {
 
         }catch (Exception e){
             logger.error("获取数据处理时异常,clientId:"+clientId);
-            return responseAdapter.failure("获取数据处理时异常");
+            return responseAdapter.failure("获取数据处理时异常"+ExceptionUtils.getStackTrace(e));
         }
 
 
