@@ -76,7 +76,9 @@ public class ResponseAdapter {
 	public JSONObject failure( String errMsg) {
         return responseJSON(ResponseCodeEnum.FAIL.getCode(), errMsg);
 	}
-
+	public JSONObject failure(int code, String errMsg) {
+		return responseJSON(code, errMsg);
+	}
 
 	public boolean sendImg(HttpServletResponse response, BufferedImage buffImg, String mimeType, String fileName, String extName){
 		OutputStream out= null;

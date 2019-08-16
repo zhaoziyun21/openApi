@@ -9,6 +9,7 @@ public enum ResponseCodeEnum {
 	, UnknownOperator(2011, "未知条件运算符，条件运算符只能是 && || ")
 	, CannotMatchRequest(2021, "请求不能匹配 ")
 	, DATA_NOT_IN_DB(2031, "数据库找不到对应的记录")
+	, DUPLICATE_IN_DB(1002, "请求参数重复推送")
 	;
 
 	

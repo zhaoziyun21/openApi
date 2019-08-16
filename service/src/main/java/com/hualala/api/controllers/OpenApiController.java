@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hualala.api.HttpClient;
 import com.hualala.api.config.ResponseAdapter;
+import com.hualala.api.exception.ResponseCodeEnum;
 import com.hualala.api.model.TblClient;
 import com.hualala.api.model.TblXfx;
 import com.hualala.api.service.TblClientService;
@@ -80,7 +81,7 @@ public class OpenApiController {
 
         }catch (Exception e){
             logger.error("获取数据时异常："+ExceptionUtils.getStackTrace(e));
-            return responseAdapter.failure(ExceptionUtils.getStackTrace(e));
+            return responseAdapter.failure(ResponseCodeEnum.DATA_NOT_IN_DB.getCode(),ResponseCodeEnum.DATA_NOT_IN_DB.getReason());
         }
 
 
@@ -113,7 +114,7 @@ public class OpenApiController {
             params.put("sign",sign);
             //发送http请求并返回结果
             String resp = httpClient.get(url, params);
-
+            logger.info("客户数据is "+resp);
 //          String  resp = httpClient.client(prodUrl, method, params);
 //            resp = "{\"data\":\'{\"accumulationfund\":0,\"age\":28,\"birthdate\":\"1980-08-01\",\"city\":\"上海市\",\"creditCard\":1,\"expectation\":5.0,\"haveCar\":1,\"haveHouse\":1,\"idCard\":\"Kqnj1tfB3skpSOq8KSsjAeANOmW0SSgqoUbJ70EDvfY=\",\"insure\":1,\"mobile\":\"fPoskxKdE7uqzb/0lXxbyg==\",\"name\":\"7fFNh98Am2LdlayvpWek1Q==\",\"province\":\"上海市\",\"sex\":2,\"wagePayment\":1,\"weiLiDai\":1}\',\"code\": \"200\",\"msg\": \"OK\"}";
             JSONObject jsonObject = JSON.parseObject(resp);
