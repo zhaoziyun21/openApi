@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: product
   application:
     name: tencent-video-api
 
@@ -100,8 +100,8 @@ spring:
     settings:
       number_format: '0.##'   #数字格式化，无小数点
 openapi:
-  sKey: zC64yzKPvrUowwos
-  signKey: zC64yzKPvrUowwos
+  sKey: AntSNygbVTkSwMzT
+  signKey: AntSNygbVTkSwMzT
   url: https://starsource.weshareholdings.com/loansupermarket/api/o/getClientInfo?clientId={clientId}&productId={productId}&dataType={dataType}&sign={sign}
   ownGetXfxClientUrl: http://47.98.172.145:8110/openApi/getXFXClientInfo.ajax?clientId={clientId}&productId={productId}&mobile={mobile}
 #对接数据的数据源

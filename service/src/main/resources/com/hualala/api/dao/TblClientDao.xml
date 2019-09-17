@@ -53,6 +53,7 @@
         <result column="haveCar" property="haveCar" />
         <result column="haveInsure" property="haveInsure" />
         <result column="creditCardAmount" property="creditCardAmount" />
+        <result column="clientFrom" property="clientFrom" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -124,7 +125,8 @@
         `haveHouse`,
         `haveCar`,
         `haveInsure`,
-        `creditCardAmount`
+        `creditCardAmount`,
+        `clientFrom`
         )
         values
         (
@@ -175,7 +177,8 @@
         #{haveHouse},
         #{haveCar},
         #{haveInsure},
-        #{creditCardAmount}
+        #{creditCardAmount},
+        #{clientFrom}
         )
     </insert>
 

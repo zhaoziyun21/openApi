@@ -56,7 +56,7 @@ public class ScheduleTask {
                 params.put("mobile",tblXfx.getMobile());
                 //发送http请求并返回结果
                 String result = httpClient.get(ownGetXfxClientUrl, params);
-                logger.info("请求客户数据处理返回结果："+result);
+                logger.info("getXFXClientInfo请求客户数据处理返回结果："+result);
             }
         }
 

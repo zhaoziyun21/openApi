@@ -106,10 +106,11 @@ public class OpenApiController {
     public Object getXFXClientInfo(@RequestParam(name = "clientId") String clientId
             ,@RequestParam(name = "mobile") String mobile
             ,@RequestParam(name = "productId") String productId) {
+        logger.info("getXFXClientInfo请求 clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
         Map<String,Object> result = new HashMap<>();
         try{
             String sign = SignUtils.xfxSignMethod(clientId, productId,signKey);
-            logger.info("clientId:"+clientId+";mobile:"+mobile+";productId:"+productId);
+            logger.info("转码后 sign:"+sign);
 
             Map<String, String> params= new HashMap<>();
             params.put("clientId",clientId);
@@ -117,8 +118,9 @@ public class OpenApiController {
             params.put("dataType","1");
             params.put("sign",sign);
             //发送http请求并返回结果
+            logger.info("请求url:"+url);
             String resp = httpClient.get(url, params);
-            logger.info("客户数据is "+resp);
+            logger.info("方法内请求新分享客户数据is "+resp);
 //          String  resp = httpClient.client(prodUrl, method, params);
 //            resp = "{\"data\":\'{\"accumulationfund\":0,\"age\":28,\"birthdate\":\"1980-08-01\",\"city\":\"上海市\",\"creditCard\":1,\"expectation\":5.0,\"haveCar\":1,\"haveHouse\":1,\"idCard\":\"Kqnj1tfB3skpSOq8KSsjAeANOmW0SSgqoUbJ70EDvfY=\",\"insure\":1,\"mobile\":\"fPoskxKdE7uqzb/0lXxbyg==\",\"name\":\"7fFNh98Am2LdlayvpWek1Q==\",\"province\":\"上海市\",\"sex\":2,\"wagePayment\":1,\"weiLiDai\":1}\',\"code\": \"200\",\"msg\": \"OK\"}";
             JSONObject jsonObject = JSON.parseObject(resp);
@@ -193,8 +195,9 @@ public class OpenApiController {
                 if(clientInfo.get("weiLiDai") != null){
                     client.setIsParticleLoan(Integer.parseInt(clientInfo.get("weiLiDai").toString()));
                 }
-
+                client.setStatus("0");
                 client.setCreateTime(new Date());
+                client.setClientFrom(1);
                 tblClientService.save(client,clientId,mobile,productId);
             }else{
                 return responseAdapter.failure(msg);
