@@ -48,6 +48,13 @@ public class TblClientServiceImpl implements TblClientService {
             tblXfxDao.update(tblXfx);
 
     }
+    @Override
+    @Transactional(transactionManager = "transactionManager",propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public void save(TblClient client) {
+            DatabaseContextHolder.setDatabaseType(DatabaseType.platform);
+            tblClientDao.save(client);
+
+    }
 
 
 }
